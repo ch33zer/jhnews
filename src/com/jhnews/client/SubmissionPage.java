@@ -1,12 +1,12 @@
 package com.jhnews.client;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.User;
@@ -25,7 +26,9 @@ import com.jhnews.shared.User;
  * @author Group 8
  */
 public class SubmissionPage extends Page {
-	private AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
+	private AnnouncementFetcherAsync service = GWT
+			.create(AnnouncementFetcher.class);
+
 	/**
 	 * This is the default constructor for this SubmissionPage class.
 	 */
@@ -34,23 +37,27 @@ public class SubmissionPage extends Page {
 			service = GWT.create(AnnouncementFetcher.class);
 		}
 		final VerticalPanel masterPanel = new VerticalPanel();
-		LoginManager.getInstance().isLoggedOn(LoginManager.getInstance().getSessionID(), new LoginManagerCallback<Boolean>() {
+		LoginManager.getInstance().isLoggedOn(
+				LoginManager.getInstance().getSessionID(),
+				new LoginManagerCallback<Boolean>() {
 
-			@Override
-			public void onSuccess(Boolean result) {
-				masterPanel.clear();
-				generateLoggedInPanel(masterPanel);
-			}
+					@Override
+					public void onSuccess(Boolean result) {
+						masterPanel.clear();
+						generateLoggedInPanel(masterPanel);
+					}
 
-			@Override
-			public void onFail() {				
-				masterPanel.clear();
-				masterPanel.add(new Label("You must be logged in to submit an announcement"));
-			}
-		});
+					@Override
+					public void onFail() {
+						masterPanel.clear();
+						masterPanel
+								.add(new Label(
+										"You must be logged in to submit an announcement"));
+					}
+				});
 		initWidget(masterPanel);
 	}
-	
+
 	private void generateLoggedInPanel(VerticalPanel masterPanel) {
 		// Variables
 		final User currentUser = new User();// TODO change currentUser to the
@@ -62,12 +69,6 @@ public class SubmissionPage extends Page {
 		Label pageTitleLabel = new Label("Submit Announcement");
 		pageTitleLabel.addStyleDependentName("title");
 		Label audienceLabel = new Label("Audience: ");
-		// Label freshmanAudienceLabel = new Label("[Freshmen]");
-		// Label sophomoreAudienceLabel = new Label("[Sophomore]");
-		// Label juniorAudienceLabel = new Label("[Junior]");
-		// Label seniorAudienceLabel = new Label("[Senior]");
-		// Label graduateAudienceLabel = new Label("[Graduate]");
-		// Label facultyAudienceLabel = new Label("[Faculty]");
 		Label titleLabel = new Label("Title: ");
 		Label briefDescLabel = new Label("Brief Description: ");
 		Label fullDescLabel = new Label("Full Description: ");
@@ -82,13 +83,14 @@ public class SubmissionPage extends Page {
 		final CheckBox facultyAudienceCB = new CheckBox("[Faculty]");
 		final DatePicker dateTimePicker = new DatePicker();// TODO add selector,
 															// view, and model
-		final Label errorLabel = new Label("Invalid Announcement. Please fill in all fields.");
+		final Label errorLabel = new Label(
+				"Invalid Announcement. Please fill in all fields.");
 		errorLabel.addStyleDependentName("error");
 		errorLabel.setVisible(false);
 		Button submitButton = new Button("Submit");
 
 		// Converts all of currentUser's desired tags into CheckBoxes
-		List<String> allUserTags = currentUser.getTags();
+		ArrayList<String> allUserTags = (ArrayList<String>) currentUser.getTags();
 		final ArrayList<CheckBox> allTagCBs = new ArrayList<CheckBox>();
 		for (int i = 0; i < allUserTags.size(); i++) {
 			allTagCBs.add(new CheckBox(allUserTags.get(i)));
@@ -108,7 +110,8 @@ public class SubmissionPage extends Page {
 					currentSubmission.setSubmitter(currentUser);
 					currentSubmission.setTitle(titleBox.getText());
 					currentSubmission.setLocation(locationBox.getText());
-					currentSubmission.setBriefDescription(briefDescBox.getText());
+					currentSubmission.setBriefDescription(briefDescBox
+							.getText());
 					currentSubmission.setLongDescription(fullDescBox.getText());
 					currentSubmission.setEventDate(dateTimePicker.getValue());
 
@@ -129,7 +132,8 @@ public class SubmissionPage extends Page {
 								.getValue();
 						checkedAnnouncementCBValues[5] = facultyAudienceCB
 								.getValue();
-						currentSubmission.setAudiences(checkedAnnouncementCBValues);
+						currentSubmission
+								.setAudiences(checkedAnnouncementCBValues);
 					}
 
 					// Set tags in the submission according to checked tag
@@ -147,20 +151,20 @@ public class SubmissionPage extends Page {
 																			// checkedCBValues
 					}
 					currentSubmission.setTags(checkedTagCBValues);
-					service.putAnnouncement(currentSubmission, new AsyncCallback<Void>() {
+					service.putAnnouncement(currentSubmission,
+							new AsyncCallback<Void>() {
 
-						@Override
-						public void onFailure(Throwable caught) {
-							errorLabel.setVisible(true);
-						}
+								@Override
+								public void onFailure(Throwable caught) {
+									errorLabel.setVisible(true);
+								}
 
-						@Override
-						public void onSuccess(Void result) {
-							History.newItem("HOME");
-						}
-					});
-				}
-				else {
+								@Override
+								public void onSuccess(Void result) {
+									History.newItem("HOME");
+								}
+							});
+				} else {
 					errorLabel.setVisible(true);
 				}
 			}
@@ -179,7 +183,6 @@ public class SubmissionPage extends Page {
 		locationBox.setVisibleLength(80 - 3);
 
 		// Create Panels
-		
 		masterPanel.addStyleName("leftVerticalPanel");
 		HorizontalPanel audiencePanel = new HorizontalPanel();
 		VerticalPanel innerVertAudiencePanel = new VerticalPanel();
@@ -191,20 +194,14 @@ public class SubmissionPage extends Page {
 		HorizontalPanel dateTimePanel = new HorizontalPanel();
 		HorizontalPanel locationPanel = new HorizontalPanel();
 		HorizontalPanel tagsPanel = new HorizontalPanel();
-		VerticalPanel innerVertTagsPanel = new VerticalPanel();
+		// VerticalPanel innerVertTagsPanel = new VerticalPanel();
 
 		// Setup Panels for each category
-		// innerHoriAudiencePanel1.add(freshmanAudienceLabel);
 		innerHoriAudiencePanel1.add(freshmanAudienceCB);
-		// innerHoriAudiencePanel1.add(sophomoreAudienceLabel);
 		innerHoriAudiencePanel1.add(sophomoreAudienceCB);
-		// innerHoriAudiencePanel1.add(juniorAudienceLabel);
 		innerHoriAudiencePanel1.add(juniorAudienceCB);
-		// innerHoriAudiencePanel2.add(seniorAudienceLabel);
 		innerHoriAudiencePanel2.add(seniorAudienceCB);
-		// innerHoriAudiencePanel2.add(graduateAudienceLabel);
 		innerHoriAudiencePanel2.add(graduateAudienceCB);
-		// innerHoriAudiencePanel2.add(facultyAudienceLabel);
 		innerHoriAudiencePanel2.add(facultyAudienceCB);
 		innerVertAudiencePanel.add(innerHoriAudiencePanel1);
 		innerVertAudiencePanel.add(innerHoriAudiencePanel2);
@@ -221,37 +218,7 @@ public class SubmissionPage extends Page {
 		locationPanel.add(locationLabel);
 		locationPanel.add(locationBox);
 		tagsPanel.add(tagsLabel);
-		// Code below splits user's tags into groups of 3 and creates CheckBoxes
-		// for them
-		ArrayList<HorizontalPanel> threeTagPanels = new ArrayList<HorizontalPanel>();
-		HorizontalPanel tempHoriPanel = new HorizontalPanel();
-		int counter = 0;
-		int counter2 = allUserTags.size();
-		while (counter2 > 0) {
-			if (counter2 >= 3) {
-				tempHoriPanel.add(new CheckBox(allUserTags.get(counter)));
-				tempHoriPanel.add(new CheckBox(allUserTags.get(counter + 1)));
-				tempHoriPanel.add(new CheckBox(allUserTags.get(counter + 2)));
-				threeTagPanels.add(tempHoriPanel);
-				counter += 3;
-				counter2 -= 3;
-			} else if (counter2 == 2) {
-				tempHoriPanel.add(new CheckBox(allUserTags.get(counter)));
-				tempHoriPanel.add(new CheckBox(allUserTags.get(counter + 1)));
-				threeTagPanels.add(tempHoriPanel);
-				counter += 2;
-				counter2 -= 2;
-			} else if (counter2 == 1) {
-				tempHoriPanel.add(new CheckBox(allUserTags.get(counter)));
-				threeTagPanels.add(tempHoriPanel);
-				counter += 1;
-				counter2 -= 1;
-			}
-		}
-		for (int i = 0; i < threeTagPanels.size(); i++) {
-			innerVertTagsPanel.add(threeTagPanels.get(i));
-		}
-		tagsPanel.add(innerVertTagsPanel);
+		tagsPanel.add(generateInnerVertTagsPanel(allUserTags));
 
 		// Add all category Panels to the masterPanel
 		masterPanel.add(pageTitleLabel);
@@ -264,5 +231,41 @@ public class SubmissionPage extends Page {
 		masterPanel.add(locationPanel);
 		masterPanel.add(tagsPanel);
 		masterPanel.add(submitButton);
+	}
+
+	// Code below splits user's tags into groups of 3 and creates their
+	// CheckBoxes
+	private VerticalPanel generateInnerVertTagsPanel(
+			ArrayList<String> inAllUserTags) {
+		VerticalPanel innerVertTagsPanel = new VerticalPanel();
+		ArrayList<HorizontalPanel> threeTagPanels = new ArrayList<HorizontalPanel>();
+		HorizontalPanel tempHoriPanel = new HorizontalPanel();
+		int counter = 0;
+		int counter2 = inAllUserTags.size();
+		while (counter2 > 0) {
+			if (counter2 >= 3) {
+				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter)));
+				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter + 1)));
+				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter + 2)));
+				threeTagPanels.add(tempHoriPanel);
+				counter += 3;
+				counter2 -= 3;
+			} else if (counter2 == 2) {
+				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter)));
+				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter + 1)));
+				threeTagPanels.add(tempHoriPanel);
+				counter += 2;
+				counter2 -= 2;
+			} else if (counter2 == 1) {
+				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter)));
+				threeTagPanels.add(tempHoriPanel);
+				counter += 1;
+				counter2 -= 1;
+			}
+		}
+		for (int i = 0; i < threeTagPanels.size(); i++) {
+			innerVertTagsPanel.add(threeTagPanels.get(i));
+		}
+		return innerVertTagsPanel;
 	}
 }
