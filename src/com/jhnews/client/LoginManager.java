@@ -161,6 +161,11 @@ public class LoginManager {
 		service.logIn(username, password, logInCallBack);
 	}
 	
+	/**
+	 * Logs the user out
+	 * @param sessionID The current session ID before log out
+	 * @param callback Code that is executed when the method returns
+	 */
 	public void logOut(String sessionID,
 			final LoginManagerCallback<Void> callback) {
 		AsyncCallback<Void> logOutCallBack = new AsyncCallback<Void>() {

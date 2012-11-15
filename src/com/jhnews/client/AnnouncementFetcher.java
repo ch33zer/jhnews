@@ -26,5 +26,9 @@ public interface AnnouncementFetcher extends RemoteService {
 	 */
 	List<Announcement> getAnnouncementsWithString(String query) throws NoResultsException;
 	
+	/**
+	 * Saves an announcement on the server
+	 * @param announcement The announcement to be saved
+	 */
 	void putAnnouncement(Announcement announcement);
 }

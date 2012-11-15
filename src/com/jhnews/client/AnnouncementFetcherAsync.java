@@ -24,6 +24,10 @@ public interface AnnouncementFetcherAsync {
 	 */
 	void getAnnouncementsWithString(String query, AsyncCallback<List<Announcement>> callback);
 
+	/** @see {@link AnnouncementFetcher#putAnnouncement(Announcement)}
+	 * @param announcement
+	 * @param callback
+	 */
 	void putAnnouncement(Announcement announcement, AsyncCallback<Void> callback);
 
 }

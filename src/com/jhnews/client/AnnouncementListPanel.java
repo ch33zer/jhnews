@@ -13,10 +13,14 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.jhnews.shared.Announcement;
 
+/**
+ * A Panel to handle Lists of Announcements
+ * @author Group 8
+ *
+ */
 public class AnnouncementListPanel extends Composite implements ValueChangeHandler<String> {
 	
 	private VerticalPanel masterPanel;
-	private VerticalPanel announcementsPanel;
 	private List<Announcement> announcements;
 	private HandlerRegistration handlerRegistration;
 	private final static DateTimeFormat FORMATTER_NO_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
@@ -45,6 +49,10 @@ public class AnnouncementListPanel extends Composite implements ValueChangeHandl
 		PageManager.getInstance().generateAnnouncementPage(announcements.get(index));
 	}
 	
+	/**
+	 * Populates the Panel with a List of Announcements
+	 * @param announcements The List of Announcements which populate
+	 */
 	public void setAnnouncementList(List<Announcement> announcements) {
 		this.announcements = announcements;
 		if (announcements != null) {
