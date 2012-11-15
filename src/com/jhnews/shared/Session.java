@@ -12,9 +12,9 @@ public class Session implements Serializable {
 	 * For serialization
 	 */
 	private static final long serialVersionUID = 257714321022849090L;
-	String SessionID;
-	Date expireDate;
-	String username;
+	private String SessionID;
+	private Date expireDate;
+	private String username;
 
 	/**Gets the current 
 	 * @return The current username

@@ -2,7 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" output="test-classes" path="test"/>
+	<classpathentry kind="src" path="hibernate_config"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/GWT (1)"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="hibernate/mysql-connector-java-5.1.22-bin.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
