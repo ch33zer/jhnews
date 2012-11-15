@@ -30,8 +30,8 @@ public class SearchPage extends Page implements ValueChangeHandler<String>{
 	private VerticalPanel masterPanel;
 	private List<Announcement> announcements;
 	private AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
-	private final static DateTimeFormat formatterNoTime = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
-	private final static DateTimeFormat formatterTime = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
+	private final static DateTimeFormat FORMATTER_NO_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
+	private final static DateTimeFormat FOMRATTER_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
 	private HandlerRegistration handlerRegistration;
 	
 	/**
@@ -107,9 +107,9 @@ public class SearchPage extends Page implements ValueChangeHandler<String>{
 				}
 				if (announcement.getEventDate() != null) {
 					if (announcement.hasEventTime()) {
-						announcementPanel.add(new Label("Date: " + formatterTime.format(announcement.getEventDate())));
+						announcementPanel.add(new Label("Date: " + FOMRATTER_TIME.format(announcement.getEventDate())));
 					} else {
-						announcementPanel.add(new Label("Date: " + formatterNoTime.format(announcement.getEventDate())));
+						announcementPanel.add(new Label("Date: " + FORMATTER_NO_TIME.format(announcement.getEventDate())));
 					}
 				}
 				announcementsPanel.add(announcementPanel);

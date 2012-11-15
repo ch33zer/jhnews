@@ -24,8 +24,8 @@ public class HomePage extends Page implements ValueChangeHandler<String> {
 	private VerticalPanel masterPanel;
 	private List<Announcement> announcements;
 	private AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
-	private final static DateTimeFormat formatterNoTime = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
-	private final static DateTimeFormat formatterTime = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
+	private final static DateTimeFormat FORMATTER_NO_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
+	private final static DateTimeFormat FORMATTER_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
 	private HandlerRegistration handlerRegistration;
 	
 	/**
@@ -88,9 +88,9 @@ public class HomePage extends Page implements ValueChangeHandler<String> {
 				}
 				if (announcement.getEventDate() != null) {
 					if (announcement.hasEventTime()) {
-						detailPanel.add(new Label("Date: " + formatterTime.format(announcement.getEventDate())));
+						detailPanel.add(new Label("Date: " + FORMATTER_TIME.format(announcement.getEventDate())));
 					} else {
-						detailPanel.add(new Label("Date: " + formatterNoTime.format(announcement.getEventDate())));
+						detailPanel.add(new Label("Date: " + FORMATTER_NO_TIME.format(announcement.getEventDate())));
 					}
 				}
 				announcementPanel.add(detailPanel);

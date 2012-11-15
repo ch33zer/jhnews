@@ -12,13 +12,14 @@ import com.google.gwt.user.client.ui.Label;
  */
 public class DatePage extends Page {
 	
+	private static final DateTimeFormat FORMATTER_NO_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
+	
 	/**
 	 * Default constructor which builds the date
 	 */
 	DatePage() {
 		Date date = new Date();
-		DateTimeFormat formatter = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
-		initWidget(new Label(formatter.format(date)));
+		initWidget(new Label(FORMATTER_NO_TIME.format(date)));
 	}
 	
 }

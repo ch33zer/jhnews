@@ -2,19 +2,20 @@ package com.jhnews.shared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User is the class that represents a user of our application and holds the user's preferences and settings.
  * @author Group 8
  */
-public class User implements Serializable{
+public class User implements Serializable {
 
 	private int ID;
 	private String firstName;
 	private String lastName;
 	private String email;
 	
-	ArrayList<String> tags = new ArrayList<String>();
+	List<String> tags = new ArrayList<String>();
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -31,7 +32,7 @@ public class User implements Serializable{
 	 * Gets the tags preferred by this user for announcement submission
 	 * @return the tags preferred by this user
 	 */
-	public ArrayList<String> getTags()
+	public List<String> getTags()
 	{
 		return tags;
 	}

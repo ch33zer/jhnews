@@ -13,8 +13,8 @@ import com.jhnews.shared.Announcement;
  */
 public class AnnouncementPage extends Page {
 
-	private static final DateTimeFormat formatterNoTime = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
-	private static final DateTimeFormat formatterTime = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
+	private static final DateTimeFormat FORMATTER_NO_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
+	private static final DateTimeFormat FORMATTER_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
 	
 	/**
 	 * This is the default constructor creates the announcement page based on the Announcement object in question.
@@ -35,9 +35,9 @@ public class AnnouncementPage extends Page {
 		}
 		if (announcement.getEventDate() != null) {
 			if (announcement.hasEventTime()) {
-				detailPanel.add(new Label("Date: " + formatterTime.format(announcement.getEventDate())));
+				detailPanel.add(new Label("Date: " + FORMATTER_TIME.format(announcement.getEventDate())));
 			} else {
-				detailPanel.add(new Label("Date: " + formatterNoTime.format(announcement.getEventDate())));
+				detailPanel.add(new Label("Date: " + FORMATTER_NO_TIME.format(announcement.getEventDate())));
 			}
 		}
 		masterPanel.add(detailPanel);

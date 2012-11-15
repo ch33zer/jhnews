@@ -1,12 +1,12 @@
 package com.jhnews.client;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -88,7 +88,7 @@ public class SubmissionPage extends Page {
 		Button submitButton = new Button("Submit");
 
 		// Converts all of currentUser's desired tags into CheckBoxes
-		ArrayList<String> allUserTags = currentUser.getTags();
+		List<String> allUserTags = currentUser.getTags();
 		final ArrayList<CheckBox> allTagCBs = new ArrayList<CheckBox>();
 		for (int i = 0; i < allUserTags.size(); i++) {
 			allTagCBs.add(new CheckBox(allUserTags.get(i)));
