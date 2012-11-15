@@ -1,0 +1,139 @@
+/** Add css rules here for your application. */
+/** Example rules used by the template application (remove for your app) */
+
+.gwt-TextBox-hint {
+   font-style: italic;
+   color: DarkGray;
+}
+
+#wrapper {
+	font: 62.5%/1.5 Arial, Helvetica, sans-serif;
+	width: 960px;
+	margin: 0 auto;
+	color: #333333;
+}
+
+#header .gwt-Label {
+	padding: 0px 5px;
+}
+
+#header .gwt-Hyperlink a {
+	padding: 0px 5px;
+	color: black;
+	font-weight: normal;
+}
+
+#header .horizontalPanel {
+	padding: 10px 20px 0px 20px;
+}
+
+h1 {
+	font-size: 400%;
+	border-color: #FFD700;
+	border-style: solid none solid none;
+}
+
+#date {
+	padding: 0px 0px 15px 0px;
+	font-size: 200%;
+}
+
+#sidebar {
+	background-color: #FFD700;
+	width: 192px;
+	height: 545px;
+	float: left;
+	border-color: black;
+	border-style: solid solid none solid;
+}
+
+#sidebar .gwt-Hyperlink {
+	padding: 15px 0px;
+	border-color: black;
+	border-style: none none solid none;
+	border-width: 2px;
+}
+
+#sidebar .gwt-Hyperlink a {
+	color: #4455AA;
+	font-weight: bold;
+}
+
+#sidebar .verticalPanel {
+	padding: 0px;
+}
+
+#body {
+	background-color: #EEEEEE;
+	width: 760px;
+	height: 500px;
+	float: left;
+	padding: 20px 0px;
+}
+
+#body .centerVerticalPanel {
+	padding: 0px;
+	margin: 0px auto;
+	width: 760px;
+}
+
+#body .leftVerticalPanel {
+	padding: 0px 20px;
+	width: 760px;
+	float: left;
+}
+
+#body .detailPanel {
+	padding: 0px 10px;
+}
+
+#body .announcementPanel {
+	padding: 0px 0px 10px 0px;
+	float: left;
+}
+
+#body .gwt-Label {
+	font-size: 125%;
+	padding: 0px;
+}
+
+#body .gwt-Label-bold {
+	font-weight: bold;
+}
+
+#body .gwt-Label-title {
+	margin: 0px auto;
+	text-align: center;
+	font-size: 150%;
+	padding: 0px 0px 15px 0px;
+}
+
+#body .gwt-Label-error {
+	color: red;
+}
+
+#body .gwt-Label-success {
+	background-color: #B8B8B8;
+	border-style: solid;
+	border-radius: 5px;
+}
+
+#body .gwt-Hyperlink a {
+	color: #4455AA;
+	font-weight: bold;
+}
+
+#body .gwt-Hyperlink-small {
+	padding: 5px 0px;
+	font-size: 70%;
+	font-weight: normal;
+}
+
+#body .gwt-HTML {
+	font-size: 125%;
+	padding: 0px 0px 5px 0px;
+}
+
+#body .gwt-Hyperlink a {
+	font-size: 125%;
+}

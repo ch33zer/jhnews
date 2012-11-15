@@ -1,0 +1,2 @@
+# Module jhnews
+# RPC service class, partial path of RPC policy file
