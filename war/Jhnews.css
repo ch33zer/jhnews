@@ -11,6 +11,9 @@
 	width: 960px;
 	margin: 0 auto;
 	color: #333333;
+	outline-color:#E86850;
+	outline-style:double;
+	outline-width:medium;
 }
 
 #header .gwt-Label {
@@ -29,27 +32,28 @@
 
 h1 {
 	font-size: 400%;
-	border-color: #FFD700;
+	border-color: #FF9900;
 	border-style: solid none solid none;
 }
 
 #date {
-	padding: 0px 0px 15px 0px;
+	padding: 0px 0px 9px 0px;
 	font-size: 200%;
 }
 
 #sidebar {
 	background-color: #FFD700;
-	width: 192px;
+	width: 195px;
 	height: 545px;
 	float: left;
 	border-color: black;
-	border-style: solid solid none solid;
+	border-width: 2px;
+	border-style: solid solid ridge solid;
 }
 
 #sidebar .gwt-Hyperlink {
 	padding: 15px 0px;
-	border-color: black;
+	border-color: dark blue;
 	border-style: none none solid none;
 	border-width: 2px;
 }
@@ -66,7 +70,7 @@ h1 {
 #body {
 	background-color: #EEEEEE;
 	width: 760px;
-	height: 500px;
+	height: 510px;
 	float: left;
 	padding: 20px 0px;
 }
