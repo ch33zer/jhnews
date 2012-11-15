@@ -12,6 +12,7 @@ import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
@@ -31,7 +32,7 @@ public class SearchPage extends Page implements ValueChangeHandler<String>{
 	private List<Announcement> announcements;
 	private AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
 	private final static DateTimeFormat FORMATTER_NO_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
-	private final static DateTimeFormat FOMRATTER_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
+	private final static DateTimeFormat FORMATTER_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
 	private HandlerRegistration handlerRegistration;
 	
 	/**
@@ -42,11 +43,16 @@ public class SearchPage extends Page implements ValueChangeHandler<String>{
 			service = GWT.create(AnnouncementFetcher.class);
 		}
 		masterPanel = new VerticalPanel();
+		masterPanel.addStyleName("leftVerticalPanel");
+		Label pageTitleLabel = new Label("Search Announcement");
+		pageTitleLabel.addStyleDependentName("title");
+		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		masterPanel.add(pageTitleLabel);
+		
 		HorizontalPanel searchPanel = new HorizontalPanel();
-		searchPanel.add(new Label("Search string: "));
 		final TextBox query = new TextBox();
 		searchPanel.add(query);
-		Button button = new Button("Submit", new ClickHandler() {
+		Button button = new Button("Search", new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -107,7 +113,7 @@ public class SearchPage extends Page implements ValueChangeHandler<String>{
 				}
 				if (announcement.getEventDate() != null) {
 					if (announcement.hasEventTime()) {
-						announcementPanel.add(new Label("Date: " + FOMRATTER_TIME.format(announcement.getEventDate())));
+						announcementPanel.add(new Label("Date: " + FORMATTER_TIME.format(announcement.getEventDate())));
 					} else {
 						announcementPanel.add(new Label("Date: " + FORMATTER_NO_TIME.format(announcement.getEventDate())));
 					}

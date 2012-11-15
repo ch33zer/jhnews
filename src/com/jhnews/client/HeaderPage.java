@@ -1,10 +1,12 @@
 package com.jhnews.client;
 
-import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * This page is the header at the top each view
@@ -15,7 +17,7 @@ public class HeaderPage extends Page implements LoginListener {
 	
 	private Hyperlink logIn;
 	private Hyperlink register;
-	private Hyperlink logOut;
+	private Anchor logOut;
 	private Hyperlink preferences;
 	private HorizontalPanel masterPanel;
 	
@@ -23,18 +25,16 @@ public class HeaderPage extends Page implements LoginListener {
 	 * Default constructor creates the header depending on whether or not the user is logged in 
 	 */
 	public HeaderPage() {
-		logIn = new Hyperlink("Log in", "com.jhnews.client.LoginPage");
+		logIn = new Hyperlink("Log in", "LOGIN");
 		register = new Hyperlink("Register", "REGISTER");
-		logOut = new Hyperlink("Log out", "HOME");
+		logOut = new Anchor("Log out");
 		
-		logOut.addClickListener(new ClickListener() { //TODO Find a non-deprecated way of doing this
-			
+		logOut.addClickHandler(new ClickHandler() {
 			@Override
-			@Deprecated
-			public
-			void onClick(Widget sender) {
+			public void onClick(ClickEvent event) {
+				History.newItem("HOME");
 				LoginManager man = LoginManager.getInstance();
-				man.logOut(man.getSessionID(), null);
+				man.logOut(man.getSessionID(), null);				
 			}
 		});
 		preferences = new Hyperlink("Preferences", "PREFERENCES");
