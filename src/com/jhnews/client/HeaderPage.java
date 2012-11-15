@@ -23,7 +23,7 @@ public class HeaderPage extends Page implements LoginListener {
 	 * Default constructor creates the header depending on whether or not the user is logged in 
 	 */
 	public HeaderPage() {
-		logIn = new Hyperlink("Log in", "LOGIN");
+		logIn = new Hyperlink("Log in", "com.jhnews.client.LoginPage");
 		register = new Hyperlink("Register", "REGISTER");
 		logOut = new Hyperlink("Log out", "HOME");
 		
