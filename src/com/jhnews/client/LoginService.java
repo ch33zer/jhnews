@@ -36,5 +36,8 @@ public interface LoginService extends RemoteService {
 	 */
 	Session register(String username, String password) throws RegistrationFailedException, UserExistsException;
 	
+	/**Log the current user out
+	 * @param sessionID The sessionID corresponding to the current users session
+	 */
 	void logOut(String sessionID);
 }

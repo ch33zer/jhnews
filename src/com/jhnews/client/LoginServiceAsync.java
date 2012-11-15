@@ -29,6 +29,10 @@ public interface LoginServiceAsync {
 	void register(String username, String password,
 			AsyncCallback<Session> callback);
 
+	/** @see {@link LoginService#logOut(String)}
+	 * @param sessionID
+	 * @param callback
+	 */
 	void logOut(String sessionID, AsyncCallback<Void> callback);
 
 }

@@ -18,6 +18,10 @@ public class FieldVerifier {
 		}
 		return false;
 	}
+	/**Determines if an announcement is valid
+	 * @param announcement The announcement to check
+	 * @return If the announcement is valid
+	 */
 	public static boolean isValidAnnouncement(Announcement announcement) {
 		return true;
 	}
