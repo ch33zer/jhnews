@@ -6,7 +6,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -15,7 +14,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.User;
@@ -50,9 +48,7 @@ public class SubmissionPage extends Page {
 					@Override
 					public void onFail() {
 						masterPanel.clear();
-						masterPanel
-								.add(new Label(
-										"You must be logged in to submit an announcement"));
+						masterPanel.add(new Label("You must be logged in to submit an announcement"));
 					}
 				});
 		initWidget(masterPanel);
