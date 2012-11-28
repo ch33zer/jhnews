@@ -1,0 +1,2 @@
+serviceClass: com.jhnews.client.AnnouncementFetcher
+path: 5C4C38F3616F483A648023480344511D.gwt.rpc
