@@ -43,6 +43,9 @@ none
         </property>
 
         <mapping class="com.jhnews.server.AnnouncementHibernate" />
-    </session-factory>
+   		<mapping class="com.jhnews.server.UserHibernate"/>
+   		<mapping class="com.jhnews.server.AccountHibernate"/>
+   		<mapping class="com.jhnews.server.SessionHibernate"/>
+        </session-factory>
 
 </hibernate-configuration>

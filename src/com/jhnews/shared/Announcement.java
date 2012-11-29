@@ -31,7 +31,6 @@ public class Announcement implements Serializable {
 	 */
 	public Announcement(){
 		this.audiences = new Boolean[6];//each Boolean represents a different target group 
-		this.ID = -1;
 		this.submitter = null;
 		this.title = null;
 		this.location = null;

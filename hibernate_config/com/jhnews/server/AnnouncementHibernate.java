@@ -7,7 +7,10 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +23,15 @@ import javax.persistence.Table;
 @Table(name = "announcement")
 public class AnnouncementHibernate implements Serializable {
 
+	@Override
+	public String toString() {
+		return "AnnouncementHibernate [ID=" + ID + ", title=" + title
+				+ ", location=" + location + ", briefDescription="
+				+ briefDescription + ", longDescription=" + longDescription
+				+ ", eventDate=" + eventDate + ", hasEventTime=" + hasEventTime
+				+ "]";
+	}
+
 	private int ID;
 	private String title;
 	private String location;
@@ -27,6 +39,18 @@ public class AnnouncementHibernate implements Serializable {
 	private String longDescription;
 	private Date eventDate;
 	private boolean hasEventTime;
+	private UserHibernate submitter;
+	private boolean tag1;
+	private boolean tag2;
+	private boolean tag3;
+	private boolean tag4;
+	private boolean tag5;
+	private boolean toFreshman;
+	private boolean toSophomore;
+	private boolean toJunior;
+	private boolean toSenior;
+	private boolean toGraduate;
+	private boolean toFaculty;
 	// private Date submissionDate;
 	// private Date announcementDate;
 
@@ -36,7 +60,6 @@ public class AnnouncementHibernate implements Serializable {
 	 * Default constructor of the Announcement class.
 	 */
 	public AnnouncementHibernate() {
-		this.ID = -1;
 		this.title = null;
 		this.location = null;
 		this.briefDescription = null;
@@ -52,7 +75,7 @@ public class AnnouncementHibernate implements Serializable {
 	 * @return the ID number of the announcement
 	 */
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "aID")
 	public int getID() {
 		return ID;
@@ -190,5 +213,133 @@ public class AnnouncementHibernate implements Serializable {
 	@Column(name = "hasEventTime")
 	public boolean hasEventTime() {
 		return hasEventTime;
+	}
+
+
+	/**
+	 * @return the submitter
+	 */
+	@ManyToOne
+	@JoinColumn(name="submitter")
+	public UserHibernate getSubmitter() {
+		return submitter;
+	}
+
+
+	/**
+	 * @param submitter the submitter to set
+	 */
+	public void setSubmitter(UserHibernate submitter) {
+		this.submitter = submitter;
+	}
+
+
+	@Column(name="aTag1")
+	public boolean isTag1() {
+		return tag1;
+	}
+
+	public void setTag1(boolean tag1) {
+		this.tag1 = tag1;
+	}
+
+
+	@Column(name="aTag2")
+	public boolean isTag2() {
+		return tag2;
+	}
+
+	public void setTag2(boolean tag2) {
+		this.tag2 = tag2;
+	}
+
+
+	@Column(name="aTag3")
+	public boolean isTag3() {
+		return tag3;
+	}
+
+	public void setTag3(boolean tag3) {
+		this.tag3 = tag3;
+	}
+
+
+	@Column(name="aTag4")
+	public boolean isTag4() {
+		return tag4;
+	}
+
+	public void setTag4(boolean tag4) {
+		this.tag4 = tag4;
+	}
+
+
+	@Column(name="aTag5")
+	public boolean isTag5() {
+		return tag5;
+	}
+
+	public void setTag5(boolean tag5) {
+		this.tag5 = tag5;
+	}
+
+
+	@Column(name="toFreshman")
+	public boolean isToFreshman() {
+		return toFreshman;
+	}
+
+	public void setToFreshman(boolean toFreshman) {
+		this.toFreshman = toFreshman;
+	}
+
+
+	@Column(name="toSophomore")
+	public boolean isToSophomore() {
+		return toSophomore;
+	}
+
+	public void setToSophomore(boolean toSophomore) {
+		this.toSophomore = toSophomore;
+	}
+
+
+	@Column(name="toJunior")
+	public boolean isToJunior() {
+		return toJunior;
+	}
+
+	public void setToJunior(boolean toJunior) {
+		this.toJunior = toJunior;
+	}
+
+
+	@Column(name="toSenior")
+	public boolean isToSenior() {
+		return toSenior;
+	}
+
+	public void setToSenior(boolean toSenior) {
+		this.toSenior = toSenior;
+	}
+
+
+	@Column(name="toGraduate")
+	public boolean isToGraduate() {
+		return toGraduate;
+	}
+
+	public void setToGraduate(boolean toGraduate) {
+		this.toGraduate = toGraduate;
+	}
+
+
+	@Column(name="toFaculty")
+	public boolean isToFaculty() {
+		return toFaculty;
+	}
+
+	public void setToFaculty(boolean toFaculty) {
+		this.toFaculty = toFaculty;
 	}
 }

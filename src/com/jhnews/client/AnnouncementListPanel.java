@@ -57,6 +57,7 @@ public class AnnouncementListPanel extends Composite implements ValueChangeHandl
 		this.announcements = announcements;
 		if (announcements != null) {
 			int index = 0;
+			masterPanel.clear();
 			for (Announcement announcement : announcements) {
 				VerticalPanel announcementPanel = new VerticalPanel();
 				announcementPanel.addStyleName("announcementPanel");

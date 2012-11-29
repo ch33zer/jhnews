@@ -1,12 +1,13 @@
 package com.jhnews.server;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jhnews.client.AnnouncementFetcher;
@@ -29,43 +30,44 @@ public class AnnouncementFetcherImpl extends RemoteServiceServlet implements Ann
 	}
 	
 	@Override
-	public List getTodaysAnnouncements() {
-		Session session = sessionFactory.openSession();
-		List todayHibernate = session.createCriteria(AnnouncementHibernate.class).list();
-		session.close();
-		List<Announcement> todays = new LinkedList<Announcement>();
-		for (Object o : todayHibernate) {
-				AnnouncementHibernate currentHibernate = (AnnouncementHibernate) o;
-				Announcement current = new Announcement();
-				current.setTitle(currentHibernate.getTitle());
-				current.setBriefDescription(currentHibernate.getBriefDescription());
-				current.setLocation(currentHibernate.getLocation());
-				current.setLongDescription(currentHibernate.getLongDescription());
-				current.setID(currentHibernate.getID());
-				current.setEventDate(currentHibernate.getEventDate());
-				todays.add(current);
-		}
-		return todays;
+	public List<Announcement> getTodaysAnnouncements() {
+		return getAnnouncements(null);//TODO make this return only todays announcements
 	}
 
 	@Override
 	public List<Announcement> getAnnouncementsWithString(String query) throws NoResultsException {
-/*		if (query != null){
-		List<Announcement> results = new ArrayList<Announcement>();
-		for (Announcement announcement : announcements) {
-			if (announcement.getLongDescription().contains(query) || announcement.getBriefDescription().contains(query) || announcement.getTitle().contains(query)) {
-				results.add(announcement);
-			}
+		if (query != null){
+			return getAnnouncements(Restrictions.or(Restrictions.ilike("title", query,MatchMode.ANYWHERE),Restrictions.ilike("briefDescription", query,MatchMode.ANYWHERE),Restrictions.ilike("longDescription", query,MatchMode.ANYWHERE)));
 		}
-		if (results.size() > 0)
-			return results;
-		}*/
 		throw new NoResultsException();
+	}
+	
+	private List<Announcement> getAnnouncements(Criterion criteria)  {
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).list():session.createCriteria(AnnouncementHibernate.class).list();
+		session.close();
+		List<Announcement> todays = HibernateUtil.convertHibernateAnnouncementList(todayHibernate);
+		return todays;
 	}
 
 	@Override
 	public void putAnnouncement(Announcement announcement) {
-		//announcements.add(announcement);
+		AnnouncementHibernate announcementHibernate = HibernateUtil.convertAnnouncement(announcement, false);
+		System.out.println(announcementHibernate);
+		Transaction tx = null;
+		try {
+			Session session = sessionFactory.openSession();
+			tx=session.beginTransaction();
+			session.save(announcementHibernate);
+			tx.commit();
+			session.close();
+		}
+		catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+		}
 	}
 	
 
