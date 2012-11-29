@@ -22,6 +22,7 @@ public class HeaderPageTest extends GWTTestCase
 	  assertTrue(hp != null);
   }
   
+  @Test
   public void testOnLogin()
   { 
 	HorizontalPanel testPanel = new HorizontalPanel();
@@ -36,6 +37,7 @@ public class HeaderPageTest extends GWTTestCase
 	assertTrue(hp.getMasterPanel().equals(testPanel));
   }
 
+  @Test
   public void testOnLogout()
   { 
 	HorizontalPanel testPanel = new HorizontalPanel();
@@ -49,6 +51,7 @@ public class HeaderPageTest extends GWTTestCase
 	assertTrue(hp.getMasterPanel().equals(testPanel));
   }
   
+  @Test
   public void testGetMasterPanel()
   {
 	HeaderPage hp = new HeaderPage();

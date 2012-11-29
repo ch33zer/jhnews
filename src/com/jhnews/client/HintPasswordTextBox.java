@@ -49,6 +49,15 @@ public class HintPasswordTextBox extends HintTextBox implements BlurHandler, Foc
 			focusHandler.removeHandler();
 		}
 	}
+	
+	/**
+	 * Gets and returns the hint shown 
+	 * @return the hint
+	 */
+	public String getHint()
+	{
+		return hint;
+	}
 
 	/**
 	 * Calls the hint to be shown when the widget loses focus

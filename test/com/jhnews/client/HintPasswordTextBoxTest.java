@@ -2,8 +2,9 @@ package com.jhnews.client;
 
 import org.junit.Test;
 
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.junit.client.GWTTestCase;
-import com.jhnews.shared.Announcement;
 
 public class HintPasswordTextBoxTest extends GWTTestCase
 {
@@ -15,7 +16,40 @@ public class HintPasswordTextBoxTest extends GWTTestCase
   @Test
   public void testHintPassWordTextConstructor()
   { 
-	  HintPasswordTextBox ap = new HintPasswordTextBox();
-	  assertTrue(ap != null);
+	  HintPasswordTextBox hptb = new HintPasswordTextBox();
+	  assertTrue(hptb != null);
+  }
+  
+  @Test
+  public void testHintPassWordTextConstructor2()
+  { 
+	  HintPasswordTextBox hptb = new HintPasswordTextBox("new hint");
+	  assertTrue(hptb != null);
+  }
+  
+  @Test
+  public void testSetHint()
+  {
+	  HintPasswordTextBox hptb = new HintPasswordTextBox();
+	  String oldHint = hptb.getHint();
+	  hptb.setHint("new hint");
+	  String newHint = hptb.getHint();
+	  assertFalse(oldHint.equals(newHint));
+  }
+  
+  @Test
+  public void testGetHint()
+  {
+	  HintPasswordTextBox hptb = new HintPasswordTextBox("hint");
+	  assertTrue(hptb.getHint().equals("hint"));
+  }
+  
+  @Test
+  public void testOnBlur()
+  {
+	  HintPasswordTextBox hptb = new HintPasswordTextBox("hint");
+	  BlurHandler hand = new BlurHandler();
+	  
+	  hptb.onBlur(new BlurEvent());
   }
 }

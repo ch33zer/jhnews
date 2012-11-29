@@ -26,6 +26,7 @@ public class AnnouncementListPanelTest extends GWTTestCase
 	  assertTrue(alp != null);
   }
   
+  @Test
   public void testOnValueChange()
   {
 	  final AnnouncementListPanel alp = new AnnouncementListPanel();
@@ -42,6 +43,7 @@ public class AnnouncementListPanelTest extends GWTTestCase
 	  textArea.setText("1");
   }
   
+  @Test
   public void testSetAnnouncementList()
   {
 	  AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
@@ -65,6 +67,7 @@ public class AnnouncementListPanelTest extends GWTTestCase
 	  assertTrue(alp.getAnnouncements() != null);
   }
   
+  @Test
   public void testGetAnnouncements()
   {
 	  AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
