@@ -26,6 +26,8 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
+  `username` varchar(25) NOT NULL,
+  `hash` mediumtext NOT NULL,
   `firstName` varchar(25) NOT NULL,
   `lastName` varchar(25) NOT NULL,
   `email` mediumtext NOT NULL,
@@ -46,35 +48,8 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('Wayne','Chen','wchen52@jhu.edu',0,1,1,1,0,1,1),('Nir','Rattner','nrattne1@jhu.edu',1,1,0,0,1,1,2),('Blaise','Watson','ch33zer@gmail.com',0,0,0,0,0,0,3);
+INSERT INTO `user` VALUES ('wayne','$2a$10$ZlnwhGKha28atSI.Uby3COY8.31PkGJs84Xjs/FycW33WK/H7JelW','Wayne','Chen','wchen52@jhu.edu',0,1,1,1,0,1,1),('nir','$2a$10$cjD1LErRFrPeRcttje3Bd.g3mTb6iUaqBc.4Dkhz4WOS01omOJIyC','Nir','Rattner','nrattne1@jhu.edu',1,1,0,0,1,1,2),('blaise','$2a$10$Etrs8xR2WCImi046owNKtuvNd40t80F/jHtt67h17WgGtktGG./dS','Blaise','Watson','ch33zer@gmail.com',0,0,0,0,0,0,3);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
---
--- Table structure for table `account`
---
-
-DROP TABLE IF EXISTS `account`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `account` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(25) NOT NULL,
-  `hash` mediumtext NOT NULL,
-  `uID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `accountID_UNIQUE` (`ID`),
-  INDEX `FK_UID` (`uID`),
-  CONSTRAINT `FK_UID` FOREIGN KEY (`uID`) REFERENCES `user` (`uID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `account`
---
-
-LOCK TABLES `account` WRITE;
-/*!40000 ALTER TABLE `account` DISABLE KEYS */;
-/*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
