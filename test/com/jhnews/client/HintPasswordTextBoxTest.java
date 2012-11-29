@@ -47,9 +47,5 @@ public class HintPasswordTextBoxTest extends GWTTestCase
   @Test
   public void testOnBlur()
   {
-	  HintPasswordTextBox hptb = new HintPasswordTextBox("hint");
-	  BlurHandler hand = new BlurHandler();
-	  
-	  hptb.onBlur(new BlurEvent());
   }
 }
