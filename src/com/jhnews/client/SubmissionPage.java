@@ -86,10 +86,11 @@ public class SubmissionPage extends Page {
 		Button submitButton = new Button("Submit");
 
 		// Converts all of currentUser's desired tags into CheckBoxes
-		ArrayList<String> allUserTags = (ArrayList<String>) currentUser.getTags();
+		//TODO Hookup user tags
+		//ArrayList<String> allUserTags = (ArrayList<String>) currentUser.getTags();
 		final ArrayList<CheckBox> allTagCBs = new ArrayList<CheckBox>();
-		for (int i = 0; i < allUserTags.size(); i++) {
-			allTagCBs.add(new CheckBox(allUserTags.get(i)));
+		for (int i = 0; i < 9; i++) {
+			allTagCBs.add(new CheckBox("Tag " + i));
 		}
 
 		// Set ClickHandlers for interactive widgets
@@ -214,7 +215,8 @@ public class SubmissionPage extends Page {
 		locationPanel.add(locationLabel);
 		locationPanel.add(locationBox);
 		tagsPanel.add(tagsLabel);
-		tagsPanel.add(generateInnerVertTagsPanel(allUserTags));
+		//TODO Re add
+		//tagsPanel.add(generateInnerVertTagsPanel(allUserTags));
 
 		// Add all category Panels to the masterPanel
 		masterPanel.add(pageTitleLabel);

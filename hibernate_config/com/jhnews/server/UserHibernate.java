@@ -1,6 +1,7 @@
 package com.jhnews.server;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -29,7 +30,9 @@ public class UserHibernate implements Serializable{
 	private boolean tag3;
 	private boolean tag4;
 	private boolean tag5;
-	private Set<AnnouncementHibernate> announcements;
+	private List<AnnouncementHibernate> announcements;
+	private String username;
+	private String hash;
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -75,13 +78,13 @@ public class UserHibernate implements Serializable{
 	 * @return the announcements
 	 */
 	@OneToMany(mappedBy="submitter")
-	public Set<AnnouncementHibernate> getAnnouncements() {
+	public List<AnnouncementHibernate> getAnnouncements() {
 		return announcements;
 	}
 	/**
 	 * @param announcements the announcements to set
 	 */
-	public void setAnnouncements(Set<AnnouncementHibernate> announcements) {
+	public void setAnnouncements(List<AnnouncementHibernate> announcements) {
 		this.announcements = announcements;
 	}
 	/**
@@ -148,6 +151,32 @@ public class UserHibernate implements Serializable{
 	 */
 	public void setTag5(boolean tag5) {
 		this.tag5 = tag5;
+	}
+	/**
+	 * @return the username
+	 */
+	@Column(name="username")
+	public String getUsername() {
+		return username;
+	}
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	/**
+	 * @return the hash
+	 */
+	@Column(name="hash")
+	public String getHash() {
+		return hash;
+	}
+	/**
+	 * @param hash the hash to set
+	 */
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 	
 	

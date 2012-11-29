@@ -250,7 +250,7 @@ public class LoginManager {
 	private void createSessionCookie(Session newSession) {
 		Cookies.setCookie("sid", newSession.getSessionID(),
 				newSession.getExpireDate(), null, "/", false);
-		Cookies.setCookie("username", newSession.getUsername(),
+		Cookies.setCookie("username", newSession.getUser().getUsername(),
 				newSession.getExpireDate(), null, "/", false);
 	}
 }

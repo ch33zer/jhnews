@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import com.jhnews.shared.Announcement;
+import com.jhnews.shared.Session;
+import com.jhnews.shared.User;
 
 public class HibernateUtil {
 	private static final SessionFactory sessionFactory;
@@ -54,5 +56,27 @@ public class HibernateUtil {
 			announcments.add(convertHibernateAnnouncment(el));
 		}
 		return announcments;
+	}
+	
+	public static Session convertHibernateSession(SessionHibernate hibernateSession) {
+		Session session = new Session();
+		session.setExpireDate(hibernateSession.getExpireDate());
+		session.setSessionID(hibernateSession.getSessionID());
+		session.setUser(convertHibernateUser(hibernateSession.getUser()));
+		session.setID(hibernateSession.getID());
+		return session;
+	}
+	
+	public static User convertHibernateUser(UserHibernate userHibernate) {
+		User user = new User();
+		//TODO
+		//user.setAnnouncements(convertHibernateAnnouncementList(userHibernate.getAnnouncements()));
+		user.setEmail(userHibernate.getEmail());
+		user.setFirstName(userHibernate.getFirstName());
+		user.setHash(userHibernate.getHash());
+		user.setID(userHibernate.getID());
+		user.setLastName(userHibernate.getLastName());
+		user.setUsername(userHibernate.getUsername());
+		return user;
 	}
 }

@@ -54,7 +54,6 @@ public class AnnouncementFetcherImpl extends RemoteServiceServlet implements Ann
 	@Override
 	public void putAnnouncement(Announcement announcement) {
 		AnnouncementHibernate announcementHibernate = HibernateUtil.convertAnnouncement(announcement, false);
-		System.out.println(announcementHibernate);
 		Transaction tx = null;
 		try {
 			Session session = sessionFactory.openSession();

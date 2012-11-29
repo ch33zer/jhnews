@@ -14,21 +14,8 @@ public class Session implements Serializable {
 	private static final long serialVersionUID = 257714321022849090L;
 	private String SessionID;
 	private Date expireDate;
-	private String username;
-
-	/**Gets the current 
-	 * @return The current username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/** Sets the username in the session
-	 * @param username The desired username
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	private User user;
+	private int ID;
 
 	/**
 	 * Construct an empty Session
@@ -104,6 +91,34 @@ public class Session implements Serializable {
 	 */
 	public void setExpireDate(Date expireDate) {
 		this.expireDate = expireDate;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	/**
+	 * @return the iD
+	 */
+	public int getID() {
+		return ID;
+	}
+
+	/**
+	 * @param iD the iD to set
+	 */
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 }

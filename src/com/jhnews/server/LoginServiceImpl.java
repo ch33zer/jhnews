@@ -1,9 +1,12 @@
 package com.jhnews.server;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jhnews.client.LoginService;
@@ -25,12 +28,16 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	 * For Serialization
 	 */
 	private static final long serialVersionUID = -5369307040587702583L;
-	private Map<String, String> users = new HashMap<String, String>(); //user to hashed password mapping
-	private Map<String, Date> sessionIDs = new HashMap<String, Date>(); //Session ID to User mapping
-	private final static long COOKIE_RETENTION_TIME = 1000 * 60 * 60 * 24;//1000 msecs * 60 secs * 60 minutes * 24 hours = 1 day
+	private SessionFactory sessionFactory;
 	{
-		users.put("nir", BCrypt.hashpw("dog", BCrypt.gensalt())); //Single user with username
+		sessionFactory = HibernateUtil.getSessionFactory();
 	}
+	/*private Map<String, String> users = new HashMap<String, String>(); //user to hashed password mapping
+	private Map<String, Date> sessionIDs = new HashMap<String, Date>(); //Session ID to User mapping*/
+	private final static long COOKIE_RETENTION_TIME = 1000 * 60 * 60 * 24;//1000 msecs * 60 secs * 60 minutes * 24 hours = 1 day
+	/*{
+		users.put("nir", BCrypt.hashpw("dog", BCrypt.gensalt())); //Single user with username
+	}*/
 	/* (non-Javadoc)
 	 * @see com.jhnews.client.LoginService#logIn(java.lang.String, java.lang.String)
 	 */
@@ -39,18 +46,46 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		if (username == null || password == null) {
 			throw new LoginFailedException();
 		}
-		
-		if (users.get(username) != null && BCrypt.checkpw(password, users.get(username))) {
+		UserHibernate user = getUser(username, password);
+		if (user!=null) {
 			String sessionID = UUID.randomUUID().toString();
-			Session session = new Session();
+			SessionHibernate session = new SessionHibernate();
 			session.setSessionID(sessionID);
 			Date expiration = new Date(System.currentTimeMillis() + COOKIE_RETENTION_TIME);
 			session.setExpireDate(expiration);
-			session.setUsername(username);
-			sessionIDs.put(sessionID, expiration);
-			return session;
+			session.setUser(user);
+			addSessionToDatabase(session);
+			return HibernateUtil.convertHibernateSession(session);
 		}
 		throw new LoginFailedException();	
+	}
+	
+	private void addSessionToDatabase(SessionHibernate session) {
+		Transaction tx = null;
+		try {
+			org.hibernate.Session hibernateSession = sessionFactory.openSession();
+			tx=hibernateSession.beginTransaction();
+			hibernateSession.save(session);
+			tx.commit();
+			hibernateSession.close();
+		}
+		catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+		}
+	}
+
+	private UserHibernate getUser(String username, String password) {
+		org.hibernate.Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<UserHibernate> todayHibernate = session.createCriteria(UserHibernate.class).add(Restrictions.eq("username", username)).list();
+		session.close();
+		if ( todayHibernate.size()==1 && todayHibernate.get(0)!= null && BCrypt.checkpw(password,todayHibernate.get(0).getHash()))
+			return todayHibernate.get(0);
+		else {
+			return null;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -61,7 +96,16 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		if (sessionID == null) {
 			throw new NotLoggedInException();
 		}
-		return sessionIDs.containsKey(sessionID) && sessionIDs.get(sessionID).after(new Date());
+		return checkDatabaseLogin(sessionID);
+		//return sessionIDs.containsKey(sessionID) && sessionIDs.get(sessionID).after(new Date());
+	}
+	
+	private boolean checkDatabaseLogin(String sessionID) {
+		org.hibernate.Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<SessionHibernate> todayHibernate = session.createCriteria(SessionHibernate.class).add(Restrictions.and(Restrictions.eq("sessionID", sessionID), Restrictions.ge("expireDate", new Date()))).list();
+		session.close();
+		return todayHibernate.size() == 1;
 	}
 
 
@@ -71,7 +115,8 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public Session register(String username, String password) throws RegistrationFailedException, UserExistsException {
-		if (username == null || password == null) {
+		//TODO
+		/*if (username == null || password == null) {
 			throw new RegistrationFailedException();
 		}
 		if (!FieldVerifier.isValidUserNameAndPassword(username, password)) {
@@ -86,12 +131,14 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		} catch (LoginFailedException e) {
 			throw new RegistrationFailedException();
 		}
-		
+		*/
+		return null;
 	}
 
 	@Override
 	public void logOut(String sessionID) {
-		sessionIDs.remove(sessionID);
+		//TODO
+		//sessionIDs.remove(sessionID);
 	}
 
 }

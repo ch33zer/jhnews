@@ -44,7 +44,6 @@ none
 
         <mapping class="com.jhnews.server.AnnouncementHibernate" />
    		<mapping class="com.jhnews.server.UserHibernate"/>
-   		<mapping class="com.jhnews.server.AccountHibernate"/>
    		<mapping class="com.jhnews.server.SessionHibernate"/>
         </session-factory>
 
