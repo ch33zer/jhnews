@@ -34,7 +34,7 @@ public class HeaderPage extends Page implements LoginListener {
 			public void onClick(ClickEvent event) {
 				History.newItem("HOME");
 				LoginManager man = LoginManager.getInstance();
-				man.logOut(man.getSessionID(), null);				
+				man.logOut(man.getSessionID(), null);			
 			}
 		});
 		preferences = new Hyperlink("Preferences", "PREFERENCES");
@@ -67,7 +67,7 @@ public class HeaderPage extends Page implements LoginListener {
 		masterPanel.add(new Label("|"));
 		masterPanel.add(preferences);
 		masterPanel.add(new Label("|"));
-		masterPanel.add(logOut);		
+		masterPanel.add(logOut);
 	}
 
 	/**
@@ -80,5 +80,9 @@ public class HeaderPage extends Page implements LoginListener {
 		masterPanel.add(new Label("|"));
 		masterPanel.add(logIn);
 	}
-
+	
+	public HorizontalPanel getMasterPanel()
+	{
+		return masterPanel;
+	}
 }
