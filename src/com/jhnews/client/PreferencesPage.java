@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class PreferencesPage extends Page {
 
 	private CheckBox notificationCheckBox;
+	private TagsPanel tagsPanel;
 	
 	/**
 	 * Default constructor creates the preferences page for the user.
@@ -27,14 +28,8 @@ public class PreferencesPage extends Page {
 		pageTitleLabel.addStyleDependentName("title");
 		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		notificationCheckBox = new CheckBox("Enable email notifications");
-		Grid tagPanel = new Grid(1, 3);
-		tagPanel.addStyleName("detailPanel");
-		tagPanel.setWidget(0, 0, new CheckBox("Free"));
-		tagPanel.getCellFormatter().setWidth(0, 0, "100px");
-		tagPanel.setWidget(0, 1, new CheckBox("Food"));
-		tagPanel.getCellFormatter().setWidth(0, 1, "100px");
-		tagPanel.setWidget(0, 2, new CheckBox("Greek life"));
-		tagPanel.getCellFormatter().setWidth(0, 2, "100px");
+		tagsPanel = new TagsPanel();
+		tagsPanel.fillSampleInfo();
 		Button saveButton = new Button("Save", new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -45,7 +40,7 @@ public class PreferencesPage extends Page {
 		masterPanel.add(pageTitleLabel);
 		masterPanel.add(notificationCheckBox);
 		masterPanel.add(new Label("Interest tags:"));
-		masterPanel.add(tagPanel);
+		masterPanel.add(tagsPanel);
 		masterPanel.add(saveButton);
 		initWidget(masterPanel);
 	}

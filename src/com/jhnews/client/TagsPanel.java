@@ -53,4 +53,14 @@ public class TagsPanel extends Composite {
 		checkBoxes.get(5).setValue(announcement.isTag5());
 	}
 	
+	public void fillSampleInfo() {
+		tags = new ArrayList<String>();
+		tags.add("Food");
+		tags.add("Free");
+		tags.add("DBlaise");
+		tags.add("Cheezer");
+		tags.add("Greek life");
+		setTags(tags);
+	}
+	
 }
