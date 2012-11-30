@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.jhnews.server.UserHibernate;
+
 /**
  * Announcement is the class that represents an announcement submission and holds all its relevant information.
  * @author Group 8
@@ -19,10 +21,17 @@ public class Announcement implements Serializable {
 	private String longDescription;
 	private Date eventDate;
 	private boolean hasEventTime;
-	private ArrayList<String> tags;
-	private Boolean[] audiences;
-	//private Date submissionDate;
-	//private Date announcementDate;
+	private boolean tag1;
+	private boolean tag2;
+	private boolean tag3;
+	private boolean tag4;
+	private boolean tag5;
+	private boolean toFreshman;
+	private boolean toSophomore;
+	private boolean toJunior;
+	private boolean toSenior;
+	private boolean toGraduate;
+	private boolean toFaculty;
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,7 +39,6 @@ public class Announcement implements Serializable {
 	 * Default constructor of the Announcement class.
 	 */
 	public Announcement(){
-		this.audiences = new Boolean[6];//each Boolean represents a different target group 
 		this.submitter = null;
 		this.title = null;
 		this.location = null;
@@ -39,23 +47,8 @@ public class Announcement implements Serializable {
 		this.eventDate = null;
 		this.hasEventTime = false;
 	}
-	
-	/**
-	 * Gets the list of audiences the announcement is intended for.
-	 * @return the list of audiences
-	 */
-	public Boolean[] getAudiences(){
-		return this.audiences;
-	}
-	
-	/**
-	 * Sets a new list of audiences that the announcement is intended for.
-	 * @param inAudiences the new audiences the announcement's intended for
-	 */
-	public void setAudiences(Boolean[] inAudiences){
-		this.audiences = inAudiences; 
-	}
-	
+
+
 	/**
 	 * Gets the ID number of the announcement
 	 * @return the ID number of the announcement
@@ -71,22 +64,7 @@ public class Announcement implements Serializable {
 	public void setID(int ID) {
 		this.ID = ID;
 	}
-	
-	/**
-	 * Gets the list of tags the announcement is flagged for.
-	 * @return the list of tags this announcement is flagged for
-	 */
-	public ArrayList<String> getTags(){
-		return this.tags;
-	}
-	
-	/**
-	 * Sets the tags the announcement is associated with.
-	 * @param inTags the new tags to set this announcement for
-	 */
-	public void setTags(ArrayList<String> inTags){
-		this.tags = inTags;
-	}
+
 
 	/**
 	 * Gets the User who submitted this announcement.
@@ -198,6 +176,121 @@ public class Announcement implements Serializable {
 	 * @return true if there's a scheduled time, false if not
 	 */
 	public boolean hasEventTime() {
+		return hasEventTime;
+	}
+
+
+	public boolean isTag1() {
+		return tag1;
+	}
+
+
+	public void setTag1(boolean tag1) {
+		this.tag1 = tag1;
+	}
+
+
+	public boolean isTag2() {
+		return tag2;
+	}
+
+
+	public void setTag2(boolean tag2) {
+		this.tag2 = tag2;
+	}
+
+
+	public boolean isTag3() {
+		return tag3;
+	}
+
+
+	public void setTag3(boolean tag3) {
+		this.tag3 = tag3;
+	}
+
+
+	public boolean isTag4() {
+		return tag4;
+	}
+
+
+	public void setTag4(boolean tag4) {
+		this.tag4 = tag4;
+	}
+
+
+	public boolean isTag5() {
+		return tag5;
+	}
+
+
+	public void setTag5(boolean tag5) {
+		this.tag5 = tag5;
+	}
+
+
+	public boolean isToFreshman() {
+		return toFreshman;
+	}
+
+
+	public void setToFreshman(boolean toFreshman) {
+		this.toFreshman = toFreshman;
+	}
+
+
+	public boolean isToSophomore() {
+		return toSophomore;
+	}
+
+
+	public void setToSophomore(boolean toSophomore) {
+		this.toSophomore = toSophomore;
+	}
+
+
+	public boolean isToJunior() {
+		return toJunior;
+	}
+
+
+	public void setToJunior(boolean toJunior) {
+		this.toJunior = toJunior;
+	}
+
+
+	public boolean isToSenior() {
+		return toSenior;
+	}
+
+
+	public void setToSenior(boolean toSenior) {
+		this.toSenior = toSenior;
+	}
+
+
+	public boolean isToGraduate() {
+		return toGraduate;
+	}
+
+
+	public void setToGraduate(boolean toGraduate) {
+		this.toGraduate = toGraduate;
+	}
+
+
+	public boolean isToFaculty() {
+		return toFaculty;
+	}
+
+
+	public void setToFaculty(boolean toFaculty) {
+		this.toFaculty = toFaculty;
+	}
+
+
+	public boolean isHasEventTime() {
 		return hasEventTime;
 	}
 }

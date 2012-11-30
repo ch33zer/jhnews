@@ -89,7 +89,7 @@ public class SubmissionPage extends Page {
 		//TODO Hookup user tags
 		//ArrayList<String> allUserTags = (ArrayList<String>) currentUser.getTags();
 		final ArrayList<CheckBox> allTagCBs = new ArrayList<CheckBox>();
-		for (int i = 0; i < 9; i++) {
+		for (int i = 1; i < 6; i++) {
 			allTagCBs.add(new CheckBox("Tag " + i));
 		}
 
@@ -114,28 +114,31 @@ public class SubmissionPage extends Page {
 
 					// Set announcements in the submission according to checked
 					// announcement CheckBoxs
-					Boolean[] checkedAnnouncementCBValues = new Boolean[6];
-					for (int i = 0; i < 6; i++)// for all tag CheckBoxes
-					{
-						checkedAnnouncementCBValues[0] = freshmanAudienceCB
-								.getValue();
-						checkedAnnouncementCBValues[1] = sophomoreAudienceCB
-								.getValue();
-						checkedAnnouncementCBValues[2] = juniorAudienceCB
-								.getValue();
-						checkedAnnouncementCBValues[3] = seniorAudienceCB
-								.getValue();
-						checkedAnnouncementCBValues[4] = graduateAudienceCB
-								.getValue();
-						checkedAnnouncementCBValues[5] = facultyAudienceCB
-								.getValue();
-						currentSubmission
-								.setAudiences(checkedAnnouncementCBValues);
-					}
+
+						currentSubmission.setToFreshman(freshmanAudienceCB
+								.getValue());
+						currentSubmission.setToSophomore(sophomoreAudienceCB
+								.getValue());
+						currentSubmission.setToJunior(juniorAudienceCB
+								.getValue());
+						currentSubmission.setToSenior(seniorAudienceCB
+								.getValue());
+						currentSubmission.setToGraduate(graduateAudienceCB
+								.getValue());
+						currentSubmission.setToFaculty(facultyAudienceCB
+								.getValue());
+
 
 					// Set tags in the submission according to checked tag
 					// CheckBoxs
-					ArrayList<String> checkedTagCBValues = new ArrayList<String>();
+					currentSubmission.setTag1(allTagCBs.get(0).getValue());
+					currentSubmission.setTag2(allTagCBs.get(1).getValue());
+					currentSubmission.setTag3(allTagCBs.get(2).getValue());
+					currentSubmission.setTag4(allTagCBs.get(3).getValue());
+					currentSubmission.setTag5(allTagCBs.get(4).getValue());
+					
+					currentSubmission.setHasEventTime(false);
+					/*ArrayList<String> checkedTagCBValues = new ArrayList<String>();
 					for (int i = 0; i < allTagCBs.size(); i++)// for all tag
 																// CheckBoxes
 					{
@@ -147,7 +150,7 @@ public class SubmissionPage extends Page {
 																			// in
 																			// checkedCBValues
 					}
-					currentSubmission.setTags(checkedTagCBValues);
+					currentSubmission.setTags(checkedTagCBValues);*/
 					service.putAnnouncement(currentSubmission,
 							new AsyncCallback<Void>() {
 

@@ -8,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name="session")
@@ -42,7 +46,8 @@ public class SessionHibernate {
 	public void setExpireDate(Date expireDate) {
 		this.expireDate = expireDate;
 	}
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
+	@JoinColumn(name="uID2")
 	public UserHibernate getUser() {
 		return user;
 	}

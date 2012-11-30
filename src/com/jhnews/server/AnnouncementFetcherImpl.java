@@ -2,6 +2,8 @@ package com.jhnews.server;
 
 import java.util.List;
 
+import javax.servlet.ServletException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,6 +30,14 @@ public class AnnouncementFetcherImpl extends RemoteServiceServlet implements Ann
 	{
 		sessionFactory = HibernateUtil.getSessionFactory();
 	}
+	private LoginServiceImpl loginServlet;
+	{
+		try {
+			loginServlet = (LoginServiceImpl) getServletContext().getServlet("LoginService");
+		} catch (ServletException e) {
+			System.err.println("Failed to load loginService. Is it running?");
+		}
+	}
 	
 	@Override
 	public List<Announcement> getTodaysAnnouncements() {
@@ -47,13 +57,13 @@ public class AnnouncementFetcherImpl extends RemoteServiceServlet implements Ann
 		@SuppressWarnings("unchecked")
 		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).list():session.createCriteria(AnnouncementHibernate.class).list();
 		session.close();
-		List<Announcement> todays = HibernateUtil.convertHibernateAnnouncementList(todayHibernate);
+		List<Announcement> todays = HibernateConversionUtil.convertHibernateAnnouncementList(todayHibernate);
 		return todays;
 	}
 
 	@Override
 	public void putAnnouncement(Announcement announcement) {
-		AnnouncementHibernate announcementHibernate = HibernateUtil.convertAnnouncement(announcement, false);
+		AnnouncementHibernate announcementHibernate = HibernateConversionUtil.convertAnnouncement(announcement, false);
 		Transaction tx = null;
 		try {
 			Session session = sessionFactory.openSession();

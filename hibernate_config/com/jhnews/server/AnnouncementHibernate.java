@@ -60,12 +60,6 @@ public class AnnouncementHibernate implements Serializable {
 	 * Default constructor of the Announcement class.
 	 */
 	public AnnouncementHibernate() {
-		this.title = null;
-		this.location = null;
-		this.briefDescription = null;
-		this.longDescription = null;
-		this.eventDate = null;
-		this.hasEventTime = false;
 	}
 
 
@@ -210,7 +204,7 @@ public class AnnouncementHibernate implements Serializable {
 	 * 
 	 * @return true if there's a scheduled time, false if not
 	 */
-	@Column(name = "hasEventTime")
+	@Column(name = "hasEventTime",nullable=false)
 	public boolean hasEventTime() {
 		return hasEventTime;
 	}

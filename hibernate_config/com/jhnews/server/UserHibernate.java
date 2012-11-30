@@ -30,7 +30,6 @@ public class UserHibernate implements Serializable{
 	private boolean tag3;
 	private boolean tag4;
 	private boolean tag5;
-	private List<AnnouncementHibernate> announcements;
 	private String username;
 	private String hash;
 	private static final long serialVersionUID = 1L;
@@ -73,19 +72,6 @@ public class UserHibernate implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	/**
-	 * @return the announcements
-	 */
-	@OneToMany(mappedBy="submitter")
-	public List<AnnouncementHibernate> getAnnouncements() {
-		return announcements;
-	}
-	/**
-	 * @param announcements the announcements to set
-	 */
-	public void setAnnouncements(List<AnnouncementHibernate> announcements) {
-		this.announcements = announcements;
 	}
 	/**
 	 * @return the tag1

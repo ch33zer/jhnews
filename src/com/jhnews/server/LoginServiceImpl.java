@@ -25,7 +25,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		LoginService {
 	
 	/**
-	 * For Serialization
+	 * For Serialization	
 	 */
 	private static final long serialVersionUID = -5369307040587702583L;
 	private SessionFactory sessionFactory;
@@ -55,7 +55,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 			session.setExpireDate(expiration);
 			session.setUser(user);
 			addSessionToDatabase(session);
-			return HibernateUtil.convertHibernateSession(session);
+			return HibernateConversionUtil.convertHibernateSession(session);
 		}
 		throw new LoginFailedException();	
 	}
