@@ -3,7 +3,6 @@ package com.jhnews.server;
 import org.junit.Test;
 
 import com.google.gwt.junit.client.GWTTestCase;
-import com.jhnews.server.AnnouncementFetcherImpl;
 
 public class AnnouncementFetcherImplTest extends GWTTestCase
 {

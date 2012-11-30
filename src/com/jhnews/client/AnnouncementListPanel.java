@@ -83,8 +83,7 @@ public class AnnouncementListPanel extends Composite implements ValueChangeHandl
 		}
 	}
 
-	public List<Announcement> getAnnouncements()
-	{
+	public List<Announcement> getAnnouncements() {
 		return announcements;
 	}
 }

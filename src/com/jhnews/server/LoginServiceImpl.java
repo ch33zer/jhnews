@@ -10,7 +10,6 @@ import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jhnews.client.LoginService;
-import com.jhnews.shared.FieldVerifier;
 import com.jhnews.shared.LoginFailedException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;

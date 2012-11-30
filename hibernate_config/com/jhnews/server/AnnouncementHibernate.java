@@ -1,7 +1,6 @@
 package com.jhnews.server;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Column;

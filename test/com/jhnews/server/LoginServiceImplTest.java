@@ -3,7 +3,6 @@ package com.jhnews.server;
 import org.junit.Test;
 
 import com.google.gwt.junit.client.GWTTestCase;
-import com.jhnews.server.LoginServiceImpl;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
 import com.jhnews.shared.Session;

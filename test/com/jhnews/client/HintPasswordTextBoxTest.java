@@ -2,8 +2,6 @@ package com.jhnews.client;
 
 import org.junit.Test;
 
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.junit.client.GWTTestCase;
 
 public class HintPasswordTextBoxTest extends GWTTestCase

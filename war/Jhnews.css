@@ -26,6 +26,12 @@
 	font-weight: normal;
 }
 
+#header .gwt-Anchor {
+	padding: 0px 5px;
+	color: black;
+	font-weight: normal;
+}
+
 #header .horizontalPanel {
 	padding: 10px 20px 0px 20px;
 }
