@@ -92,4 +92,12 @@ public class HintPasswordTextBox extends HintTextBox implements BlurHandler, Foc
 			setText("");
 		}
 	}
+	
+	/**
+	 * Returns whether this HintPasswordTextBox has focus or not
+	 * @return true if it has focus, false otherwise
+	 */
+	public boolean hasFocus() {
+			return this.hasFocus();
+	}
 }
