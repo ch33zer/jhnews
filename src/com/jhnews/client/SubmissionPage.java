@@ -24,6 +24,21 @@ import com.jhnews.shared.User;
  * @author Group 8
  */
 public class SubmissionPage extends Page {
+	
+	private VerticalPanel masterPanel;
+	private TextBox titleTextBox;
+	private TextBox briefDescTextBox;
+	private TextBox fullDescTextBox;
+	private TextBox locationTextBox;
+	private CheckBox freshmanCheckBox;
+	private CheckBox sophomoreCheckBox;
+	private CheckBox juniorCheckBox;
+	private CheckBox seniorCheckBox;
+	private CheckBox graduateCheckBox;
+	private CheckBox facultyCheckBox;
+	private DatePicker dateTimePicker;
+	private TagsPanel tagsPanel;
+	
 	private AnnouncementFetcherAsync service = GWT
 			.create(AnnouncementFetcher.class);
 
@@ -34,7 +49,7 @@ public class SubmissionPage extends Page {
 		if (service == null) {
 			service = GWT.create(AnnouncementFetcher.class);
 		}
-		final VerticalPanel masterPanel = new VerticalPanel();
+		masterPanel = new VerticalPanel();
 		LoginManager.getInstance().isLoggedOn(
 				LoginManager.getInstance().getSessionID(),
 				new LoginManagerCallback<Boolean>() {
@@ -58,10 +73,10 @@ public class SubmissionPage extends Page {
 		// Variables
 		final User currentUser = new User();// TODO change currentUser to the
 											// real user once implemented
-		final TextBox titleBox = new TextBox();
-		final TextBox briefDescBox = new TextBox();
-		final TextBox fullDescBox = new TextBox();
-		final TextBox locationBox = new TextBox();
+		titleTextBox = new TextBox();
+		briefDescTextBox = new TextBox();
+		fullDescTextBox = new TextBox();
+		locationTextBox = new TextBox();
 		Label pageTitleLabel = new Label("Submit Announcement");
 		pageTitleLabel.addStyleDependentName("title");
 		Label audienceLabel = new Label("Audience: ");
@@ -71,71 +86,65 @@ public class SubmissionPage extends Page {
 		Label dateTimeLabel = new Label("Date/Time: ");
 		Label locationLabel = new Label("Location: ");
 		Label tagsLabel = new Label("Tags: ");
-		final CheckBox freshmanAudienceCB = new CheckBox("[Freshmen]");
-		final CheckBox sophomoreAudienceCB = new CheckBox("[Sophomore]");
-		final CheckBox juniorAudienceCB = new CheckBox("[Junior]");
-		final CheckBox seniorAudienceCB = new CheckBox("[Senior]");
-		final CheckBox graduateAudienceCB = new CheckBox("[Graduate]");
-		final CheckBox facultyAudienceCB = new CheckBox("[Faculty]");
-		final DatePicker dateTimePicker = new DatePicker();// TODO add selector,
+		freshmanCheckBox = new CheckBox("[Freshmen]");
+		sophomoreCheckBox = new CheckBox("[Sophomore]");
+		juniorCheckBox = new CheckBox("[Junior]");
+		seniorCheckBox = new CheckBox("[Senior]");
+		graduateCheckBox = new CheckBox("[Graduate]");
+		facultyCheckBox = new CheckBox("[Faculty]");
+		dateTimePicker = new DatePicker();// TODO add selector,
 															// view, and model
+		tagsPanel = new TagsPanel();
+		tagsPanel.fillSampleInfo();
 		final Label errorLabel = new Label(
 				"Invalid Announcement. Please fill in all fields.");
 		errorLabel.addStyleDependentName("error");
 		errorLabel.setVisible(false);
 		Button submitButton = new Button("Submit");
 
-		// Converts all of currentUser's desired tags into CheckBoxes
-		//TODO Hookup user tags
-		//ArrayList<String> allUserTags = (ArrayList<String>) currentUser.getTags();
-		final ArrayList<CheckBox> allTagCBs = new ArrayList<CheckBox>();
-		for (int i = 1; i < 6; i++) {
-			allTagCBs.add(new CheckBox("Tag " + i));
-		}
-
 		// Set ClickHandlers for interactive widgets
 		submitButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				if (titleBox.getText().length() != 0
-						&& briefDescBox.getText().length() != 0
-						&& fullDescBox.getText().length() != 0
+				if (titleTextBox.getText().length() != 0
+						&& briefDescTextBox.getText().length() != 0
+						&& fullDescTextBox.getText().length() != 0
 						&& dateTimePicker.getValue() != null
-						&& locationBox.getText().length() != 0) {
+						&& locationTextBox.getText().length() != 0) {
 					errorLabel.setVisible(false);
 					// Build the announcement to be submitted
 					Announcement currentSubmission = new Announcement();
 					currentSubmission.setSubmitter(currentUser);
-					currentSubmission.setTitle(titleBox.getText());
-					currentSubmission.setLocation(locationBox.getText());
-					currentSubmission.setBriefDescription(briefDescBox
+					currentSubmission.setTitle(titleTextBox.getText());
+					currentSubmission.setLocation(locationTextBox.getText());
+					currentSubmission.setBriefDescription(briefDescTextBox
 							.getText());
-					currentSubmission.setLongDescription(fullDescBox.getText());
+					currentSubmission.setLongDescription(fullDescTextBox.getText());
 					currentSubmission.setEventDate(dateTimePicker.getValue());
 
 					// Set announcements in the submission according to checked
 					// announcement CheckBoxs
 
-						currentSubmission.setToFreshman(freshmanAudienceCB
+						currentSubmission.setToFreshman(freshmanCheckBox
 								.getValue());
-						currentSubmission.setToSophomore(sophomoreAudienceCB
+						currentSubmission.setToSophomore(sophomoreCheckBox
 								.getValue());
-						currentSubmission.setToJunior(juniorAudienceCB
+						currentSubmission.setToJunior(juniorCheckBox
 								.getValue());
-						currentSubmission.setToSenior(seniorAudienceCB
+						currentSubmission.setToSenior(seniorCheckBox
 								.getValue());
-						currentSubmission.setToGraduate(graduateAudienceCB
+						currentSubmission.setToGraduate(graduateCheckBox
 								.getValue());
-						currentSubmission.setToFaculty(facultyAudienceCB
+						currentSubmission.setToFaculty(facultyCheckBox
 								.getValue());
 
 
 					// Set tags in the submission according to checked tag
 					// CheckBoxs
-					currentSubmission.setTag1(allTagCBs.get(0).getValue());
-					currentSubmission.setTag2(allTagCBs.get(1).getValue());
-					currentSubmission.setTag3(allTagCBs.get(2).getValue());
-					currentSubmission.setTag4(allTagCBs.get(3).getValue());
-					currentSubmission.setTag5(allTagCBs.get(4).getValue());
+					currentSubmission.setTag1(tagsPanel.boxIsChecked(0));
+					currentSubmission.setTag2(tagsPanel.boxIsChecked(1));
+					currentSubmission.setTag3(tagsPanel.boxIsChecked(2));
+					currentSubmission.setTag4(tagsPanel.boxIsChecked(3));
+					currentSubmission.setTag5(tagsPanel.boxIsChecked(4));
 					
 					currentSubmission.setHasEventTime(false);
 					/*ArrayList<String> checkedTagCBValues = new ArrayList<String>();
@@ -173,14 +182,14 @@ public class SubmissionPage extends Page {
 		// Set widget details
 		pageTitleLabel
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		titleBox.setMaxLength(70);
-		titleBox.setVisibleLength(80);
-		briefDescBox.setMaxLength(255);
-		briefDescBox.setVisibleLength(80 - 12);
-		fullDescBox.setMaxLength(500);
-		fullDescBox.setVisibleLength(80);
-		locationBox.setMaxLength(77);
-		locationBox.setVisibleLength(80 - 3);
+		titleTextBox.setMaxLength(70);
+		titleTextBox.setVisibleLength(80);
+		briefDescTextBox.setMaxLength(255);
+		briefDescTextBox.setVisibleLength(80 - 12);
+		fullDescTextBox.setMaxLength(500);
+		fullDescTextBox.setVisibleLength(80);
+		locationTextBox.setMaxLength(77);
+		locationTextBox.setVisibleLength(80 - 3);
 
 		// Create Panels
 		masterPanel.addStyleName("leftVerticalPanel");
@@ -193,33 +202,29 @@ public class SubmissionPage extends Page {
 		HorizontalPanel fullDescPanel = new HorizontalPanel();
 		HorizontalPanel dateTimePanel = new HorizontalPanel();
 		HorizontalPanel locationPanel = new HorizontalPanel();
-		HorizontalPanel tagsPanel = new HorizontalPanel();
 		// VerticalPanel innerVertTagsPanel = new VerticalPanel();
 
 		// Setup Panels for each category
-		innerHoriAudiencePanel1.add(freshmanAudienceCB);
-		innerHoriAudiencePanel1.add(sophomoreAudienceCB);
-		innerHoriAudiencePanel1.add(juniorAudienceCB);
-		innerHoriAudiencePanel2.add(seniorAudienceCB);
-		innerHoriAudiencePanel2.add(graduateAudienceCB);
-		innerHoriAudiencePanel2.add(facultyAudienceCB);
+		innerHoriAudiencePanel1.add(freshmanCheckBox);
+		innerHoriAudiencePanel1.add(sophomoreCheckBox);
+		innerHoriAudiencePanel1.add(juniorCheckBox);
+		innerHoriAudiencePanel2.add(seniorCheckBox);
+		innerHoriAudiencePanel2.add(graduateCheckBox);
+		innerHoriAudiencePanel2.add(facultyCheckBox);
 		innerVertAudiencePanel.add(innerHoriAudiencePanel1);
 		innerVertAudiencePanel.add(innerHoriAudiencePanel2);
 		audiencePanel.add(audienceLabel);
 		audiencePanel.add(innerVertAudiencePanel);
 		titlePanel.add(titleLabel);
-		titlePanel.add(titleBox);
+		titlePanel.add(titleTextBox);
 		briefDescPanel.add(briefDescLabel);
-		briefDescPanel.add(briefDescBox);
+		briefDescPanel.add(briefDescTextBox);
 		fullDescPanel.add(fullDescLabel);
-		fullDescPanel.add(fullDescBox);
+		fullDescPanel.add(fullDescTextBox);
 		dateTimePanel.add(dateTimeLabel);
 		dateTimePanel.add(dateTimePicker);
 		locationPanel.add(locationLabel);
-		locationPanel.add(locationBox);
-		tagsPanel.add(tagsLabel);
-		//TODO Re add
-		//tagsPanel.add(generateInnerVertTagsPanel(allUserTags));
+		locationPanel.add(locationTextBox);
 
 		// Add all category Panels to the masterPanel
 		masterPanel.add(pageTitleLabel);
@@ -230,6 +235,7 @@ public class SubmissionPage extends Page {
 		masterPanel.add(fullDescPanel);
 		masterPanel.add(dateTimePanel);
 		masterPanel.add(locationPanel);
+		masterPanel.add(tagsLabel);
 		masterPanel.add(tagsPanel);
 		masterPanel.add(submitButton);
 	}
