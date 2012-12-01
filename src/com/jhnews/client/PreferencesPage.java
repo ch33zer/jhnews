@@ -29,7 +29,6 @@ public class PreferencesPage extends Page {
 		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		notificationCheckBox = new CheckBox("Enable email notifications");
 		tagsPanel = new TagsPanel();
-		tagsPanel.fillSampleInfo();
 		Button saveButton = new Button("Save", new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
