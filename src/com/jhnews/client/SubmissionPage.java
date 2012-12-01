@@ -102,7 +102,6 @@ public class SubmissionPage extends Page {
 		dateTimePicker = new DatePicker();// TODO add selector,
 															// view, and model
 		tagsPanel = new TagsPanel();
-		tagsPanel.fillSampleInfo();
 		final Label errorLabel = new Label(
 				"Invalid Announcement. Please fill in all fields.");
 		errorLabel.addStyleDependentName("error");
