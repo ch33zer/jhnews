@@ -46,10 +46,10 @@ public class AnnouncementListPanelTest extends GWTTestCase
   @Test
   public void testSetAnnouncementList()
   {
-	  AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
+	  UnrestrictedServiceAsync service = GWT.create(UnrestrictedService.class);
 	  final AnnouncementListPanel alp = new AnnouncementListPanel();
 		if (service == null) {
-			service = GWT.create(AnnouncementFetcher.class);
+			service = GWT.create(UnrestrictedService.class);
 		}
 		service.getTodaysAnnouncements(new AsyncCallback<List<Announcement>>() {
 			
@@ -70,11 +70,11 @@ public class AnnouncementListPanelTest extends GWTTestCase
   @Test
   public void testGetAnnouncements()
   {
-	  AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
+	  UnrestrictedServiceAsync service = GWT.create(UnrestrictedService.class);
 	  AnnouncementListPanel alp = new AnnouncementListPanel();
 	  final AnnouncementListPanel alp2 = new AnnouncementListPanel();
 		if (service == null) {
-			service = GWT.create(AnnouncementFetcher.class);
+			service = GWT.create(UnrestrictedService.class);
 		}
 		service.getTodaysAnnouncements(new AsyncCallback<List<Announcement>>() {
 			
