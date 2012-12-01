@@ -13,13 +13,16 @@ import com.jhnews.shared.Announcement;
  * @author Group 8
  *
  */
-public class SideBarPage extends Page {
+public class SideBarPage extends Page implements LoginListener {
 	
 	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
 	
 	private VerticalPanel masterPanel;
 	private Hyperlink pendingReview;
 	private Hyperlink editTags;
+	
+	private LoginManager loginManager = LoginManager.getInstance();
+	
 	
 	/**
 	 * Default constructor creates the sidebar based on who is logged in
@@ -35,24 +38,9 @@ public class SideBarPage extends Page {
 		masterPanel.addStyleName("leftVerticalPanel");
 		
 		masterPanel.add(search);
-		masterPanel.add(submit);
+		masterPanel.add(submit);		
 		
-		LoginManager.getInstance().isAdmin(new LoginManagerCallback<Boolean>() {
-
-			@Override
-			public void onSuccess(Boolean result) {
-				if (result) {
-					userIsAdmin();
-				}
-				
-			}
-
-			@Override
-			public void onFail() {
-				
-			}
-			
-		});
+		loginManager.addLoginListener(this);
 		
 		initWidget(masterPanel);
 	}
@@ -73,6 +61,33 @@ public class SideBarPage extends Page {
 				
 			}
 		});
+	}
+	
+	public void userIsNotAdmin() {
+		masterPanel.remove(editTags);
+		masterPanel.remove(pendingReview);
+	}
+
+	@Override
+	public void onLogin() {
+		loginManager.isAdmin(new LoginManagerCallback<Boolean>() {
+			@Override
+			public void onSuccess(Boolean result) {
+				if (result) {
+					userIsAdmin();
+				}
+				
+			}
+			@Override
+			public void onFail() {
+				
+			}		
+		});		
+	}
+
+	@Override
+	public void onLogout() {
+		userIsNotAdmin();		
 	}
 	
 }
