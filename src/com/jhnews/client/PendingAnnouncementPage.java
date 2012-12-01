@@ -7,8 +7,17 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.jhnews.shared.Announcement;
 
+/**
+ * This page displays the individual pending announcement details
+ * @author Group 8
+ *
+ */
 public class PendingAnnouncementPage extends Page {
 	
+	/**
+	 * This is the default constructor creates the announcement page based on the Announcement object in question.
+	 * @param announcement The announcement details
+	 */
 	public PendingAnnouncementPage(Announcement announcement) {
 		VerticalPanel masterPanel = new VerticalPanel();
 		HorizontalPanel buttonPanel = new HorizontalPanel();

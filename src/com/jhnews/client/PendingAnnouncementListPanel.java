@@ -2,6 +2,11 @@ package com.jhnews.client;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 
+/**
+ * Extends the panel to generate PendingAnnouncementPages specifically
+ * @author Group 8
+ *
+ */
 public class PendingAnnouncementListPanel extends AnnouncementListPanel {
 	
 	/**

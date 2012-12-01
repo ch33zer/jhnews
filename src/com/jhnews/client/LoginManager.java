@@ -89,9 +89,6 @@ public class LoginManager {
 	 * are logged on is in onSuccess(), and onFail() in the case that the user
 	 * is not logged in
 	 * 
-	 * @param ID
-	 *            The Session ID, obtained through a call to
-	 *            {@link #logIn(String, String, LoginManagerCallback)}
 	 * @param callback
 	 *            The callback, as described above. Executes at the completion
 	 *            of the call.
@@ -171,7 +168,6 @@ public class LoginManager {
 	
 	/**
 	 * Logs the user out
-	 * @param sessionID The current session ID before log out
 	 * @param callback Code that is executed when the method returns
 	 */
 	public void logOut(final LoginManagerCallback<Void> callback) {
@@ -261,6 +257,10 @@ public class LoginManager {
 				newSession.getExpireDate(), null, "/", false);
 	}
 	
+	/**
+	 * Checks if the current user is an admin
+	 * @param callback The callback to describe the result
+	 */
 	public void isAdmin(final LoginManagerCallback<Boolean> callback) {
 
 		AsyncCallback<Boolean> adminCallBack = new AsyncCallback<Boolean>() {
