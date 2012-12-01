@@ -6,12 +6,12 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.Announcement;
 
-public class PendingAnnouncementPage extends Page {
+public class PendingAnnouncementListPage extends Page {
 	
 	private AnnouncementListPanel announcementListPanel;
-	private RestrictedServiceAsync service = GWT.create(UnrestrictedService.class);
+	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
 	
-	public PendingAnnouncementPage() {
+	public PendingAnnouncementListPage() {
 		announcementListPanel = new AnnouncementListPanel();
 		if (service == null) {
 			service = GWT.create(UnrestrictedService.class);

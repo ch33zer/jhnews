@@ -31,7 +31,7 @@ public class SideBarPage extends Page implements LoginListener {
 		Hyperlink search = new Hyperlink("Search Announcements", "SEARCH");
 		Hyperlink submit = new Hyperlink("Submit Announcement", "SUBMIT");
 		
-		pendingReview = new Hyperlink("Pending Reviews (#)", "REVIEW");
+		pendingReview = new Hyperlink("Pending Reviews (#)", "PENDING");
 		editTags = new Hyperlink("Edit Category Tags", "EDIT");
 		
 		masterPanel = new VerticalPanel();

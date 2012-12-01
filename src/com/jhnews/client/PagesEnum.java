@@ -29,7 +29,7 @@ public enum PagesEnum {
 	/**
 	 * Review pending announcement page
 	 */
-	REVIEW,
+	PENDING,
 	
 	/**
 	 * Edit pending announcement page
