@@ -1,6 +1,5 @@
 package com.jhnews.server;
 
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -29,11 +28,18 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 		sessionFactory = HibernateUtil.getSessionFactory();
 	}
 	
+	
+	/* (non-Javadoc)
+	 * @see com.jhnews.client.UnrestrictedService#getTodaysAnnouncements()
+	 */
 	@Override
 	public List<Announcement> getTodaysAnnouncements() {
 		return getAnnouncements(null);//TODO make this return only todays announcements
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jhnews.client.UnrestrictedService#getAnnouncementsWithString(java.lang.String)
+	 */
 	@Override
 	public List<Announcement> getAnnouncementsWithString(String query) throws NoResultsException {
 		if (query != null){
@@ -42,6 +48,11 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 		throw new NoResultsException();
 	}
 	
+	/**
+	 * Gets the announcements based on the query
+	 * @param criteria Definition for the query
+	 * @return Results of the query
+	 */
 	private List<Announcement> getAnnouncements(Criterion criteria)  {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
