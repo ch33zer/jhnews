@@ -15,49 +15,64 @@ import com.jhnews.shared.Announcement;
  */
 public class SideBarPage extends Page {
 	
-	private RestrictedServiceAsync service = GWT.create(UnrestrictedService.class);
+	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
 	
+	private VerticalPanel masterPanel;
 	private Hyperlink pendingReview;
+	private Hyperlink editTags;
 	
 	/**
 	 * Default constructor creates the sidebar based on who is logged in
 	 */
 	public SideBarPage() {
-		boolean isAdmin = true;//TODO needs to be added
-		
-		
-		
 		Hyperlink search = new Hyperlink("Search Announcements", "SEARCH");
 		Hyperlink submit = new Hyperlink("Submit Announcement", "SUBMIT");
 		
 		pendingReview = new Hyperlink("Pending Reviews (#)", "REVIEW");
-		Hyperlink editTags = new Hyperlink("Edit Category Tags", "EDIT");
+		editTags = new Hyperlink("Edit Category Tags", "EDIT");
 		
-		VerticalPanel panel = new VerticalPanel();
-		panel.addStyleName("leftVerticalPanel");
+		masterPanel = new VerticalPanel();
+		masterPanel.addStyleName("leftVerticalPanel");
 		
-		panel.add(search);
-		panel.add(submit);
-		if (isAdmin) {
-			panel.add(pendingReview);
-			panel.add(editTags);
+		masterPanel.add(search);
+		masterPanel.add(submit);
+		
+		LoginManager.getInstance().isAdmin(new LoginManagerCallback<Boolean>() {
 
-			service.getPendingAnnouncements(LoginManager.getInstance().getSessionID(), new AsyncCallback<List<Announcement>>() {
-				
-				@Override
-				public void onSuccess(List<Announcement> result) {
-					pendingReview.setText("Pending Reviews (" + result.size() + ")");
+			@Override
+			public void onSuccess(Boolean result) {
+				if (result) {
+					userIsAdmin();
 				}
 				
-				@Override
-				public void onFailure(Throwable caught) {
-					
-				}
-			});
-		}
-		initWidget(panel);
+			}
+
+			@Override
+			public void onFail() {
+				
+			}
+			
+		});
+		
+		initWidget(masterPanel);
 	}
 	
-	
+	public void userIsAdmin() {
+		masterPanel.add(pendingReview);
+		masterPanel.add(editTags);
+
+		service.getPendingAnnouncements(LoginManager.getInstance().getSessionID(), new AsyncCallback<List<Announcement>>() {
+			
+			@Override
+			public void onSuccess(List<Announcement> result) {
+				pendingReview.setText("Pending Reviews (" + result.size() + ")");
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				
+			}
+		});
+	}
 	
 }
