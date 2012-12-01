@@ -12,6 +12,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.TextArea;
 import com.jhnews.shared.Announcement;
 
+/**
+ * This class is the JUnit test for AnnouncementListPanel.
+ * @author Group 8
+ */
 public class AnnouncementListPanelTest extends GWTTestCase
 {
   public String getModuleName()

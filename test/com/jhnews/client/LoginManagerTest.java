@@ -9,6 +9,10 @@ import com.google.gwt.user.client.Cookies;
 import com.jhnews.shared.Session;
 import com.jhnews.shared.User;
 
+/**
+ * This class is the JUnit test for LoginManager.
+ * @author Group 8
+ */
 public class LoginManagerTest extends GWTTestCase
 {
   public String getModuleName()

@@ -10,6 +10,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.jhnews.shared.Announcement;
 
+/**
+ * This class is the JUnit test for PageManger.
+ * @author Group 8
+ */
 public class PageManagerTest extends GWTTestCase
 {
   public String getModuleName()

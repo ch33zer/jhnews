@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
+/**
+ * This class is the JUnit test for SubmissionPage.
+ * @author Group 8
+ */
 public class SubmissionPageTest extends GWTTestCase
 {
   public String getModuleName()
