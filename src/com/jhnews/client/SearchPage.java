@@ -22,7 +22,7 @@ import com.jhnews.shared.Announcement;
 public class SearchPage extends Page {
 	
 	private VerticalPanel masterPanel;
-	private AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
+	private UnrestrictedServiceAsync service = GWT.create(UnrestrictedService.class);
 	private TextBox queryText;
 	private AnnouncementListPanel announcementListPanel;
 	
@@ -31,7 +31,7 @@ public class SearchPage extends Page {
 	 */
 	public SearchPage() {
 		if (service == null) {
-			service = GWT.create(AnnouncementFetcher.class);
+			service = GWT.create(UnrestrictedService.class);
 		}
 		masterPanel = new VerticalPanel();
 		masterPanel.addStyleName("leftVerticalPanel");

@@ -10,24 +10,18 @@ import com.jhnews.shared.Announcement;
  * @author Group 8
  *
  */
-public interface AnnouncementFetcherAsync {
+public interface UnrestrictedServiceAsync {
 
 	/** 
-	 * @see {@link AnnouncementFetcher#getTodaysAnnouncements()}
+	 * @see {@link UnrestrictedService#getTodaysAnnouncements()}
 	 * @param callback
 	 */
 	void getTodaysAnnouncements(AsyncCallback<List<Announcement>> callback);
 	
-	/** @see {@link AnnouncementFetcher#getAnnouncementsWithString(String)}
+	/** @see {@link UnrestrictedService#getAnnouncementsWithString(String)}
 	 * @param query
 	 * @param callback
 	 */
 	void getAnnouncementsWithString(String query, AsyncCallback<List<Announcement>> callback);
-
-	/** @see {@link AnnouncementFetcher#putAnnouncement(Announcement)}
-	 * @param announcement
-	 * @param callback
-	 */
-	void putAnnouncement(Announcement announcement, AsyncCallback<Void> callback);
 
 }

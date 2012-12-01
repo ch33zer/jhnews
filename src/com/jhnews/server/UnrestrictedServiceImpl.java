@@ -12,7 +12,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.jhnews.client.AnnouncementFetcher;
+import com.jhnews.client.UnrestrictedService;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.NoResultsException;
 
@@ -20,7 +20,7 @@ import com.jhnews.shared.NoResultsException;
  * @author Group 8
  *
  */
-public class AnnouncementFetcherImpl extends RemoteServiceServlet implements AnnouncementFetcher {
+public class UnrestrictedServiceImpl extends RemoteServiceServlet implements UnrestrictedService {
 
 	/**
 	 * For serialization
@@ -29,14 +29,6 @@ public class AnnouncementFetcherImpl extends RemoteServiceServlet implements Ann
 	private SessionFactory sessionFactory;
 	{
 		sessionFactory = HibernateUtil.getSessionFactory();
-	}
-	private LoginServiceImpl loginServlet;
-	{
-		try {
-			loginServlet = (LoginServiceImpl) getServletContext().getServlet("LoginService");
-		} catch (ServletException e) {
-			System.err.println("Failed to load loginService. Is it running?");
-		}
 	}
 	
 	@Override
@@ -59,24 +51,6 @@ public class AnnouncementFetcherImpl extends RemoteServiceServlet implements Ann
 		session.close();
 		List<Announcement> todays = HibernateConversionUtil.convertHibernateAnnouncementList(todayHibernate);
 		return todays;
-	}
-
-	@Override
-	public void putAnnouncement(Announcement announcement) {
-		AnnouncementHibernate announcementHibernate = HibernateConversionUtil.convertAnnouncement(announcement, false);
-		Transaction tx = null;
-		try {
-			Session session = sessionFactory.openSession();
-			tx=session.beginTransaction();
-			session.save(announcementHibernate);
-			tx.commit();
-			session.close();
-		}
-		catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-		}
 	}
 	
 
