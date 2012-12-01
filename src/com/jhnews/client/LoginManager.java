@@ -68,12 +68,12 @@ public class LoginManager {
 	
 	/**
 	 * Gets and returns the list of LoginListeners
-	 * @return 
 	 * @return the list of LoginListeners
 	 */
 	public List<LoginListener> getLoginListener() {
 		return loginListeners;
 	}
+	
 	
 	/**
 	 * Removes log in listeners
