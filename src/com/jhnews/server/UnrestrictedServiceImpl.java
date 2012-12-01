@@ -1,12 +1,10 @@
 package com.jhnews.server;
 
+import java.util.Date;
 import java.util.List;
-
-import javax.servlet.ServletException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -33,7 +31,7 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 	
 	@Override
 	public List<Announcement> getTodaysAnnouncements() {
-		return getAnnouncements(null);//TODO make this return only todays announcements
+		return getAnnouncements(Restrictions.ge("eventDate", new Date()));//TODO make this return only todays announcements
 	}
 
 	@Override

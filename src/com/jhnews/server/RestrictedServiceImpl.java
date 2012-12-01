@@ -89,6 +89,18 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			return null;
 		}
 	}
+	
+	private boolean userExists(String username) {
+		org.hibernate.Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<UserHibernate> todayHibernate = session.createCriteria(UserHibernate.class).add(Restrictions.eq("username", username)).list();
+		session.close();
+		if ( todayHibernate.size()==1 && todayHibernate.get(0)!= null)
+			return true;
+		else {
+			return false;
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see com.jhnews.client.LoginService#isLoggedIn(java.lang.String)
@@ -99,7 +111,6 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			throw new NotLoggedInException();
 		}
 		return databaseIsLoggedIn(sessionID);
-		//return sessionIDs.containsKey(sessionID) && sessionIDs.get(sessionID).after(new Date());
 	}
 	
 	private boolean databaseIsLoggedIn(String sessionID) {
@@ -107,12 +118,20 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	}
 	
 	private UserHibernate getUserFromSessionID(String sessionID) {
+		SessionHibernate hiberSession = getSessionFromSessionID(sessionID);
+		if (hiberSession != null) {
+			return hiberSession.getUser();
+		}
+		return null;
+	}
+	
+	private SessionHibernate getSessionFromSessionID(String sessionID) {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
 		List<SessionHibernate> todayHibernate = session.createCriteria(SessionHibernate.class).add(Restrictions.and(Restrictions.eq("sessionID", sessionID), Restrictions.ge("expireDate", new Date()))).list();
 		session.close();
 		if (todayHibernate.size() != 0) {
-			return todayHibernate.get(0).getUser();
+			return todayHibernate.get(0);
 		}
 		else {
 			return null;
@@ -126,14 +145,36 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	 */
 	@Override
 	public Session register(String username, String password) throws RegistrationFailedException, UserExistsException {
-		//TODO
-		/*if (username == null || password == null) {
+
+		System.err.println("Adding!");
+		if (username == null || password == null) {
 			throw new RegistrationFailedException();
 		}
+
+		System.err.println("Not Null!");
 		if (!FieldVerifier.isValidUserNameAndPassword(username, password)) {
 			throw new RegistrationFailedException();
 		}
-		if (users.containsKey(username)) {
+
+		System.err.println("Valid!");
+		if (userExists(username)) {
+			throw new UserExistsException();
+		}
+
+		System.err.println("User doesn't exist!");
+		UserHibernate userHibernate= generateDefaultUser();
+		userHibernate.setUsername(username);
+		userHibernate.setHash(BCrypt.hashpw(password, BCrypt.gensalt()));
+		insertUser(userHibernate);
+		try {
+			return logIn(username, password);
+		} catch (LoginFailedException e) {
+
+			System.err.println("Failed!");
+			throw new RegistrationFailedException();
+		}
+		
+/*		if (users.containsKey(username)) {
 			throw new UserExistsException();
 		}
 		users.put(username, BCrypt.hashpw(password, BCrypt.gensalt()));
@@ -141,15 +182,64 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			return logIn(username, password);
 		} catch (LoginFailedException e) {
 			throw new RegistrationFailedException();
+		}*/
+	}
+	
+	private void insertUser(UserHibernate userHibernate) {
+		Transaction tx = null;
+		try {
+			org.hibernate.Session hibernateSession = sessionFactory.openSession();
+			tx=hibernateSession.beginTransaction();
+			hibernateSession.save(userHibernate);
+			tx.commit();
+			hibernateSession.close();
 		}
-		*/
-		return null;
+		catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+		}
+	}
+
+	private UserHibernate generateDefaultUser() {
+		UserHibernate userHibernate = new UserHibernate();
+		userHibernate.setAdmin(false);
+		userHibernate.setEmail("");
+		userHibernate.setFirstName("");
+		userHibernate.setLastName("");
+		userHibernate.setHash("");
+		userHibernate.setTag1(true);
+		userHibernate.setTag2(true);
+		userHibernate.setTag3(true);
+		userHibernate.setTag4(true);
+		userHibernate.setTag5(true);
+		userHibernate.setTag6(true);
+		userHibernate.setUsername("");
+		return userHibernate;
+	}
+
+	private void deleteSession(SessionHibernate hiberSession) {
+		Transaction tx = null;
+		try {
+			org.hibernate.Session session = sessionFactory.openSession();
+			tx=session.beginTransaction();
+			session.delete(hiberSession);
+			tx.commit();
+			session.close();
+		}
+		catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+		}
 	}
 
 	@Override
 	public void logOut(String sessionID) {
-		//TODO
-		//sessionIDs.remove(sessionID);
+		SessionHibernate hiberSession = getSessionFromSessionID(sessionID);
+		if (hiberSession != null) {
+			deleteSession(hiberSession);
+		}
 	}
 	
 	@Override

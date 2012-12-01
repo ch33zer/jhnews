@@ -30,6 +30,7 @@ public class UserHibernate implements Serializable{
 	private boolean tag3;
 	private boolean tag4;
 	private boolean tag5;
+	private boolean tag6;
 	private String username;
 	private String hash;
 	private static final long serialVersionUID = 1L;
@@ -176,6 +177,19 @@ public class UserHibernate implements Serializable{
 	 */
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+	/**
+	 * @return the tag6
+	 */
+	@Column(name="uTag6")
+	public boolean isTag6() {
+		return tag6;
+	}
+	/**
+	 * @param tag6 the tag6 to set
+	 */
+	public void setTag6(boolean tag6) {
+		this.tag6 = tag6;
 	}
 	
 	
