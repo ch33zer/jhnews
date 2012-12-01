@@ -75,6 +75,10 @@ public class SubmissionPage extends Page {
 		initWidget(masterPanel);
 	}
 
+	/**
+	 * Generates the master panel for a logged in user
+	 * @param masterPanel the largest panel
+	 */
 	private void generateLoggedInPanel(VerticalPanel masterPanel) {
 		// Variables
 		final User currentUser = new User();// TODO change currentUser to the

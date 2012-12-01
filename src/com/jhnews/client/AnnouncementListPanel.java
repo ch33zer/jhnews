@@ -26,6 +26,10 @@ public class AnnouncementListPanel extends Composite implements ValueChangeHandl
 	private final static DateTimeFormat FORMATTER_NO_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
 	private final static DateTimeFormat FORMATTER_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
 	
+	/**
+	 * This is the default constructor that creates a panel containing a list of announcements.
+	 *
+	 */
 	AnnouncementListPanel() {
 		masterPanel = new VerticalPanel();
 		masterPanel.addStyleName("leftVerticalPanel");
@@ -83,6 +87,10 @@ public class AnnouncementListPanel extends Composite implements ValueChangeHandl
 		}
 	}
 
+	/**
+	 * Gets the list of announcements contained by this panel.
+	 * @return the list of announcements
+	 */
 	public List<Announcement> getAnnouncements() {
 		return announcements;
 	}
