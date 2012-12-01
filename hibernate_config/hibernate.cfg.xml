@@ -11,7 +11,7 @@ com.mysql.jdbc.Driver
         </property>
 
         <property name="hibernate.connection.url" >
-jdbc:mysql://localhost/jhnews
+jdbc:mysql://192.168.0.109/jhnews
         </property>
 
         <property name="hibernate.connection.username" >
