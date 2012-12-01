@@ -1,4 +1,4 @@
-package com.jhnews.server;
+/*package com.jhnews.server;
 
 import org.junit.Test;
 
@@ -35,4 +35,4 @@ public class LoginServiceImplTest extends GWTTestCase
 	  Session temp = login.register("user", "pw");
 	  assertTrue(login.isLoggedIn(temp.getSessionID()));
   }	
-}
+}*/
