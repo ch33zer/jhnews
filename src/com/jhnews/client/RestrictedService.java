@@ -46,12 +46,23 @@ public interface RestrictedService extends RemoteService {
 	
 	/**
 	 * Saves an announcement on the server
+	 * @param sessionID Session ID of the current user
 	 * @param announcement The announcement to be saved
 	 * @throws NotLoggedInException In the case that the user is not logged in
 	 */
 	void putAnnouncement(String sessionID, Announcement announcement) throws NotLoggedInException;
 	
+	/**
+	 * Returns the pending announcements for the admin
+	 * @param sessionID Session ID of the current user
+	 * @return The List of pending announcements
+	 */
 	List<Announcement> getPendingAnnouncements(String sessionID);
 	
+	/**
+	 * Determines if the current user is an admin
+	 * @param sessionID Session ID of the current user
+	 * @return True if the current user is an admin
+	 */
 	boolean isAdmin(String sessionID);
 }

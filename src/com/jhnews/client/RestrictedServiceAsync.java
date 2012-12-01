@@ -38,15 +38,24 @@ public interface RestrictedServiceAsync {
 	 */
 	void logOut(String sessionID, AsyncCallback<Void> callback);
 
-	/** @see {@link UnrestrictedService#putAnnouncement(Announcement)}
+	/** @see {@link RestrictedService#putAnnouncement(String, Announcement)}
+	 * @param sessionID
 	 * @param announcement
 	 * @param callback
 	 */
 	void putAnnouncement(String sessionID, Announcement announcement, AsyncCallback<Void> callback);
 
+	/** @see {@link RestrictedService#getPendingAnnouncements(String)}
+	 * @param sessionID
+	 * @param callback
+	 */
 	void getPendingAnnouncements(String sessionID,
 			AsyncCallback<List<Announcement>> callback);
 
+	/** @see {@link RestrictedService#isAdmin(String)}
+	 * @param sessionID
+	 * @param callback
+	 */
 	void isAdmin(String sessionID, AsyncCallback<Boolean> callback);
 
 }
