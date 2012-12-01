@@ -81,6 +81,10 @@ public class HeaderPage extends Page implements LoginListener {
 		masterPanel.add(logIn);
 	}
 	
+	/**
+	 * Returns the master panel in the header
+	 * @return the master panel
+	 */
 	public HorizontalPanel getMasterPanel()
 	{
 		return masterPanel;
