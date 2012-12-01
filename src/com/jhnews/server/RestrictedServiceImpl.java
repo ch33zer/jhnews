@@ -188,7 +188,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		UserHibernate user = getUserFromSessionID(sessionID);
 		if (user != null) {
 			if (user.isAdmin()) {
-				return getAnnouncements(Restrictions.eq("approved", 0));
+				return getAnnouncements(Restrictions.eq("approved", false));
 			}
 		}
 		return null;
