@@ -13,7 +13,7 @@ public class HintPasswordTextBoxTest extends GWTTestCase
 {
   public String getModuleName()
   {  
-	  return "com.jhnews.client.HintPassWordText";
+	  return "com.jhnews.client.HintPasswordTextBox";
   }
   
   @Test
