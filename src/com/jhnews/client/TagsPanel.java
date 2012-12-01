@@ -21,6 +21,7 @@ public class TagsPanel extends Composite {
 	
 	public TagsPanel() {
 		masterPanel = new VerticalPanel();
+		fillSampleInfo();
 	    initWidget(masterPanel);
 	}
 	
@@ -32,9 +33,9 @@ public class TagsPanel extends Composite {
 			checkBoxes = new ArrayList<CheckBox>(tags.size());		
 			gridPanel = new Grid(rows, columns);
 			masterPanel.clear();
-			Window.alert("test" + tags.get(0));
 			for (int i = 0; i < tags.size(); i++) {
 				checkBox = new CheckBox(tags.get(i));
+				checkBoxes.add(checkBox);
 				gridPanel.setWidget(i / COLUMNS, i % COLUMNS, checkBox);
 				gridPanel.getCellFormatter().setWidth(i / COLUMNS, i % COLUMNS, CELL_FORMAT_WIDTH);
 			}
@@ -47,11 +48,11 @@ public class TagsPanel extends Composite {
 	}
 	
 	public void checkAnnouncementTags(Announcement announcement) {
-		checkBoxes.get(1).setValue(announcement.isTag1());
-		checkBoxes.get(2).setValue(announcement.isTag2());
-		checkBoxes.get(3).setValue(announcement.isTag3());
-		checkBoxes.get(4).setValue(announcement.isTag4());
-		checkBoxes.get(5).setValue(announcement.isTag5());
+		checkBoxes.get(0).setValue(announcement.isTag1());
+		checkBoxes.get(1).setValue(announcement.isTag2());
+		checkBoxes.get(2).setValue(announcement.isTag3());
+		checkBoxes.get(3).setValue(announcement.isTag4());
+		checkBoxes.get(4).setValue(announcement.isTag5());
 	}
 	
 	public void fillSampleInfo() {
