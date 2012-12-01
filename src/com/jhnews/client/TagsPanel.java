@@ -56,8 +56,8 @@ public class TagsPanel extends Composite {
 	
 	/**
 	 * Checks if a certain checkbox is checked
-	 * @param index The index of the checkbox to check
-	 * @return True if the box is checked
+	 * @param index the index of the checkbox to check
+	 * @return true if the checkbox is checked, false otherwise
 	 */
 	public boolean boxIsChecked(int index) {
 		return checkBoxes.get(index).getValue();
@@ -76,7 +76,7 @@ public class TagsPanel extends Composite {
 	}
 	
 	/**
-	 * Sets the tags according to a default sample set of tags.
+	 * Sets the tags according to a set of default sample tags.
 	 * 
 	 */
 	public void fillSampleInfo() {
