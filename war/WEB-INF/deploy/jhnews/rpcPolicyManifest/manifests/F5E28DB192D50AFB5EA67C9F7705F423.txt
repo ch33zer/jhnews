@@ -1,0 +1,2 @@
+serviceClass: com.jhnews.client.LoginService
+path: CBB684FE5E2450AE8D1EA1DE3D88824C.gwt.rpc
