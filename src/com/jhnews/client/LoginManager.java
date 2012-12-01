@@ -256,7 +256,7 @@ public class LoginManager {
 	 * Creates a new session cookie
 	 * @param newSession The information for the cookie
 	 */
-	private void createSessionCookie(Session newSession) {
+	public void createSessionCookie(Session newSession) {
 		Cookies.setCookie("sid", newSession.getSessionID(),
 				newSession.getExpireDate(), null, "/", false);
 		Cookies.setCookie("username", newSession.getUser().getUsername(),
