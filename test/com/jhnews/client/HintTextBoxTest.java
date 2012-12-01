@@ -9,6 +9,10 @@ import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.ui.TextBox;
 
+/**
+ * This class is the JUnit test for HintTextBox.
+ * @author Group 8
+ */
 public class HintTextBoxTest extends GWTTestCase
 {
   public String getModuleName()

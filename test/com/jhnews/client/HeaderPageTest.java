@@ -8,6 +8,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 
+/**
+ * This class is the JUnit test for HeaderPage.
+ * @author Group 8
+ */
 public class HeaderPageTest extends GWTTestCase
 {
   public String getModuleName()

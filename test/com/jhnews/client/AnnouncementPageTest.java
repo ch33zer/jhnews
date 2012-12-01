@@ -5,6 +5,10 @@ import org.junit.Test;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.jhnews.shared.Announcement;
 
+/**
+ * This class is the JUnit test for AnnouncementPage.
+ * @author Group 8
+ */
 public class AnnouncementPageTest extends GWTTestCase
 {
   public String getModuleName()
@@ -12,7 +16,8 @@ public class AnnouncementPageTest extends GWTTestCase
 	  return "com.jhnews.client.AnnouncementPage";
   }
   
-  @Test
+
+@Test
   public void testAnnouncementPageConstructor()
   { 
 	  AnnouncementPanel ap = new AnnouncementPanel(new Announcement());
