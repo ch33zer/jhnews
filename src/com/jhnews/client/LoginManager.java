@@ -19,14 +19,14 @@ public class LoginManager {
 
 	private static LoginManager instance;
 	private List<LoginListener> loginListeners;
-	private LoginServiceAsync service = GWT.create(LoginService.class);
+	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
 
 	/**
 	 * Private default constructor for the singleton pattern
 	 */
 	private LoginManager() {
 		if (service == null) {
-			service = GWT.create(LoginService.class);
+			service = GWT.create(RestrictedService.class);
 		}
 		loginListeners = new ArrayList<LoginListener>();
 	}

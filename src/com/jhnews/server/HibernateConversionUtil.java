@@ -28,7 +28,7 @@ public class HibernateConversionUtil {
 		announcement.setToSenior(announcementHibernate.isToSenior());
 		announcement.setToGraduate(announcementHibernate.isToGraduate());
 		announcement.setToFaculty(announcementHibernate.isToFaculty());
-		announcement.setHasEventTime(announcementHibernate.hasEventTime());
+		announcement.setHasEventTime(announcementHibernate.isHasEventTime());
 		return announcement;
 	}
 	

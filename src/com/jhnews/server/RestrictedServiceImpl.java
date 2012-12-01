@@ -9,7 +9,9 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.jhnews.client.LoginService;
+import com.jhnews.client.RestrictedService;
+import com.jhnews.shared.Announcement;
+import com.jhnews.shared.FieldVerifier;
 import com.jhnews.shared.LoginFailedException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
@@ -20,8 +22,8 @@ import com.jhnews.shared.UserExistsException;
  * @author Group 8
  *
  */
-public class LoginServiceImpl extends RemoteServiceServlet implements
-		LoginService {
+public class RestrictedServiceImpl extends RemoteServiceServlet implements
+		RestrictedService {
 	
 	/**
 	 * For Serialization	
@@ -95,16 +97,25 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		if (sessionID == null) {
 			throw new NotLoggedInException();
 		}
-		return checkDatabaseLogin(sessionID);
+		return databaseIsLoggedIn(sessionID);
 		//return sessionIDs.containsKey(sessionID) && sessionIDs.get(sessionID).after(new Date());
 	}
 	
-	private boolean checkDatabaseLogin(String sessionID) {
+	private boolean databaseIsLoggedIn(String sessionID) {
+		return getUserFromSessionID(sessionID) != null;
+	}
+	
+	private UserHibernate getUserFromSessionID(String sessionID) {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
 		List<SessionHibernate> todayHibernate = session.createCriteria(SessionHibernate.class).add(Restrictions.and(Restrictions.eq("sessionID", sessionID), Restrictions.ge("expireDate", new Date()))).list();
 		session.close();
-		return todayHibernate.size() == 1;
+		if (todayHibernate.size() != 0) {
+			return todayHibernate.get(0).getUser();
+		}
+		else {
+			return null;
+		}
 	}
 
 
@@ -138,6 +149,28 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	public void logOut(String sessionID) {
 		//TODO
 		//sessionIDs.remove(sessionID);
+	}
+	
+	@Override
+	public void putAnnouncement(String sessionID, Announcement announcement) throws NotLoggedInException {
+		UserHibernate user = getUserFromSessionID(sessionID);
+		if (user != null) {
+			AnnouncementHibernate announcementHibernate = HibernateConversionUtil.convertAnnouncement(announcement, false);
+			announcementHibernate.setSubmitter(user);
+			Transaction tx = null;
+			try {
+				org.hibernate.Session session = sessionFactory.openSession();
+				tx=session.beginTransaction();
+				session.save(announcementHibernate);
+				tx.commit();
+				session.close();
+			}
+			catch (Exception e) {
+				if (tx != null) {
+					tx.rollback();
+				}
+			}
+		}
 	}
 
 }

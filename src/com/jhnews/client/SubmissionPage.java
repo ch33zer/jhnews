@@ -24,6 +24,12 @@ import com.jhnews.shared.User;
  * @author Group 8
  */
 public class SubmissionPage extends Page {
+	private UnrestrictedServiceAsync unrestrictedService = GWT
+			.create(UnrestrictedService.class);
+	
+	private RestrictedServiceAsync restrictedService = GWT
+			.create(RestrictedService.class);
+
 	
 	private VerticalPanel masterPanel;
 	private TextBox titleTextBox;
@@ -38,16 +44,17 @@ public class SubmissionPage extends Page {
 	private CheckBox facultyCheckBox;
 	private DatePicker dateTimePicker;
 	private TagsPanel tagsPanel;
-	
-	private AnnouncementFetcherAsync service = GWT
-			.create(AnnouncementFetcher.class);
+
 
 	/**
 	 * This is the default constructor for this SubmissionPage class.
 	 */
 	public SubmissionPage() {
-		if (service == null) {
-			service = GWT.create(AnnouncementFetcher.class);
+		if (unrestrictedService == null) {
+			unrestrictedService = GWT.create(UnrestrictedService.class);
+		}
+		if (restrictedService == null) {
+			restrictedService = GWT.create(RestrictedService.class);
 		}
 		masterPanel = new VerticalPanel();
 		LoginManager.getInstance().isLoggedOn(
@@ -160,7 +167,7 @@ public class SubmissionPage extends Page {
 																			// checkedCBValues
 					}
 					currentSubmission.setTags(checkedTagCBValues);*/
-					service.putAnnouncement(currentSubmission,
+					restrictedService.putAnnouncement(LoginManager.getInstance().getSessionID(), currentSubmission,
 							new AsyncCallback<Void>() {
 
 								@Override

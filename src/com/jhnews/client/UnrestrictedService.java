@@ -10,8 +10,8 @@ import com.jhnews.shared.NoResultsException;
 /**The AnnouncementFetcher service provides functionality for fetching the announcements from today from the server. In the future it will allow for fetching a variable number of announcements
  * @author Group 8
  */
-@RemoteServiceRelativePath("AnnouncementFetcher")
-public interface AnnouncementFetcher extends RemoteService {
+@RemoteServiceRelativePath("UnrestrictedService")
+public interface UnrestrictedService extends RemoteService {
 	/** 
 	 * Get the announcements for today, specifically, with a date == todays date
 	 * @return A list of announcements from today
@@ -25,10 +25,4 @@ public interface AnnouncementFetcher extends RemoteService {
 	 * @throws NoResultsException Thrown when there are no results
 	 */
 	List<Announcement> getAnnouncementsWithString(String query) throws NoResultsException;
-	
-	/**
-	 * Saves an announcement on the server
-	 * @param announcement The announcement to be saved
-	 */
-	void putAnnouncement(Announcement announcement);
 }

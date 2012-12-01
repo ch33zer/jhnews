@@ -14,7 +14,7 @@ import com.jhnews.shared.Announcement;
 public class HomePage extends Page {
 	
 	private AnnouncementListPanel announcementListPanel;
-	private AnnouncementFetcherAsync service = GWT.create(AnnouncementFetcher.class);
+	private UnrestrictedServiceAsync service = GWT.create(UnrestrictedService.class);
 	
 	/**
 	 * Default constructor requests the Announcement information from the server and populates the list
@@ -22,7 +22,7 @@ public class HomePage extends Page {
 	public HomePage() {
 		announcementListPanel = new AnnouncementListPanel();
 		if (service == null) {
-			service = GWT.create(AnnouncementFetcher.class);
+			service = GWT.create(UnrestrictedService.class);
 		}
 		service.getTodaysAnnouncements(new AsyncCallback<List<Announcement>>() {
 			

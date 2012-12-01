@@ -2,6 +2,7 @@ package com.jhnews.client;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.jhnews.shared.Announcement;
 import com.jhnews.shared.LoginFailedException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
@@ -12,8 +13,8 @@ import com.jhnews.shared.UserExistsException;
  * @author Group 8
  *
  */
-@RemoteServiceRelativePath("LoginService")
-public interface LoginService extends RemoteService {
+@RemoteServiceRelativePath("RestrictedService")
+public interface RestrictedService extends RemoteService {
 	/** Attempt to log in with the specified username and password
 	 * @param username The users username
 	 * @param password The users password
@@ -40,4 +41,11 @@ public interface LoginService extends RemoteService {
 	 * @param sessionID The sessionID corresponding to the current users session
 	 */
 	void logOut(String sessionID);
+	
+	/**
+	 * Saves an announcement on the server
+	 * @param announcement The announcement to be saved
+	 * @throws NotLoggedInException In the case that the user is not logged in
+	 */
+	void putAnnouncement(String sessionID, Announcement announcement) throws NotLoggedInException;
 }
