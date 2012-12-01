@@ -6,11 +6,20 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.Announcement;
 
+/**
+ * A Panel to handle lists of pending announcements
+ * @author Group 8
+ *
+ */
 public class PendingAnnouncementListPage extends Page {
 	
 	private AnnouncementListPanel announcementListPanel;
 	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
 	
+	/**
+	 * This is the default constructor that creates a panel containing a list of pending announcements.
+	 *
+	 */
 	public PendingAnnouncementListPage() {
 		announcementListPanel = new AnnouncementListPanel();
 		if (service == null) {
