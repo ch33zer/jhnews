@@ -83,8 +83,6 @@ public class LoginManagerTest extends GWTTestCase
 	  
   }
   
-  
-  
   @Test
   public void testCreateSessionCookie()
   {
@@ -93,6 +91,6 @@ public class LoginManagerTest extends GWTTestCase
 	  user.setUsername("Tester");
 	  session.setSessionID("sessionID");
 	  session.setUser(user);
-	  LoginManager.createSessionCookie(session);
+	  LoginManager.getInstance().createSessionCookie(session);
   }
 }
