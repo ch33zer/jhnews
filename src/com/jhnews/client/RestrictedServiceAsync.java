@@ -1,5 +1,7 @@
 package com.jhnews.client;
 
+import java.util.List;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.Session;
@@ -41,4 +43,10 @@ public interface RestrictedServiceAsync {
 	 * @param callback
 	 */
 	void putAnnouncement(String sessionID, Announcement announcement, AsyncCallback<Void> callback);
+
+	void getPendingAnnouncements(String sessionID,
+			AsyncCallback<List<Announcement>> callback);
+
+	void isAdmin(String sessionID, AsyncCallback<Boolean> callback);
+
 }

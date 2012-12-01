@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -171,6 +172,35 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 				}
 			}
 		}
+	}
+	
+	private List<Announcement> getAnnouncements(Criterion criteria)  {
+		org.hibernate.Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).list():session.createCriteria(AnnouncementHibernate.class).list();
+		session.close();
+		List<Announcement> todays = HibernateConversionUtil.convertHibernateAnnouncementList(todayHibernate);
+		return todays;
+	}
+
+	@Override
+	public List<Announcement> getPendingAnnouncements(String sessionID) {
+		UserHibernate user = getUserFromSessionID(sessionID);
+		if (user != null) {
+			if (user.isAdmin()) {
+				return getAnnouncements(Restrictions.eq("approved", 0));
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public boolean isAdmin(String sessionID) {
+		UserHibernate user = getUserFromSessionID(sessionID);
+		if (user != null) {
+			return user.isAdmin();
+		}
+		return false;
 	}
 
 }

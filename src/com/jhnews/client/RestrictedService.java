@@ -1,5 +1,7 @@
 package com.jhnews.client;
 
+import java.util.List;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.jhnews.shared.Announcement;
@@ -48,4 +50,8 @@ public interface RestrictedService extends RemoteService {
 	 * @throws NotLoggedInException In the case that the user is not logged in
 	 */
 	void putAnnouncement(String sessionID, Announcement announcement) throws NotLoggedInException;
+	
+	List<Announcement> getPendingAnnouncements(String sessionID);
+	
+	boolean isAdmin(String sessionID);
 }
