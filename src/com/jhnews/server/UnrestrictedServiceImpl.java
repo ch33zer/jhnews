@@ -31,7 +31,7 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 	
 	@Override
 	public List<Announcement> getTodaysAnnouncements() {
-		return getAnnouncements(Restrictions.ge("eventDate", new Date()));//TODO make this return only todays announcements
+		return getAnnouncements(null);//TODO make this return only todays announcements
 	}
 
 	@Override

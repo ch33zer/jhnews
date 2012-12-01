@@ -148,17 +148,17 @@ public class LoginManager {
 
 			@Override
 			public void onSuccess(Session result) {
-				if (result != null) {
-					for (LoginListener listener : loginListeners) {
-						listener.onLogin();
-					}
-				}
 				if (callback != null) {
 					if (result != null) {
 						createSessionCookie(result);
 						callback.onSuccess(result);
 					} else {
 						callback.onFail();
+					}
+				}
+				if (result != null) {
+					for (LoginListener listener : loginListeners) {
+						listener.onLogin();
 					}
 				}
 			}
