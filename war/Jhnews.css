@@ -62,6 +62,7 @@ h1 {
 	border-color: dark blue;
 	border-style: none none solid none;
 	border-width: 2px;
+	text-align: center;
 }
 
 #sidebar .gwt-Hyperlink a {
