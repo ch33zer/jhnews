@@ -24,6 +24,7 @@ public class UserHibernate implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String email;
+	private boolean isAdmin;
 	private boolean tag1;
 	private boolean tag2;
 	private boolean tag3;
@@ -162,6 +163,19 @@ public class UserHibernate implements Serializable{
 	 */
 	public void setHash(String hash) {
 		this.hash = hash;
+	}
+	/**
+	 * @return the isAdmin
+	 */
+	@Column(name="isAdmin")
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	/**
+	 * @param isAdmin the isAdmin to set
+	 */
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 	

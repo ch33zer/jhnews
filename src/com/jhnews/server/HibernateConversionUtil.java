@@ -29,6 +29,7 @@ public class HibernateConversionUtil {
 		announcement.setToGraduate(announcementHibernate.isToGraduate());
 		announcement.setToFaculty(announcementHibernate.isToFaculty());
 		announcement.setHasEventTime(announcementHibernate.isHasEventTime());
+		announcement.setApproved(announcementHibernate.isApproved());
 		return announcement;
 	}
 	
@@ -54,6 +55,7 @@ public class HibernateConversionUtil {
 		hibernateAnnouncement.setToGraduate(announcement.isToGraduate());
 		hibernateAnnouncement.setToFaculty(announcement.isToFaculty());
 		hibernateAnnouncement.setHasEventTime(announcement.hasEventTime());
+		hibernateAnnouncement.setApproved(announcement.isApproved());
 		return hibernateAnnouncement;
 	}
 	
@@ -87,6 +89,7 @@ public class HibernateConversionUtil {
 		user.setTag3(userHibernate.isTag3());
 		user.setTag4(userHibernate.isTag4());
 		user.setTag5(userHibernate.isTag5());
+		user.setAdmin(userHibernate.isAdmin());
 		return user;
 	}
 }

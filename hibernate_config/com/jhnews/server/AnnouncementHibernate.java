@@ -46,6 +46,7 @@ public class AnnouncementHibernate implements Serializable {
 	private Date eventDate;
 	private boolean hasEventTime;
 	private UserHibernate submitter;
+	private boolean isApproved;
 	private boolean tag1;
 	private boolean tag2;
 	private boolean tag3;
@@ -331,5 +332,22 @@ public class AnnouncementHibernate implements Serializable {
 
 	public void setToFaculty(boolean toFaculty) {
 		this.toFaculty = toFaculty;
+	}
+
+
+	/**
+	 * @return the isApproved
+	 */
+	@Column(name="approved")
+	public boolean isApproved() {
+		return isApproved;
+	}
+
+
+	/**
+	 * @param isApproved the isApproved to set
+	 */
+	public void setApproved(boolean isApproved) {
+		this.isApproved = isApproved;
 	}
 }
