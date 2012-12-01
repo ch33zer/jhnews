@@ -22,12 +22,19 @@ import javax.persistence.Table;
 @Table(name = "announcement")
 public class AnnouncementHibernate implements Serializable {
 
+
+
 	@Override
 	public String toString() {
 		return "AnnouncementHibernate [ID=" + ID + ", title=" + title
 				+ ", location=" + location + ", briefDescription="
 				+ briefDescription + ", longDescription=" + longDescription
 				+ ", eventDate=" + eventDate + ", hasEventTime=" + hasEventTime
+				+ ", submitter=" + submitter + ", tag1=" + tag1 + ", tag2="
+				+ tag2 + ", tag3=" + tag3 + ", tag4=" + tag4 + ", tag5=" + tag5
+				+ ", toFreshman=" + toFreshman + ", toSophomore=" + toSophomore
+				+ ", toJunior=" + toJunior + ", toSenior=" + toSenior
+				+ ", toGraduate=" + toGraduate + ", toFaculty=" + toFaculty
 				+ "]";
 	}
 
@@ -188,24 +195,14 @@ public class AnnouncementHibernate implements Serializable {
 		this.eventDate = eventDate;
 	}
 
-	/**
-	 * Set whether or not the event in this announcement has a scheduled time.
-	 * 
-	 * @param hasEventTime
-	 *            whether or not this event has a scheduled time
-	 */
-	public void setHasEventTime(boolean hasEventTime) {
-		this.hasEventTime = hasEventTime;
+	@Column(name="hasEventTime")
+	public boolean isHasEventTime() {
+		return hasEventTime;
 	}
 
-	/**
-	 * Tells whether or not the event in this announcement has a scheduled time
-	 * 
-	 * @return true if there's a scheduled time, false if not
-	 */
-	@Column(name = "hasEventTime",nullable=false)
-	public boolean hasEventTime() {
-		return hasEventTime;
+
+	public void setHasEventTime(boolean hasEventTime) {
+		this.hasEventTime = hasEventTime;
 	}
 
 
