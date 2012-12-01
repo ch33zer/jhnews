@@ -20,6 +20,7 @@ public class Announcement implements Serializable {
 	private String briefDescription;
 	private String longDescription;
 	private Date eventDate;
+	private boolean approved;
 	private boolean hasEventTime;
 	private boolean tag1;
 	private boolean tag2;
@@ -292,5 +293,21 @@ public class Announcement implements Serializable {
 
 	public boolean isHasEventTime() {
 		return hasEventTime;
+	}
+
+
+	/**
+	 * @return the approved
+	 */
+	public boolean isApproved() {
+		return approved;
+	}
+
+
+	/**
+	 * @param approved the approved to set
+	 */
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 }

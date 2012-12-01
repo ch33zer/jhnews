@@ -16,6 +16,7 @@ public class User implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String email;
+	private boolean isAdmin;
 	private boolean tag1;
 	private boolean tag2;
 	private boolean tag3;
@@ -156,6 +157,14 @@ public class User implements Serializable{
 	 */
 	public void setHash(String hash) {
 		this.hash = hash;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 	
