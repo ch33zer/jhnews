@@ -58,7 +58,6 @@ public class SubmissionPage extends Page {
 		}
 		masterPanel = new VerticalPanel();
 		LoginManager.getInstance().isLoggedOn(
-				LoginManager.getInstance().getSessionID(),
 				new LoginManagerCallback<Boolean>() {
 
 					@Override

@@ -34,7 +34,7 @@ public class HeaderPage extends Page implements LoginListener {
 			public void onClick(ClickEvent event) {
 				History.newItem("HOME");
 				LoginManager man = LoginManager.getInstance();
-				man.logOut(man.getSessionID(), null);			
+				man.logOut(null);			
 			}
 		});
 		preferences = new Hyperlink("Preferences", "PREFERENCES");
@@ -43,7 +43,7 @@ public class HeaderPage extends Page implements LoginListener {
 		
 		LoginManager loginManager = LoginManager.getInstance();
 		loginManager.addLoginListener(this);
-		loginManager.isLoggedOn(loginManager.getSessionID(), new LoginManagerCallback<Boolean>() {	
+		loginManager.isLoggedOn(new LoginManagerCallback<Boolean>() {	
 			@Override
 			public void onSuccess(Boolean result) {
 				onLogin();

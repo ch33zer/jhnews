@@ -96,8 +96,7 @@ public class LoginManager {
 	 *            The callback, as described above. Executes at the completion
 	 *            of the call.
 	 */
-	public void isLoggedOn(String ID,
-			final LoginManagerCallback<Boolean> callback) {
+	public void isLoggedOn(final LoginManagerCallback<Boolean> callback) {
 
 		AsyncCallback<Boolean> loggedInCallBack = new AsyncCallback<Boolean>() {
 
@@ -121,7 +120,7 @@ public class LoginManager {
 
 			}
 		};
-		service.isLoggedIn(ID, loggedInCallBack);
+		service.isLoggedIn(getSessionID(), loggedInCallBack);
 	}
 
 	/**
@@ -175,8 +174,7 @@ public class LoginManager {
 	 * @param sessionID The current session ID before log out
 	 * @param callback Code that is executed when the method returns
 	 */
-	public void logOut(String sessionID,
-			final LoginManagerCallback<Void> callback) {
+	public void logOut(final LoginManagerCallback<Void> callback) {
 		AsyncCallback<Void> logOutCallBack = new AsyncCallback<Void>() {
 
 			@Override
@@ -201,7 +199,7 @@ public class LoginManager {
 				}
 			}
 		};
-		service.logOut(sessionID, logOutCallBack);
+		service.logOut(getSessionID(), logOutCallBack);
 	}
 
 	/**
