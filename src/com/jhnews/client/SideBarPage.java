@@ -3,6 +3,7 @@ package com.jhnews.client;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -31,7 +32,7 @@ public class SideBarPage extends Page implements LoginListener {
 		Hyperlink search = new Hyperlink("Search Announcements", "SEARCH");
 		Hyperlink submit = new Hyperlink("Submit Announcement", "SUBMIT");
 		
-		pendingReview = new Hyperlink("Pending Reviews (#)", "PENDING");
+		pendingReview = new Hyperlink("Pending Reviews", "PENDING");
 		editTags = new Hyperlink("Edit Category Tags", "EDIT");
 		
 		masterPanel = new VerticalPanel();
@@ -76,6 +77,7 @@ public class SideBarPage extends Page implements LoginListener {
 			@Override
 			public void onSuccess(Boolean result) {
 				if (result) {
+					Window.alert("Is admin");
 					userIsAdmin();
 				}
 				
