@@ -10,6 +10,11 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.jhnews.shared.Announcement;
 
+/**
+ * A panel that contains a set of subject tags
+ * 
+ * @author Group 8
+ */
 public class TagsPanel extends Composite {
 	
 	private VerticalPanel masterPanel;
@@ -19,12 +24,19 @@ public class TagsPanel extends Composite {
 	private static final int COLUMNS = 3;
 	private static final String CELL_FORMAT_WIDTH = "100px";
 	
+	/**
+	 * This is the default constructor for the tags panel class.
+	 */
 	public TagsPanel() {
 		masterPanel = new VerticalPanel();
 		fillSampleInfo();
 	    initWidget(masterPanel);
 	}
 	
+	/**
+	 * Sets the list of tags in the panel.
+	 * @param tags the list of tags in the panel
+	 */
 	public void setTags(List<String> tags) {
 		if (tags != null) {
 			CheckBox checkBox;
@@ -43,10 +55,18 @@ public class TagsPanel extends Composite {
 		}
 	}
 	
+	/**
+	 * Checks if a certain checkbox is checked
+	 * @param index the index of the checkbox to check
+	 */
 	public boolean boxIsChecked(int index) {
 		return checkBoxes.get(index).getValue();
 	}
 	
+	/**
+	 * Sets the checkboxes according to an announcement's set of tags.
+	 * @param announcement the announcement to check checkboxes according to
+	 */
 	public void checkAnnouncementTags(Announcement announcement) {
 		checkBoxes.get(0).setValue(announcement.isTag1());
 		checkBoxes.get(1).setValue(announcement.isTag2());
@@ -55,6 +75,10 @@ public class TagsPanel extends Composite {
 		checkBoxes.get(4).setValue(announcement.isTag5());
 	}
 	
+	/**
+	 * Sets the tags according to a default sample set of tags.
+	 * 
+	 */
 	public void fillSampleInfo() {
 		List<String> tags = new ArrayList<String>();
 		tags.add("Food");
