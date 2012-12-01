@@ -31,6 +31,7 @@ CREATE TABLE `user` (
   `firstName` varchar(25) NOT NULL,
   `lastName` varchar(25) NOT NULL,
   `email` mediumtext NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL,
   `uTag1` tinyint(1) NOT NULL,
   `uTag2` tinyint(1) NOT NULL,
   `uTag3` tinyint(1) NOT NULL,
@@ -48,7 +49,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('wayne','$2a$10$ZlnwhGKha28atSI.Uby3COY8.31PkGJs84Xjs/FycW33WK/H7JelW','Wayne','Chen','wchen52@jhu.edu',0,1,1,1,0,1,1),('nir','$2a$10$cjD1LErRFrPeRcttje3Bd.g3mTb6iUaqBc.4Dkhz4WOS01omOJIyC','Nir','Rattner','nrattne1@jhu.edu',1,1,0,0,1,1,2),('blaise','$2a$10$Etrs8xR2WCImi046owNKtuvNd40t80F/jHtt67h17WgGtktGG./dS','Blaise','Watson','ch33zer@gmail.com',0,0,0,0,0,0,3);
+INSERT INTO `user` VALUES ('wayne','$2a$10$ZlnwhGKha28atSI.Uby3COY8.31PkGJs84Xjs/FycW33WK/H7JelW','Wayne','Chen','wchen52@jhu.edu',1,0,1,1,1,0,1,1),('nir','$2a$10$cjD1LErRFrPeRcttje3Bd.g3mTb6iUaqBc.4Dkhz4WOS01omOJIyC','Nir','Rattner','nrattne1@jhu.edu',1,1,1,0,0,1,1,2),('blaise','$2a$10$Etrs8xR2WCImi046owNKtuvNd40t80F/jHtt67h17WgGtktGG./dS','Blaise','Watson','ch33zer@gmail.com',1,0,0,0,0,0,0,3);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,6 +68,7 @@ CREATE TABLE `announcement` (
   `briefDescription` mediumtext NOT NULL,
   `longDescription` mediumtext,
   `eventDate` DATETIME NOT NULL,
+  `approved` tinyint(1) NOT NULL,
   `hasEventTime` tinyint(1) NOT NULL,
   `aTag1` tinyint(1) NOT NULL,
   `aTag2` tinyint(1) NOT NULL,
@@ -92,7 +94,7 @@ CREATE TABLE `announcement` (
 
 LOCK TABLES `announcement` WRITE;
 /*!40000 ALTER TABLE `announcement` DISABLE KEYS */;
-INSERT INTO `announcement` VALUES (10,1,'Title #10','Location #10','Brief description #10 ','Long description #10','2012-12-31 11:30:45',1,1,1,1,0,0,1,1,0,0,0,1),(11,1,'Title #11','Location #11','Brief description #11','Long description #11','2012-12-31 11:30:45',1,1,1,0,0,0,1,1,1,1,0,1),(12,2,'Title #12','Location #12','Brief description #12','Long description #12','2012-12-31 11:30:45',0,0,0,1,1,0,0,0,0,1,0,1);
+INSERT INTO `announcement` VALUES (10,1,'Title #10','Location #10','Brief description #10 ','Long description #10','2012-12-31 11:30:45',1,1,1,1,1,0,0,1,1,0,0,0,1),(11,1,'Title #11','Location #11','Brief description #11','Long description #11','2012-12-31 11:30:45',1,1,1,1,0,0,0,1,1,1,1,0,1),(12,2,'Title #12','Location #12','Brief description #12','Long description #12','2012-12-31 11:30:45',0,0,0,0,1,1,0,0,0,0,1,0,1);
 /*!40000 ALTER TABLE `announcement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +107,7 @@ DROP TABLE IF EXISTS `session`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `session` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `sessionID` varchar(25) NOT NULL,
+  `sessionID` varchar(50) NOT NULL,
   `expireDate` DATETIME NOT NULL,
   `uID2` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
