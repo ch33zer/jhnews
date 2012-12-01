@@ -245,39 +245,4 @@ public class SubmissionPage extends Page {
 		masterPanel.add(submitButton);
 	}
 
-	// Code below splits user's tags into groups of 3 and creates their
-	// CheckBoxes
-	private VerticalPanel generateInnerVertTagsPanel(
-			ArrayList<String> inAllUserTags) {
-		VerticalPanel innerVertTagsPanel = new VerticalPanel();
-		ArrayList<HorizontalPanel> threeTagPanels = new ArrayList<HorizontalPanel>();
-		HorizontalPanel tempHoriPanel = new HorizontalPanel();
-		int counter = 0;
-		int counter2 = inAllUserTags.size();
-		while (counter2 > 0) {
-			if (counter2 >= 3) {
-				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter)));
-				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter + 1)));
-				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter + 2)));
-				threeTagPanels.add(tempHoriPanel);
-				counter += 3;
-				counter2 -= 3;
-			} else if (counter2 == 2) {
-				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter)));
-				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter + 1)));
-				threeTagPanels.add(tempHoriPanel);
-				counter += 2;
-				counter2 -= 2;
-			} else if (counter2 == 1) {
-				tempHoriPanel.add(new CheckBox(inAllUserTags.get(counter)));
-				threeTagPanels.add(tempHoriPanel);
-				counter += 1;
-				counter2 -= 1;
-			}
-		}
-		for (int i = 0; i < threeTagPanels.size(); i++) {
-			innerVertTagsPanel.add(threeTagPanels.get(i));
-		}
-		return innerVertTagsPanel;
-	}
 }
