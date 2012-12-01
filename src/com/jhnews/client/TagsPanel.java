@@ -3,7 +3,6 @@ package com.jhnews.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
@@ -57,7 +56,8 @@ public class TagsPanel extends Composite {
 	
 	/**
 	 * Checks if a certain checkbox is checked
-	 * @param index the index of the checkbox to check
+	 * @param index The index of the checkbox to check
+	 * @return True if the box is checked
 	 */
 	public boolean boxIsChecked(int index) {
 		return checkBoxes.get(index).getValue();

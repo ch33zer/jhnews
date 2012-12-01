@@ -1,17 +1,17 @@
 package com.jhnews.server;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import com.jhnews.shared.Announcement;
-import com.jhnews.shared.Session;
-import com.jhnews.shared.User;
-
+/**
+ * Used to fetch SessionFactory object
+ * @author Group 8
+ *
+ */
 public class HibernateUtil {
+	
 	private static final SessionFactory sessionFactory;
+	
 	static {
 		try {
 			sessionFactory = new AnnotationConfiguration()
@@ -22,6 +22,10 @@ public class HibernateUtil {
 		}
 	}
 
+	/**
+	 * Gets the SessionFactory singleton
+	 * @return The instance of the SessionFactory
+	 */
 	public static SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

@@ -48,6 +48,9 @@ public class SideBarPage extends Page implements LoginListener {
 		initWidget(masterPanel);
 	}
 	
+	/**
+	 * Sets sidebar for an admin
+	 */
 	public void userIsAdmin() {
 		masterPanel.add(pendingReview);
 		masterPanel.add(editTags);
@@ -66,11 +69,17 @@ public class SideBarPage extends Page implements LoginListener {
 		});
 	}
 	
+	/**
+	 * Sets sidebar for when user is not an admin
+	 */
 	public void userIsNotAdmin() {
 		masterPanel.remove(editTags);
 		masterPanel.remove(pendingReview);
 	}
 
+	/**
+	 * Checks if the user is an admin and reacts appropriately
+	 */
 	@Override
 	public void onLogin() {
 		loginManager.isAdmin(new LoginManagerCallback<Boolean>() {
@@ -89,6 +98,9 @@ public class SideBarPage extends Page implements LoginListener {
 		});		
 	}
 
+	/**
+	 * Ensures that admin settings are disabled when logged off
+	 */
 	@Override
 	public void onLogout() {
 		userIsNotAdmin();		

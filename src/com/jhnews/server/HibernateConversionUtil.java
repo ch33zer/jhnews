@@ -7,8 +7,18 @@ import com.jhnews.shared.Announcement;
 import com.jhnews.shared.Session;
 import com.jhnews.shared.User;
 
+/**
+ * Converts to and from Hibernate classes and client side usable classes
+ * @author Group 8
+ *
+ */
 public class HibernateConversionUtil {
 	
+	/**
+	 * Converts Announcement from Hibernate to client
+	 * @param announcementHibernate Hibernate's version to be converted
+	 * @return The client side version
+	 */
 	public static Announcement convertHibernateAnnouncment(AnnouncementHibernate announcementHibernate) {
 		Announcement announcement = new Announcement();
 		announcement.setTitle(announcementHibernate.getTitle());
@@ -33,6 +43,12 @@ public class HibernateConversionUtil {
 		return announcement;
 	}
 	
+	/**
+	 * Converts Announcement from client to Hibernate
+	 * @param announcement Client's version to be converted
+	 * @param copyID Indicates whether or not the ID will be copied
+	 * @return Hibernate's version
+	 */
 	public static AnnouncementHibernate convertAnnouncement(Announcement announcement, boolean copyID) {
 		AnnouncementHibernate hibernateAnnouncement = new AnnouncementHibernate();
 		hibernateAnnouncement.setTitle(announcement.getTitle());
@@ -59,6 +75,11 @@ public class HibernateConversionUtil {
 		return hibernateAnnouncement;
 	}
 	
+	/**
+	 * Converts Announcement List from Hibernate to client
+	 * @param list Hibernate's version to be converted
+	 * @return The client side version
+	 */
 	public static List<Announcement> convertHibernateAnnouncementList(List<AnnouncementHibernate> list) {
 		List<Announcement> announcments = new LinkedList<Announcement>();
 		for (AnnouncementHibernate el : list) {
@@ -67,6 +88,11 @@ public class HibernateConversionUtil {
 		return announcments;
 	}
 	
+	/**
+	 * Converts Session from Hibernate to client
+	 * @param hibernateSession Hibernate's version to be converted
+	 * @return The client side version
+	 */
 	public static Session convertHibernateSession(SessionHibernate hibernateSession) {
 		Session session = new Session();
 		session.setExpireDate(hibernateSession.getExpireDate());
@@ -76,6 +102,11 @@ public class HibernateConversionUtil {
 		return session;
 	}
 	
+	/**
+	 * Converts Announcement from client to Hibernate
+	 * @param userHibernate Client's version to be converted
+	 * @return Hibernate's version
+	 */
 	public static User convertHibernateUser(UserHibernate userHibernate) {
 		User user = new User();
 		user.setEmail(userHibernate.getEmail());
