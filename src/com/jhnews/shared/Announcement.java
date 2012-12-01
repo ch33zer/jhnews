@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.jsp.tagext.Tag;
+
 import com.jhnews.server.UserHibernate;
 
 /**
@@ -180,124 +182,194 @@ public class Announcement implements Serializable {
 		return hasEventTime;
 	}
 
-
+/**
+ * Checks if the first tag is set
+ * @return true if it's set, false otherwise
+ */
 	public boolean isTag1() {
 		return tag1;
 	}
 
-
+	/**
+	 * Sets the first tag to true or false
+	 * @param tag1 the Boolean value to set the tag to
+	 */
 	public void setTag1(boolean tag1) {
 		this.tag1 = tag1;
 	}
 
-
+	/**
+	 * Checks if the second tag is set
+	 * @return true if it's set, false otherwise
+	 */
 	public boolean isTag2() {
 		return tag2;
 	}
 
-
+	/**
+	 * Sets the second tag to true or false
+	 * @param tag2 the Boolean value to set the tag to
+	 */
 	public void setTag2(boolean tag2) {
 		this.tag2 = tag2;
 	}
 
-
+	/**
+	 * Checks if the third tag is set
+	 * @return true if it's set, false otherwise
+	 */
 	public boolean isTag3() {
 		return tag3;
 	}
 
-
+	/**
+	 * Sets the third tag to true or false
+	 * @param tag3 the Boolean value to set the tag to
+	 */
 	public void setTag3(boolean tag3) {
 		this.tag3 = tag3;
 	}
 
-
+	/**
+	 * Checks if the fourth tag is set
+	 * @return true if it's set, false otherwise
+	 */
 	public boolean isTag4() {
 		return tag4;
 	}
 
-
+	/**
+	 * Sets the fourth tag to true or false
+	 * @param tag4 the Boolean value to set the tag to
+	 */
 	public void setTag4(boolean tag4) {
 		this.tag4 = tag4;
 	}
 
-
+	/**
+	 * Checks if the fifth tag is set
+	 * @return true if it's set, false otherwise
+	 */
 	public boolean isTag5() {
 		return tag5;
 	}
 
-
+	/**
+	 * Sets the fifth tag to true or false
+	 * @param tag5 the Boolean value to set the tag to
+	 */
 	public void setTag5(boolean tag5) {
 		this.tag5 = tag5;
 	}
 
-
+	/**
+	 * Checks if the announcement is set to be sent to freshmen
+	 * @return true if it is, false otherwise
+	 */
 	public boolean isToFreshman() {
 		return toFreshman;
 	}
 
-
+	/**
+	 * Sets the announcement to send to freshmen if true and not if false
+	 * @param toFreshman true if yes, false if not
+	 */
 	public void setToFreshman(boolean toFreshman) {
 		this.toFreshman = toFreshman;
 	}
 
-
+	/**
+	 * Checks if the announcement is set to be sent to sophomores
+	 * @return true if it is, false otherwise
+	 */
 	public boolean isToSophomore() {
 		return toSophomore;
 	}
 
-
+	/**
+	 * Sets the announcement to send to sophomores if true and not if false
+	 * @param toSophomore true if yes, false if not
+	 */
 	public void setToSophomore(boolean toSophomore) {
 		this.toSophomore = toSophomore;
 	}
 
-
+	/**
+	 * Checks if the announcement is set to be sent to juniors
+	 * @return true if it is, false otherwise
+	 */
 	public boolean isToJunior() {
 		return toJunior;
 	}
 
-
+	/**
+	 * Sets the announcement to send to juniors if true and not if false
+	 * @param toJunior true if yes, false if not
+	 */
 	public void setToJunior(boolean toJunior) {
 		this.toJunior = toJunior;
 	}
 
-
+	/**
+	 * Checks if the announcement is set to be sent to seniors
+	 * @return true if it is, false otherwise
+	 */
 	public boolean isToSenior() {
 		return toSenior;
 	}
 
-
+	/**
+	 * Sets the announcement to send to seniors if true and not if false
+	 * @param toSenior true if yes, false if not
+	 */
 	public void setToSenior(boolean toSenior) {
 		this.toSenior = toSenior;
 	}
 
-
+	/**
+	 * Checks if the announcement is set to be sent to graduate students
+	 * @return true if it is, false otherwise
+	 */
 	public boolean isToGraduate() {
 		return toGraduate;
 	}
 
-
+	/**
+	 * Sets the announcement to send to graduate students if true and not if false
+	 * @param toGraduate true if yes, false if not
+	 */
 	public void setToGraduate(boolean toGraduate) {
 		this.toGraduate = toGraduate;
 	}
 
-
+	/**
+	 * Checks if the announcement is set to be sent to faculty members
+	 * @return true if it is, false otherwise
+	 */
 	public boolean isToFaculty() {
 		return toFaculty;
 	}
 
-
+	/**
+	 * Sets the announcement to send to faculty members if true and not if false
+	 * @param toFaculty true if yes, false if not
+	 */
 	public void setToFaculty(boolean toFaculty) {
 		this.toFaculty = toFaculty;
 	}
 
-
+	/**
+	 * Checks if the announcement has an event time associated with it
+	 * @return true if it does, false otherwise
+	 */
 	public boolean isHasEventTime() {
 		return hasEventTime;
 	}
 
 
 	/**
-	 * @return the approved
+	 * Checks if the announcement has been approved
+	 * @return true if it is, false otherwise
 	 */
 	public boolean isApproved() {
 		return approved;
