@@ -13,7 +13,7 @@ import com.jhnews.shared.Announcement;
  */
 public class PendingAnnouncementListPage extends Page {
 	
-	private AnnouncementListPanel announcementListPanel;
+	private PendingAnnouncementListPanel announcementListPanel;
 	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
 	
 	/**
@@ -21,7 +21,7 @@ public class PendingAnnouncementListPage extends Page {
 	 *
 	 */
 	public PendingAnnouncementListPage() {
-		announcementListPanel = new AnnouncementListPanel();
+		announcementListPanel = new PendingAnnouncementListPanel();
 		if (service == null) {
 			service = GWT.create(UnrestrictedService.class);
 		}

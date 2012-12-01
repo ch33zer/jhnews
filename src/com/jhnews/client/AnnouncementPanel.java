@@ -1,6 +1,7 @@
 package com.jhnews.client;
 
 import com.google.gwt.i18n.shared.DateTimeFormat;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -11,7 +12,7 @@ import com.jhnews.shared.Announcement;
  * @author Group 8
  *
  */
-public class AnnouncementPage extends Page {
+public class AnnouncementPanel extends Composite {
 
 	private static final DateTimeFormat FORMATTER_NO_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
 	private static final DateTimeFormat FORMATTER_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
@@ -21,7 +22,7 @@ public class AnnouncementPage extends Page {
 	 *
 	 * @param announcement The announcement on which to base the page
 	 */
-	public AnnouncementPage(Announcement announcement) {
+	public AnnouncementPanel(Announcement announcement) {
 		VerticalPanel masterPanel = new VerticalPanel();
 		masterPanel.addStyleName("leftVerticalPanel");
 		VerticalPanel detailPanel = new VerticalPanel();

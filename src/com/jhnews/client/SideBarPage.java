@@ -42,6 +42,8 @@ public class SideBarPage extends Page implements LoginListener {
 		
 		loginManager.addLoginListener(this);
 		
+		onLogin();
+		
 		initWidget(masterPanel);
 	}
 	

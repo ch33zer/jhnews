@@ -15,7 +15,7 @@ public class AnnouncementPageTest extends GWTTestCase
   @Test
   public void testAnnouncementPageConstructor()
   { 
-	  AnnouncementPage ap = new AnnouncementPage(new Announcement());
+	  AnnouncementPanel ap = new AnnouncementPanel(new Announcement());
 	  assertTrue(ap != null);
   }
 }

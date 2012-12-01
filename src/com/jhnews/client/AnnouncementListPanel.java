@@ -21,8 +21,8 @@ import com.jhnews.shared.Announcement;
 public class AnnouncementListPanel extends Composite implements ValueChangeHandler<String> {
 	
 	private VerticalPanel masterPanel;
-	private List<Announcement> announcements;
-	private HandlerRegistration handlerRegistration;
+	protected List<Announcement> announcements;
+	protected HandlerRegistration handlerRegistration;
 	private final static DateTimeFormat FORMATTER_NO_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy");
 	private final static DateTimeFormat FORMATTER_TIME = DateTimeFormat.getFormat("EEEE, MMMM d, yyyy, h:mm aa");
 	
