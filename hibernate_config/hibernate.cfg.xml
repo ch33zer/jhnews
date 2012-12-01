@@ -11,15 +11,15 @@ com.mysql.jdbc.Driver
         </property>
 
         <property name="hibernate.connection.url" >
-jdbc:mysql://192.168.0.109/jhnews
+jdbc:mysql://mysql.cs.jhu.edu/jhnews
         </property>
 
         <property name="hibernate.connection.username" >
-jhnews
+dwatso20
         </property>
 
         <property name="hibernate.connection.password" >
-jhnews
+group8
         </property>
 
         <property name="hibernate.connection.pool_size" >
