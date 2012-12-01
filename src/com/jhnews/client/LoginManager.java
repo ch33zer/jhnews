@@ -262,4 +262,31 @@ public class LoginManager {
 		Cookies.setCookie("username", newSession.getUser().getUsername(),
 				newSession.getExpireDate(), null, "/", false);
 	}
+	
+	public void isAdmin(final LoginManagerCallback<Boolean> callback) {
+
+		AsyncCallback<Boolean> adminCallBack = new AsyncCallback<Boolean>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				if (callback != null) {
+					callback.onFail();
+				}
+
+			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+				if (callback != null) {
+					if (result != null && result) {
+						callback.onSuccess(result);
+					} else {
+						callback.onFail();
+					}
+				}
+
+			}
+		};
+		service.isAdmin(getSessionID(), adminCallBack);
+	}
 }
