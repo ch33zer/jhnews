@@ -7,23 +7,23 @@
 
   <!-- Servlets -->
   <servlet>
-    <servlet-name>LoginServiceImpl</servlet-name>
-    <servlet-class>com.jhnews.server.LoginServiceImpl</servlet-class>
+    <servlet-name>RestrictedServiceImpl</servlet-name>
+    <servlet-class>com.jhnews.server.RestrictedServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>LoginServiceImpl</servlet-name>
-    <url-pattern>/jhnews/LoginService</url-pattern>
+    <servlet-name>RestrictedServiceImpl</servlet-name>
+    <url-pattern>/jhnews/RestrictedService</url-pattern>
   </servlet-mapping>
   
     <servlet>
-    <servlet-name>AnnouncementFetcherImpl</servlet-name>
-    <servlet-class>com.jhnews.server.AnnouncementFetcherImpl</servlet-class>
+    <servlet-name>UnrestrictedServiceImpl</servlet-name>
+    <servlet-class>com.jhnews.server.UnrestrictedServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>AnnouncementFetcherImpl</servlet-name>
-    <url-pattern>/jhnews/AnnouncementFetcher</url-pattern>
+    <servlet-name>UnrestrictedServiceImpl</servlet-name>
+    <url-pattern>/jhnews/UnrestrictedService</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->

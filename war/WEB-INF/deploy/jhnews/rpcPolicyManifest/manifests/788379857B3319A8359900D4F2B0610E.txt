@@ -1,0 +1,2 @@
+serviceClass: com.jhnews.client.UnrestrictedService
+path: E8C983FDA0D905EDDBAEFAF72EA646B0.gwt.rpc
