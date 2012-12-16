@@ -3,6 +3,12 @@ package com.jhnews.server;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -24,7 +30,7 @@ import com.jhnews.shared.UserExistsException;
  *
  */
 public class RestrictedServiceImpl extends RemoteServiceServlet implements
-		RestrictedService {
+		RestrictedService, ServletContextListener {
 	
 	/**
 	 * For Serialization	
@@ -34,12 +40,15 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	{
 		sessionFactory = HibernateUtil.getSessionFactory();
 	}
+	private ScheduledExecutorService scheduler;
 	/*private Map<String, String> users = new HashMap<String, String>(); //user to hashed password mapping
 	private Map<String, Date> sessionIDs = new HashMap<String, Date>(); //Session ID to User mapping*/
 	private final static long COOKIE_RETENTION_TIME = 1000 * 60 * 60 * 24;//1000 msecs * 60 secs * 60 minutes * 24 hours = 1 day
 	/*{
 		users.put("nir", BCrypt.hashpw("dog", BCrypt.gensalt())); //Single user with username
 	}*/
+	
+	
 	/* (non-Javadoc)
 	 * @see com.jhnews.client.LoginService#logIn(java.lang.String, java.lang.String)
 	 */
@@ -291,6 +300,21 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			return user.isAdmin();
 		}
 		return false;
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		scheduler.shutdownNow();
+	}
+
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		scheduler = Executors.newSingleThreadScheduledExecutor();
+		scheduler.scheduleAtFixedRate(new EmailManager(), 0, 1, TimeUnit.DAYS);
+	}
+	
+	private static void getMidnightOf(Date date) {
+		
 	}
 
 }

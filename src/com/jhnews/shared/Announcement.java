@@ -36,6 +36,22 @@ public class Announcement implements Serializable {
 	private boolean toGraduate;
 	private boolean toFaculty;
 
+	@Override
+	public String toString() {
+		return "Announcement [ID=" + ID + ", submitter=" + submitter
+				+ ", title=" + title + ", location=" + location
+				+ ", briefDescription=" + briefDescription
+				+ ", longDescription=" + longDescription + ", eventDate="
+				+ eventDate + ", approved=" + approved + ", hasEventTime="
+				+ hasEventTime + ", tag1=" + tag1 + ", tag2=" + tag2
+				+ ", tag3=" + tag3 + ", tag4=" + tag4 + ", tag5=" + tag5
+				+ ", toFreshman=" + toFreshman + ", toSophomore=" + toSophomore
+				+ ", toJunior=" + toJunior + ", toSenior=" + toSenior
+				+ ", toGraduate=" + toGraduate + ", toFaculty=" + toFaculty
+				+ "]";
+	}
+
+
 	private static final long serialVersionUID = 1L;
 	
 	/**

@@ -86,7 +86,6 @@ public class SideBarPage extends Page implements LoginListener {
 			@Override
 			public void onSuccess(Boolean result) {
 				if (result) {
-					Window.alert("Is admin");
 					userIsAdmin();
 				}
 				

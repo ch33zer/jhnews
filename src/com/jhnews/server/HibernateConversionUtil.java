@@ -3,6 +3,12 @@ package com.jhnews.server;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.dozer.DozerBeanMapperSingletonWrapper;
+import org.dozer.DozerInitializer;
+import org.dozer.Mapper;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.LoggerFactory;
+
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.Session;
 import com.jhnews.shared.User;
@@ -13,6 +19,10 @@ import com.jhnews.shared.User;
  *
  */
 public class HibernateConversionUtil {
+
+	private static Mapper getDozerInstance() {
+		return DozerBeanMapperSingletonWrapper.getInstance();
+	}
 	
 	/**
 	 * Converts Announcement from Hibernate to client
@@ -20,27 +30,7 @@ public class HibernateConversionUtil {
 	 * @return The client side version
 	 */
 	public static Announcement convertHibernateAnnouncment(AnnouncementHibernate announcementHibernate) {
-		Announcement announcement = new Announcement();
-		announcement.setTitle(announcementHibernate.getTitle());
-		announcement.setBriefDescription(announcementHibernate.getBriefDescription());
-		announcement.setLocation(announcementHibernate.getLocation());
-		announcement.setLongDescription(announcementHibernate.getLongDescription());
-		announcement.setID(announcementHibernate.getID());
-		announcement.setEventDate(announcementHibernate.getEventDate());
-		announcement.setTag1(announcementHibernate.isTag1());
-		announcement.setTag2(announcementHibernate.isTag2());
-		announcement.setTag3(announcementHibernate.isTag3());
-		announcement.setTag4(announcementHibernate.isTag4());
-		announcement.setTag5(announcementHibernate.isTag5());
-		announcement.setToFreshman(announcementHibernate.isToFreshman());
-		announcement.setToSophomore(announcementHibernate.isToSophomore());
-		announcement.setToJunior(announcementHibernate.isToJunior());
-		announcement.setToSenior(announcementHibernate.isToSenior());
-		announcement.setToGraduate(announcementHibernate.isToGraduate());
-		announcement.setToFaculty(announcementHibernate.isToFaculty());
-		announcement.setHasEventTime(announcementHibernate.isHasEventTime());
-		announcement.setApproved(announcementHibernate.isApproved());
-		return announcement;
+		return getDozerInstance().map(announcementHibernate, Announcement.class);
 	}
 	
 	/**
@@ -50,29 +40,7 @@ public class HibernateConversionUtil {
 	 * @return Hibernate's version
 	 */
 	public static AnnouncementHibernate convertAnnouncement(Announcement announcement, boolean copyID) {
-		AnnouncementHibernate hibernateAnnouncement = new AnnouncementHibernate();
-		hibernateAnnouncement.setTitle(announcement.getTitle());
-		hibernateAnnouncement.setBriefDescription(announcement.getBriefDescription());
-		hibernateAnnouncement.setLocation(announcement.getLocation());
-		hibernateAnnouncement.setLongDescription(announcement.getLongDescription());
-		hibernateAnnouncement.setEventDate(announcement.getEventDate());
-		if (copyID) {
-			hibernateAnnouncement.setID(announcement.getID());
-		}		
-		hibernateAnnouncement.setTag1(announcement.isTag1());
-		hibernateAnnouncement.setTag2(announcement.isTag2());
-		hibernateAnnouncement.setTag3(announcement.isTag3());
-		hibernateAnnouncement.setTag4(announcement.isTag4());
-		hibernateAnnouncement.setTag5(announcement.isTag5());
-		hibernateAnnouncement.setToFreshman(announcement.isToFreshman());
-		hibernateAnnouncement.setToSophomore(announcement.isToSophomore());
-		hibernateAnnouncement.setToJunior(announcement.isToJunior());
-		hibernateAnnouncement.setToSenior(announcement.isToSenior());
-		hibernateAnnouncement.setToGraduate(announcement.isToGraduate());
-		hibernateAnnouncement.setToFaculty(announcement.isToFaculty());
-		hibernateAnnouncement.setHasEventTime(announcement.hasEventTime());
-		hibernateAnnouncement.setApproved(announcement.isApproved());
-		return hibernateAnnouncement;
+		return getDozerInstance().map(announcement, AnnouncementHibernate.class);
 	}
 	
 	/**
@@ -94,12 +62,7 @@ public class HibernateConversionUtil {
 	 * @return The client side version
 	 */
 	public static Session convertHibernateSession(SessionHibernate hibernateSession) {
-		Session session = new Session();
-		session.setExpireDate(hibernateSession.getExpireDate());
-		session.setSessionID(hibernateSession.getSessionID());
-		session.setUser(convertHibernateUser(hibernateSession.getUser()));
-		session.setID(hibernateSession.getID());
-		return session;
+		return getDozerInstance().map(hibernateSession, Session.class);
 	}
 	
 	/**
@@ -108,20 +71,7 @@ public class HibernateConversionUtil {
 	 * @return Hibernate's version
 	 */
 	public static User convertHibernateUser(UserHibernate userHibernate) {
-		User user = new User();
-		user.setEmail(userHibernate.getEmail());
-		user.setFirstName(userHibernate.getFirstName());
-		user.setHash(userHibernate.getHash());
-		user.setID(userHibernate.getID());
-		user.setLastName(userHibernate.getLastName());
-		user.setUsername(userHibernate.getUsername());
-		user.setTag1(userHibernate.isTag1());
-		user.setTag2(userHibernate.isTag2());
-		user.setTag3(userHibernate.isTag3());
-		user.setTag4(userHibernate.isTag4());
-		user.setTag5(userHibernate.isTag5());
-		user.setAdmin(userHibernate.isAdmin());
-		return user;
+		return getDozerInstance().map(userHibernate, User.class);
 	}
 }
 

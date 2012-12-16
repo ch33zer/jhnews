@@ -3,6 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" output="test-classes" path="test"/>
 	<classpathentry kind="src" path="hibernate_config"/>
+	<classpathentry kind="src" path="dozer_config"/>
+	<classpathentry kind="src" path="log4j"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/GWT (1)"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="hibernate/mysql-connector-java-5.1.22-bin.jar"/>
@@ -15,7 +17,13 @@
 	<classpathentry kind="lib" path="hibernate/javassist-3.15.0-GA.jar"/>
 	<classpathentry kind="lib" path="hibernate/jboss-logging-3.1.0.GA.jar"/>
 	<classpathentry kind="lib" path="hibernate/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="hibernate/dozer-5.3.2.jar"/>
+	<classpathentry kind="lib" path="hibernate/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="lib" path="hibernate/slf4j-simple-1.7.2.jar"/>
+	<classpathentry kind="lib" path="hibernate/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="hibernate/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="hibernate/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="hibernate/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
