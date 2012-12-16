@@ -51,12 +51,14 @@ public class SideBarPage extends Page implements LoginListener {
 	/**
 	 * Sets sidebar for an admin
 	 */
-	public void userIsAdmin() {
+	private void userIsAdmin() {
 		masterPanel.add(pendingReview);
 		masterPanel.add(editTags);
-
+		updatePendingReview();
+	}
+	
+	public void updatePendingReview() {
 		service.getPendingAnnouncements(LoginManager.getInstance().getSessionID(), new AsyncCallback<List<Announcement>>() {
-			
 			@Override
 			public void onSuccess(List<Announcement> result) {
 				pendingReview.setText("Pending Reviews (" + result.size() + ")");

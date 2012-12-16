@@ -10,7 +10,6 @@ public interface LoginListener {
 	 * This is called when the user logs in
 	 */
 	public void onLogin();
-	
 	/**
 	 * This is called when the user logs out
 	 */

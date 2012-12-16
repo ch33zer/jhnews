@@ -28,6 +28,9 @@ public class LoginPage extends Page {
 	 */
 	public LoginPage() {
 		VerticalPanel masterPanel = new VerticalPanel();
+		Label pageTitleLabel = new Label("Log In");
+		pageTitleLabel.addStyleDependentName("title");
+		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		errorLabel = new Label("Failed to log in. Invalid username or password.");
 		errorLabel.setStyleDependentName("error", true);
 		errorLabel.setVisible(false);
@@ -62,7 +65,7 @@ public class LoginPage extends Page {
 
 		// Login panel setup
 		masterPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		masterPanel.add(new Label("LOG IN:"));
+		masterPanel.add(pageTitleLabel);
 		masterPanel.add(emailBox);
 		masterPanel.add(passwordBox);
 		masterPanel.add(loginButton);

@@ -1,6 +1,6 @@
 package com.jhnews.shared;
 
-/** Features static methods for verifying the varios methods
+/** Features static methods for verifying the various methods
  * @author Group 8
  *
  */

@@ -27,6 +27,9 @@ public class RegistrationPage extends Page {
 	public RegistrationPage() {
 		// Variables
 		VerticalPanel masterPanel = new VerticalPanel();
+		Label pageTitleLabel = new Label("Register");
+		pageTitleLabel.addStyleDependentName("title");
+		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		errorLabel = new Label("Failed to register. The username may already exist.");
 		errorLabel.setStyleDependentName("error", true);
 		errorLabel.setVisible(false);
@@ -43,7 +46,7 @@ public class RegistrationPage extends Page {
 		Button registerButton = new Button("Register", new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				if (passwordBox.getText().equals(retypePasswordBox.getText())) {
+				if (checkCredentials()) {
 					LoginManager.getInstance().register(emailBox.getText(),
 						passwordBox.getText(), new LoginManagerCallback<Session>() {		
 						@Override
@@ -57,16 +60,13 @@ public class RegistrationPage extends Page {
 							errorLabel.setVisible(true);
 						}
 					});	
-				} else {
-					errorLabel.setVisible(true);
-					errorLabel.setText("Failed to register. The passwords do not match.");
 				}
 			}
 		});
 		
 		// Login panel setup
 		masterPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		masterPanel.add(new Label("REGISTER:"));
+		masterPanel.add(pageTitleLabel);
 		masterPanel.add(emailBox);
 		masterPanel.add(passwordBox);
 		masterPanel.add(retypePasswordBox);
@@ -74,5 +74,20 @@ public class RegistrationPage extends Page {
 		masterPanel.add(errorLabel);
 		masterPanel.add(successLabel);
 		initWidget(masterPanel);
+	}
+	
+	private boolean checkCredentials() {
+		if (!passwordBox.getText().equals(retypePasswordBox.getText())) {
+			errorLabel.setVisible(true);
+			errorLabel.setText("Failed to register. The passwords do not match.");
+			return false;
+		} else if (!(emailBox.getText().endsWith("@jhu.edu") || emailBox.getText().endsWith("@johnshopkins.edu"))) {
+			errorLabel.setVisible(true);
+			errorLabel.setText("Failed to register. Must use a JHU email.");
+		} else if (!(emailBox.getText().length() > 5)) {
+			errorLabel.setVisible(true);
+			errorLabel.setText("Failed to register. Email must be longer than five characters.");
+		}
+		return true;
 	}
 }

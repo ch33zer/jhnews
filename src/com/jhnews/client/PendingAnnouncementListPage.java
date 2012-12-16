@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.Announcement;
 
 /**
- * A Panel to handle lists of pending announcements
+ * A Panel to handle list of pending announcements
  * @author Group 8
  *
  */

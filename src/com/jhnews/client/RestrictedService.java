@@ -59,6 +59,10 @@ public interface RestrictedService extends RemoteService {
 	 */
 	List<Announcement> getPendingAnnouncements(String sessionID);
 	
+	void approveAnnouncement(String sessionID, Announcement announcement);
+	
+	void declineAnnouncement(String sessionID, Announcement announcement);
+	
 	/**
 	 * Determines if the current user is an admin
 	 * @param sessionID Session ID of the current user

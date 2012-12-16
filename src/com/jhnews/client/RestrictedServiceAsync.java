@@ -58,4 +58,10 @@ public interface RestrictedServiceAsync {
 	 */
 	void isAdmin(String sessionID, AsyncCallback<Boolean> callback);
 
+	void approveAnnouncement(String sessionID, Announcement announcement,
+			AsyncCallback<Void> callback);
+
+	void declineAnnouncement(String sessionID, Announcement announcement,
+			AsyncCallback<Void> callback);
+
 }
