@@ -317,4 +317,51 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		
 	}
 
+	@Override
+	public void approveAnnouncement(String sessionID, Announcement announcement) {
+		UserHibernate user = getUserFromSessionID(sessionID);
+		if (user != null) {
+			if (user.isAdmin()) {
+				announcement.setApproved(true);
+				AnnouncementHibernate announcementHibernate = HibernateConversionUtil.convertAnnouncement(announcement, true);
+				Transaction tx = null;		
+				try {
+					org.hibernate.Session session = sessionFactory.openSession();
+					tx = session.beginTransaction();
+					session.update(announcementHibernate);
+					tx.commit();
+					session.close();
+				}
+				catch (Exception e) {
+					if (tx != null) {
+						tx.rollback();
+					}
+				}	
+			}
+		}
+	}
+
+	@Override
+	public void declineAnnouncement(String sessionID, Announcement announcement) {
+		UserHibernate user = getUserFromSessionID(sessionID);
+		if (user != null) {
+			if (user.isAdmin()) {
+				AnnouncementHibernate announcementHibernate = HibernateConversionUtil.convertAnnouncement(announcement, true);
+				Transaction tx = null;
+				try {
+					org.hibernate.Session session = sessionFactory.openSession();
+					tx = session.beginTransaction();
+					session.delete(announcementHibernate);
+					tx.commit();
+					session.close();
+				}
+				catch (Exception e) {
+					if (tx != null) {
+						tx.rollback();
+					}
+				}
+			}
+		}
+	}
+
 }

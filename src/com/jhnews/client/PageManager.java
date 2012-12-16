@@ -22,7 +22,8 @@ public class PageManager implements ValueChangeHandler<String>  {
 		History.addValueChangeHandler(this);
 	}
 	
-	/** Sets up the start page and initializes the history (if there isn't a history). This does not actually load the page. That is done in {@link Jhnews#onModuleLoad()} when the app starts.
+	/** 
+	 * Sets up the start page and initializes the history (if there isn't a history). This does not actually load the page. That is done in {@link Jhnews#onModuleLoad()} when the app starts.
 	 * 
 	 */
 	public void prepareStartPage() {
@@ -113,5 +114,10 @@ public class PageManager implements ValueChangeHandler<String>  {
 			return;
 		}
 		setBody(page);
+	}
+	
+	public void updateSideBar() {
+		SideBarPage sideBar = (SideBarPage) RootPanel.get("sidebar").getWidget(0);
+		sideBar.updatePendingReview();
 	}
 }

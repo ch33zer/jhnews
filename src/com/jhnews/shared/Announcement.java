@@ -1,12 +1,7 @@
 package com.jhnews.shared;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-
-import javax.servlet.jsp.tagext.Tag;
-
-import com.jhnews.server.UserHibernate;
 
 /**
  * Announcement is the class that represents an announcement submission and holds all its relevant information.
@@ -66,7 +61,6 @@ public class Announcement implements Serializable {
 		this.eventDate = null;
 		this.hasEventTime = false;
 	}
-
 
 	/**
 	 * Gets the ID number of the announcement

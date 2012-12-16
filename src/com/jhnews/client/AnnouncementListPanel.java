@@ -43,14 +43,19 @@ public class AnnouncementListPanel extends Composite implements ValueChangeHandl
 	 */
 	@Override
 	public void onValueChange(ValueChangeEvent<String> event) {
-		int index;
+		int ID;
 		try {
-			index = Integer.parseInt(event.getValue());
+			ID = Integer.parseInt(event.getValue());
 		} catch(NumberFormatException e) {
 			return;
 		}
 		handlerRegistration.removeHandler();
-		PageManager.getInstance().generateAnnouncementPage(announcements.get(index));
+		for (Announcement announcement : announcements) {
+			if (announcement.getID() == ID) {
+				PageManager.getInstance().generateAnnouncementPage(announcement);
+				break;
+			}
+		}
 	}
 	
 	/**
@@ -60,14 +65,13 @@ public class AnnouncementListPanel extends Composite implements ValueChangeHandl
 	public void setAnnouncementList(List<Announcement> announcements) {
 		this.announcements = announcements;
 		if (announcements != null) {
-			int index = 0;
 			masterPanel.clear();
 			for (Announcement announcement : announcements) {
 				VerticalPanel announcementPanel = new VerticalPanel();
 				announcementPanel.addStyleName("announcementPanel");
 				VerticalPanel detailPanel = new VerticalPanel();
 				detailPanel.addStyleName("detailPanel");
-				announcementPanel.add(new Hyperlink(announcement.getTitle(), "" + index++));
+				announcementPanel.add(new Hyperlink(announcement.getTitle(), "" + announcement.getID()));
 				detailPanel.add(new Label(announcement.getBriefDescription()));
 				if (announcement.getLocation() != null) {
 					detailPanel.add(new Label("Location: " + announcement.getLocation()));

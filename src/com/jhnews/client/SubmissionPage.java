@@ -22,12 +22,12 @@ import com.jhnews.shared.User;
  * @author Group 8
  */
 public class SubmissionPage extends Page {
+	
 	private UnrestrictedServiceAsync unrestrictedService = GWT
 			.create(UnrestrictedService.class);
 	
 	private RestrictedServiceAsync restrictedService = GWT
 			.create(RestrictedService.class);
-
 	
 	private VerticalPanel masterPanel;
 	private TextBox titleTextBox;
@@ -42,7 +42,6 @@ public class SubmissionPage extends Page {
 	private CheckBox facultyCheckBox;
 	private DatePicker dateTimePicker;
 	private TagsPanel tagsPanel;
-
 
 	/**
 	 * This is the default constructor for this SubmissionPage class.
@@ -127,6 +126,7 @@ public class SubmissionPage extends Page {
 							.getText());
 					currentSubmission.setLongDescription(fullDescTextBox.getText());
 					currentSubmission.setEventDate(dateTimePicker.getValue());
+					currentSubmission.setApproved(false);
 
 					// Set announcements in the submission according to checked
 					// announcement CheckBoxs

@@ -1,5 +1,6 @@
 package com.jhnews.server;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -34,7 +35,8 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 	 */
 	@Override
 	public List<Announcement> getTodaysAnnouncements() {
-		return getAnnouncements(null);//TODO make this return only todays announcements
+		//Criterion criteria = Restrictions.and(Restrictions.eq("approved", false), Restrictions.gt("eventDate", new Date()));
+		return getAnnouncements(Restrictions.eq("approved", true));//TODO make this return only todays announcements
 	}
 
 	/* (non-Javadoc)

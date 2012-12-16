@@ -1,6 +1,7 @@
 package com.jhnews.client;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.jhnews.shared.Announcement;
 
 /**
  * Extends the panel to generate PendingAnnouncementPages specifically
@@ -15,14 +16,18 @@ public class PendingAnnouncementListPanel extends AnnouncementListPanel {
 	 */
 	@Override
 	public void onValueChange(ValueChangeEvent<String> event) {
-		int index;
+		int ID;
 		try {
-			index = Integer.parseInt(event.getValue());
+			ID = Integer.parseInt(event.getValue());
 		} catch(NumberFormatException e) {
 			return;
 		}
 		handlerRegistration.removeHandler();
-		PageManager.getInstance().generatePendingAnnouncementPage(announcements.get(index));
+		for (Announcement announcement : announcements) {
+			if (announcement.getID() == ID) {
+				PageManager.getInstance().generatePendingAnnouncementPage(announcement);
+				break;
+			}
+		}
 	}
-	
 }
