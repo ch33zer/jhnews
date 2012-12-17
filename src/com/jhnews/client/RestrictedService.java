@@ -59,8 +59,18 @@ public interface RestrictedService extends RemoteService {
 	 */
 	List<Announcement> getPendingAnnouncements(String sessionID);
 	
+	/**
+	 * Allows the admin to approve the pending announcement
+	 * @param sessionID Session ID of the admin
+	 * @param announcement Announcement to approve
+	 */
 	void approveAnnouncement(String sessionID, Announcement announcement);
 	
+	/**
+	 * Allows the admin to decline the pending announcement
+	 * @param sessionID Session ID of the admin
+	 * @param announcement Announcement to decline
+	 */
 	void declineAnnouncement(String sessionID, Announcement announcement);
 	
 	/**

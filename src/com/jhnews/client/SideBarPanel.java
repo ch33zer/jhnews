@@ -62,6 +62,9 @@ public class SideBarPanel extends Composite implements LoginListener {
 		updatePendingReview();
 	}
 	
+	/**
+	 * Updates the sidebar so that the number of pending reviews is accurate
+	 */
 	public void updatePendingReview() {
 		service.getPendingAnnouncements(LoginManager.getInstance().getSessionID(), new AsyncCallback<List<Announcement>>() {
 			@Override
