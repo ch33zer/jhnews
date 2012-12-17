@@ -12,7 +12,7 @@
 	margin: 0 auto;
 	color: #333333;
 	outline-color:#E86850;
-	outline-style:double;
+	outline-style:single;
 	outline-width:medium;
 }
 
@@ -55,6 +55,15 @@ h1 {
 	border-color: black;
 	border-width: 2px;
 	border-style: solid solid ridge solid;
+}
+
+#sidebar .gwt-Label {
+	padding: 15px 0px;
+	border-color: dark blue;
+	border-style: none none solid none;
+	border-width: 2px;
+	text-align: center;
+	font-weight: bold;
 }
 
 #sidebar .gwt-Hyperlink {

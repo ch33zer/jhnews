@@ -3,9 +3,9 @@ package com.jhnews.client;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Hyperlink;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.jhnews.shared.Announcement;
 
@@ -19,11 +19,12 @@ public class SideBarPage extends Page implements LoginListener {
 	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
 	
 	private VerticalPanel masterPanel;
+	private Label adminLabel;
 	private Hyperlink pendingReview;
 	private Hyperlink editTags;
+	private Hyperlink emailSettings;
 	
 	private LoginManager loginManager = LoginManager.getInstance();
-	
 	
 	/**
 	 * Default constructor creates the sidebar based on who is logged in
@@ -31,9 +32,10 @@ public class SideBarPage extends Page implements LoginListener {
 	public SideBarPage() {
 		Hyperlink search = new Hyperlink("Search Announcements", "SEARCH");
 		Hyperlink submit = new Hyperlink("Submit Announcement", "SUBMIT");
-		
+		adminLabel = new Label("Admin Options");
 		pendingReview = new Hyperlink("Pending Reviews", "PENDING");
 		editTags = new Hyperlink("Edit Category Tags", "EDIT");
+		emailSettings = new Hyperlink("Email Settings", "EMAIL");
 		
 		masterPanel = new VerticalPanel();
 		masterPanel.addStyleName("leftVerticalPanel");
@@ -52,8 +54,10 @@ public class SideBarPage extends Page implements LoginListener {
 	 * Sets sidebar for an admin
 	 */
 	private void userIsAdmin() {
+		masterPanel.add(adminLabel);
 		masterPanel.add(pendingReview);
 		masterPanel.add(editTags);
+		masterPanel.add(emailSettings);
 		updatePendingReview();
 	}
 	
@@ -75,8 +79,10 @@ public class SideBarPage extends Page implements LoginListener {
 	 * Sets sidebar for when user is not an admin
 	 */
 	public void userIsNotAdmin() {
+		masterPanel.remove(adminLabel);
 		masterPanel.remove(editTags);
 		masterPanel.remove(pendingReview);
+		masterPanel.remove(emailSettings);
 	}
 
 	/**
