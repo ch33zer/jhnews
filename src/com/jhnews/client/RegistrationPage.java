@@ -84,9 +84,11 @@ public class RegistrationPage extends Page {
 		} else if (!(emailBox.getText().endsWith("@jhu.edu") || emailBox.getText().endsWith("@johnshopkins.edu"))) {
 			errorLabel.setVisible(true);
 			errorLabel.setText("Failed to register. Must use a JHU email.");
+			return false;
 		} else if (!(emailBox.getText().length() > 5)) {
 			errorLabel.setVisible(true);
 			errorLabel.setText("Failed to register. Email must be longer than five characters.");
+			return false;
 		}
 		return true;
 	}
