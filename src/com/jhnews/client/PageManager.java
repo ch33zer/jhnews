@@ -27,10 +27,10 @@ public class PageManager implements ValueChangeHandler<String>  {
 	 * 
 	 */
 	public void prepareStartPage() {
-		RootPanel.get("header").add(new HeaderPage());
-		RootPanel.get("date").add(new DatePage());
+		RootPanel.get("header").add(new HeaderPanel());
+		RootPanel.get("date").add(new DatePanel());
 		//RootPanel.get("footer").add(new HomePage());
-		RootPanel.get("sidebar").add(new SideBarPage());
+		RootPanel.get("sidebar").add(new SideBarPanel());
 	    if (History.getToken().length() == 0) {
 	      History.newItem("HOME");
 	    }
@@ -98,7 +98,7 @@ public class PageManager implements ValueChangeHandler<String>  {
 	 */
 	public void generatePendingAnnouncementPage(Announcement announcement) {
 		RootPanel.get("body").clear();
-		RootPanel.get("body").add(new PendingAnnouncementPage(announcement));
+		RootPanel.get("body").add(new PendingAnnouncementPanel(announcement));
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class PageManager implements ValueChangeHandler<String>  {
 	}
 	
 	public void updateSideBar() {
-		SideBarPage sideBar = (SideBarPage) RootPanel.get("sidebar").getWidget(0);
+		SideBarPanel sideBar = (SideBarPanel) RootPanel.get("sidebar").getWidget(0);
 		sideBar.updatePendingReview();
 	}
 }

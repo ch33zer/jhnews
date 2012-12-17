@@ -47,7 +47,7 @@ public class LoginManagerTest extends GWTTestCase
   @Test
   public void testAddLoginListener()
   {
-	  HeaderPage temp = new HeaderPage();
+	  HeaderPanel temp = new HeaderPanel();
 	  LoginManager.getInstance().addLoginListener(temp);
 	  List<LoginListener> ll = LoginManager.getInstance().getLoginListener();
 	  assertTrue(ll.get(ll.size()-1).equals(temp));
@@ -73,7 +73,7 @@ public class LoginManagerTest extends GWTTestCase
   {
 	  LoginManager lmanager = LoginManager.getInstance();
 	  List<LoginListener> llist = LoginManager.getInstance().getLoginListener();
-	  HeaderPage tempHP = new HeaderPage();
+	  HeaderPanel tempHP = new HeaderPanel();
 	  
 	  lmanager.addLoginListener(tempHP);
 	  int tempInt = LoginManager.getInstance().getLoginListener().size();

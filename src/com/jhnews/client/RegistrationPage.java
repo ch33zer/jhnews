@@ -26,10 +26,7 @@ public class RegistrationPage extends Page {
 	 */
 	public RegistrationPage() {
 		// Variables
-		VerticalPanel masterPanel = new VerticalPanel();
-		Label pageTitleLabel = new Label("Register");
-		pageTitleLabel.addStyleDependentName("title");
-		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		setPageTitle("Register");
 		errorLabel = new Label("Failed to register. The username may already exist.");
 		errorLabel.setStyleDependentName("error", true);
 		errorLabel.setVisible(false);
@@ -65,15 +62,12 @@ public class RegistrationPage extends Page {
 		});
 		
 		// Login panel setup
-		masterPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		masterPanel.add(pageTitleLabel);
-		masterPanel.add(emailBox);
-		masterPanel.add(passwordBox);
-		masterPanel.add(retypePasswordBox);
-		masterPanel.add(registerButton);
-		masterPanel.add(errorLabel);
-		masterPanel.add(successLabel);
-		initWidget(masterPanel);
+		addWidget(emailBox);
+		addWidget(passwordBox);
+		addWidget(retypePasswordBox);
+		addWidget(registerButton);
+		addWidget(errorLabel);
+		addWidget(successLabel);
 	}
 	
 	private boolean checkCredentials() {

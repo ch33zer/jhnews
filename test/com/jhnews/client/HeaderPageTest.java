@@ -22,7 +22,7 @@ public class HeaderPageTest extends GWTTestCase
   @Test
   public void testHeaderPageConstructor()
   { 
-	  HeaderPage hp = new HeaderPage();
+	  HeaderPanel hp = new HeaderPanel();
 	  assertTrue(hp != null);
   }
   
@@ -30,7 +30,7 @@ public class HeaderPageTest extends GWTTestCase
   public void testOnLogin()
   { 
 	HorizontalPanel testPanel = new HorizontalPanel();
-	HeaderPage hp = new HeaderPage();
+	HeaderPanel hp = new HeaderPanel();
 	hp.onLogin();
 	  
 	testPanel.add(new Label("Hello, " + LoginManager.getInstance().getUsername()));
@@ -45,7 +45,7 @@ public class HeaderPageTest extends GWTTestCase
   public void testOnLogout()
   { 
 	HorizontalPanel testPanel = new HorizontalPanel();
-	HeaderPage hp = new HeaderPage();
+	HeaderPanel hp = new HeaderPanel();
 	hp.onLogout();
 	
 	testPanel.clear();
@@ -58,7 +58,7 @@ public class HeaderPageTest extends GWTTestCase
   @Test
   public void testGetMasterPanel()
   {
-	HeaderPage hp = new HeaderPage();
+	HeaderPanel hp = new HeaderPanel();
 	assertTrue(hp.getMasterPanel() != null);	
   }
 }
