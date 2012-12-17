@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Label;
 public class PreferencesPage extends UserPage {
 
 	private CheckBox notificationCheckBox;
+	private CheckBox homeTagsCheckBox;
 	private TagsPanel tagsPanel;
 	
 	/**
@@ -25,6 +26,7 @@ public class PreferencesPage extends UserPage {
 
 	@Override
 	protected void createRestrictedContent() {
+		homeTagsCheckBox = new CheckBox("Limit homepage to chosen tags");
 		notificationCheckBox = new CheckBox("Enable email notifications");
 		tagsPanel = new TagsPanel();
 		Button saveButton = new Button("Save", new ClickHandler() {
@@ -34,6 +36,7 @@ public class PreferencesPage extends UserPage {
 			}
 		});		
 		
+		addWidget(homeTagsCheckBox);
 		addWidget(notificationCheckBox);
 		addWidget(new Label("Interest tags:"));
 		addWidget(tagsPanel);
