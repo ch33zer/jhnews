@@ -2,9 +2,17 @@ package com.jhnews.client;
 
 import com.google.gwt.user.client.ui.Label;
 
+/**
+ * An abstract class which checks that only admins can view the Page
+ * @author Group 8
+ *
+ */
 public abstract class AdminPage extends Page {
 	
-	AdminPage() {
+	/**
+	 * Constructor checks if the viewer is an admin
+	 */
+	public AdminPage() {
 		LoginManager.getInstance().isAdmin(new LoginManagerCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean result) {
@@ -17,6 +25,9 @@ public abstract class AdminPage extends Page {
 		});
 	}
 	
+	/**
+	 * Extended and called if the viewer is an admin
+	 */
 	protected abstract void createRestrictedContent();
 
 }

@@ -119,6 +119,9 @@ public class PageManager implements ValueChangeHandler<String>  {
 		setBody(page);
 	}
 	
+	/**
+	 * Updates the side bar for the admin so they can see the nubmer of pending submissions
+	 */
 	public void updateSideBar() {
 		SideBarPanel sideBar = (SideBarPanel) RootPanel.get("sidebar").getWidget(0);
 		sideBar.updatePendingReview();

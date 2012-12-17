@@ -16,7 +16,10 @@ public abstract class Page extends Composite {
 	private Label pageTitleLabel;
 	private VerticalPanel masterPanel;
 
-	Page() {
+	/**
+	 * Creates the title and master panel
+	 */
+	public Page() {
 		pageTitleLabel = new Label();
 		pageTitleLabel.addStyleDependentName("title");
 		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -26,14 +29,25 @@ public abstract class Page extends Composite {
 		initWidget(masterPanel);
 	}
 	
+	/**
+	 * Sets the page title
+	 * @param string Page title
+	 */
 	protected void setPageTitle(String string) {
 		pageTitleLabel.setText(string);
 	}
 	
+	/**
+	 * Adds a widget to the master panel
+	 * @param widget Panel to add
+	 */
 	protected void addWidget(Widget widget) {
 		masterPanel.add(widget);
 	}
 	
+	/**
+	 * Sets the widgets to be left aligned
+	 */
 	protected void isLeftAlign() {
 		masterPanel.addStyleName("leftVerticalPanel");
 	}

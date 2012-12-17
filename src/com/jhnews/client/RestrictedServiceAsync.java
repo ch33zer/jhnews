@@ -58,9 +58,19 @@ public interface RestrictedServiceAsync {
 	 */
 	void isAdmin(String sessionID, AsyncCallback<Boolean> callback);
 
+	/** @see {@link RestrictedService#approveAnnouncement(String, Announcement)}
+	 * @param sessionID
+	 * @param announcement
+	 * @param callback
+	 */
 	void approveAnnouncement(String sessionID, Announcement announcement,
 			AsyncCallback<Void> callback);
 
+	/** @see {@link RestrictedService#declineAnnouncement(String, Announcement)}
+	 * @param sessionID
+	 * @param announcement
+	 * @param callback
+	 */
 	void declineAnnouncement(String sessionID, Announcement announcement,
 			AsyncCallback<Void> callback);
 
