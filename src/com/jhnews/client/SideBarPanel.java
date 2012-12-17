@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -14,7 +15,7 @@ import com.jhnews.shared.Announcement;
  * @author Group 8
  *
  */
-public class SideBarPage extends Page implements LoginListener {
+public class SideBarPanel extends Composite implements LoginListener {
 	
 	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
 	
@@ -29,7 +30,7 @@ public class SideBarPage extends Page implements LoginListener {
 	/**
 	 * Default constructor creates the sidebar based on who is logged in
 	 */
-	public SideBarPage() {
+	public SideBarPanel() {
 		Hyperlink search = new Hyperlink("Search Announcements", "SEARCH");
 		Hyperlink submit = new Hyperlink("Submit Announcement", "SUBMIT");
 		adminLabel = new Label("Admin Options");

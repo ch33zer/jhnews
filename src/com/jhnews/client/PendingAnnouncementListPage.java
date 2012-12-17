@@ -4,9 +4,6 @@ import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.jhnews.shared.Announcement;
 
 /**
@@ -24,10 +21,7 @@ public class PendingAnnouncementListPage extends Page {
 	 *
 	 */
 	public PendingAnnouncementListPage() {
-		VerticalPanel masterPanel = new VerticalPanel();
-		Label pageTitleLabel = new Label("Pending Reviews");
-		pageTitleLabel.addStyleDependentName("title");
-		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		setPageTitle("Pending Reviews");
 		announcementListPanel = new PendingAnnouncementListPanel();
 		if (service == null) {
 			service = GWT.create(UnrestrictedService.class);
@@ -45,10 +39,7 @@ public class PendingAnnouncementListPage extends Page {
 			}
 		});
 		
-		masterPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		masterPanel.add(pageTitleLabel);
-		masterPanel.add(announcementListPanel);
-		initWidget(masterPanel);
+		addWidget(announcementListPanel);
 	}
 	
 }

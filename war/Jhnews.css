@@ -50,7 +50,7 @@ h1 {
 #sidebar {
 	background-color: #FFD700;
 	width: 195px;
-	height: 545px;
+	min-height: 545px;
 	float: left;
 	border-color: black;
 	border-width: 2px;
@@ -86,7 +86,7 @@ h1 {
 #body {
 	background-color: #EEEEEE;
 	width: 760px;
-	height: 510px;
+	min-height: 510px;
 	float: left;
 	padding: 20px 0px;
 }

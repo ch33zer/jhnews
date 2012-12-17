@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
@@ -13,7 +14,7 @@ import com.google.gwt.user.client.ui.Label;
  * @author Group 8
  *
  */
-public class HeaderPage extends Page implements LoginListener {
+public class HeaderPanel extends Composite implements LoginListener {
 	
 	private Hyperlink logIn;
 	private Hyperlink register;
@@ -24,7 +25,7 @@ public class HeaderPage extends Page implements LoginListener {
 	/**
 	 * Default constructor creates the header depending on whether or not the user is logged in 
 	 */
-	public HeaderPage() {
+	public HeaderPanel() {
 		logIn = new Hyperlink("Log in", "LOGIN");
 		register = new Hyperlink("Register", "REGISTER");
 		logOut = new Anchor("Log out");

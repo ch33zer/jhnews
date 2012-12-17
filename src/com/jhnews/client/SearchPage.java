@@ -21,7 +21,6 @@ import com.jhnews.shared.Announcement;
  */
 public class SearchPage extends Page {
 	
-	private VerticalPanel masterPanel;
 	private UnrestrictedServiceAsync service = GWT.create(UnrestrictedService.class);
 	private TextBox queryText;
 	private AnnouncementListPanel announcementListPanel;
@@ -30,15 +29,8 @@ public class SearchPage extends Page {
 	 * Default constructor requests the Announcement information from the server and populates the list
 	 */
 	public SearchPage() {
-		if (service == null) {
-			service = GWT.create(UnrestrictedService.class);
-		}
-		masterPanel = new VerticalPanel();
-		masterPanel.addStyleName("leftVerticalPanel");
-		Label pageTitleLabel = new Label("Search Announcement");
-		pageTitleLabel.addStyleDependentName("title");
-		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		masterPanel.add(pageTitleLabel);
+		setPageTitle("Search Announcement");
+		isLeftAlign();
 		announcementListPanel = new AnnouncementListPanel();
 		
 		HorizontalPanel searchPanel = new HorizontalPanel();
@@ -63,11 +55,9 @@ public class SearchPage extends Page {
 			}
 		});
 		searchPanel.add(searchButton);
-
 		
-		masterPanel.add(searchPanel);
-		masterPanel.add(announcementListPanel);
-	    initWidget(masterPanel);
+		addWidget(searchPanel);
+		addWidget(announcementListPanel);
 	}
 
 }

@@ -21,11 +21,8 @@ public class PreferencesPage extends Page {
 	 * Default constructor creates the preferences page for the user.
 	 */
 	public PreferencesPage() {
-		VerticalPanel masterPanel = new VerticalPanel();
-		masterPanel.addStyleName("leftVerticalPanel");
-		Label pageTitleLabel = new Label("Preferences");
-		pageTitleLabel.addStyleDependentName("title");
-		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		setPageTitle("Preferences");
+		isLeftAlign();
 		notificationCheckBox = new CheckBox("Enable email notifications");
 		tagsPanel = new TagsPanel();
 		Button saveButton = new Button("Save", new ClickHandler() {
@@ -35,11 +32,9 @@ public class PreferencesPage extends Page {
 			}
 		});		
 		
-		masterPanel.add(pageTitleLabel);
-		masterPanel.add(notificationCheckBox);
-		masterPanel.add(new Label("Interest tags:"));
-		masterPanel.add(tagsPanel);
-		masterPanel.add(saveButton);
-		initWidget(masterPanel);
+		addWidget(notificationCheckBox);
+		addWidget(new Label("Interest tags:"));
+		addWidget(tagsPanel);
+		addWidget(saveButton);
 	}
 }

@@ -20,6 +20,7 @@ public class HomePage extends Page {
 	 * Default constructor requests the Announcement information from the server and populates the list
 	 */
 	public HomePage() {
+		setPageTitle("Today's Announcements");
 		announcementListPanel = new AnnouncementListPanel();
 		if (service == null) {
 			service = GWT.create(UnrestrictedService.class);
@@ -36,7 +37,7 @@ public class HomePage extends Page {
 				announcementListPanel.setAnnouncementList(null);
 			}
 		});
-	    initWidget(announcementListPanel);
+		addWidget(announcementListPanel);
 	}
 
 }

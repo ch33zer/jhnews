@@ -18,7 +18,7 @@ public class SideBarPageTest extends GWTTestCase
   @Test
   public void testSideBarPageConstructor()
   { 
-	  SideBarPage sbp = new SideBarPage();
+	  SideBarPanel sbp = new SideBarPanel();
 	  assertTrue(sbp != null);
   }
 }

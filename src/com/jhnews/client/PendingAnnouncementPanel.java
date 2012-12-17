@@ -1,12 +1,12 @@
 package com.jhnews.client;
 
-import java.util.List;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.jhnews.shared.Announcement;
@@ -16,7 +16,7 @@ import com.jhnews.shared.Announcement;
  * @author Group 8
  *
  */
-public class PendingAnnouncementPage extends Page {
+public class PendingAnnouncementPanel extends Composite {
 	
 	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
 	private Announcement announcement;
@@ -25,7 +25,7 @@ public class PendingAnnouncementPage extends Page {
 	 * This is the default constructor creates the announcement page based on the Announcement object in question.
 	 * @param announcement The announcement details
 	 */
-	public PendingAnnouncementPage(Announcement announcement) {
+	public PendingAnnouncementPanel(Announcement announcement) {
 		this.announcement = announcement;
 		VerticalPanel masterPanel = new VerticalPanel();
 		HorizontalPanel buttonPanel = new HorizontalPanel();
@@ -33,11 +33,11 @@ public class PendingAnnouncementPage extends Page {
 		Button acceptButton = new Button("Accept", new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				service.approveAnnouncement(LoginManager.getInstance().getSessionID(), PendingAnnouncementPage.this.announcement, new AsyncCallback<Void>() {	
+				service.approveAnnouncement(LoginManager.getInstance().getSessionID(), PendingAnnouncementPanel.this.announcement, new AsyncCallback<Void>() {	
 					@Override
 					public void onSuccess(Void result) {
 						PageManager.getInstance().updateSideBar();
-						PageManager.getInstance().setBody(PagesEnum.PENDING);
+						History.newItem("PENDING");
 					}
 					@Override
 					public void onFailure(Throwable caught) {
@@ -50,11 +50,11 @@ public class PendingAnnouncementPage extends Page {
 		Button rejectButton = new Button("Reject", new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				service.declineAnnouncement(LoginManager.getInstance().getSessionID(), PendingAnnouncementPage.this.announcement, new AsyncCallback<Void>() {	
+				service.declineAnnouncement(LoginManager.getInstance().getSessionID(), PendingAnnouncementPanel.this.announcement, new AsyncCallback<Void>() {	
 					@Override
 					public void onSuccess(Void result) {
 						PageManager.getInstance().updateSideBar();
-						PageManager.getInstance().setBody(PagesEnum.PENDING);
+						History.newItem("PENDING");
 					}
 					@Override
 					public void onFailure(Throwable caught) {

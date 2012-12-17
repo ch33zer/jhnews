@@ -29,7 +29,6 @@ public class SubmissionPage extends Page {
 	private RestrictedServiceAsync restrictedService = GWT
 			.create(RestrictedService.class);
 	
-	private VerticalPanel masterPanel;
 	private TextBox titleTextBox;
 	private TextBox briefDescTextBox;
 	private TextBox fullDescTextBox;
@@ -47,36 +46,33 @@ public class SubmissionPage extends Page {
 	 * This is the default constructor for this SubmissionPage class.
 	 */
 	public SubmissionPage() {
+		setPageTitle("Announcement Submission");
+		isLeftAlign();
 		if (unrestrictedService == null) {
 			unrestrictedService = GWT.create(UnrestrictedService.class);
 		}
 		if (restrictedService == null) {
 			restrictedService = GWT.create(RestrictedService.class);
 		}
-		masterPanel = new VerticalPanel();
 		LoginManager.getInstance().isLoggedOn(
-				new LoginManagerCallback<Boolean>() {
+			new LoginManagerCallback<Boolean>() {
 
+				@Override
+				public void onSuccess(Boolean result) {
+					generateLoggedInPanel();
+				}
 					@Override
-					public void onSuccess(Boolean result) {
-						masterPanel.clear();
-						generateLoggedInPanel(masterPanel);
-					}
-
-					@Override
-					public void onFail() {
-						masterPanel.clear();
-						masterPanel.add(new Label("You must be logged in to submit an announcement"));
-					}
-				});
-		initWidget(masterPanel);
+				public void onFail() {
+					addWidget(new Label("You must be logged in to submit an announcement"));
+				}
+			});
 	}
 
 	/**
 	 * Generates the master panel for a logged in user
 	 * @param masterPanel the largest panel
 	 */
-	private void generateLoggedInPanel(VerticalPanel masterPanel) {
+	private void generateLoggedInPanel() {
 		// Variables
 		final User currentUser = new User();// TODO change currentUser to the
 											// real user once implemented
@@ -84,8 +80,6 @@ public class SubmissionPage extends Page {
 		briefDescTextBox = new TextBox();
 		fullDescTextBox = new TextBox();
 		locationTextBox = new TextBox();
-		Label pageTitleLabel = new Label("Submit Announcement");
-		pageTitleLabel.addStyleDependentName("title");
 		Label audienceLabel = new Label("Audience: ");
 		Label titleLabel = new Label("Title: ");
 		Label briefDescLabel = new Label("Brief Description: ");
@@ -187,8 +181,6 @@ public class SubmissionPage extends Page {
 		});
 
 		// Set widget details
-		pageTitleLabel
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		titleTextBox.setMaxLength(70);
 		titleTextBox.setVisibleLength(80);
 		briefDescTextBox.setMaxLength(255);
@@ -199,7 +191,6 @@ public class SubmissionPage extends Page {
 		locationTextBox.setVisibleLength(80 - 3);
 
 		// Create Panels
-		masterPanel.addStyleName("leftVerticalPanel");
 		HorizontalPanel audiencePanel = new HorizontalPanel();
 		VerticalPanel innerVertAudiencePanel = new VerticalPanel();
 		HorizontalPanel innerHoriAudiencePanel1 = new HorizontalPanel();
@@ -234,17 +225,15 @@ public class SubmissionPage extends Page {
 		locationPanel.add(locationTextBox);
 
 		// Add all category Panels to the masterPanel
-		masterPanel.add(pageTitleLabel);
-		masterPanel.add(errorLabel);
-		masterPanel.add(audiencePanel);
-		masterPanel.add(titlePanel);
-		masterPanel.add(briefDescPanel);
-		masterPanel.add(fullDescPanel);
-		masterPanel.add(dateTimePanel);
-		masterPanel.add(locationPanel);
-		masterPanel.add(tagsLabel);
-		masterPanel.add(tagsPanel);
-		masterPanel.add(submitButton);
+		addWidget(errorLabel);
+		addWidget(audiencePanel);
+		addWidget(titlePanel);
+		addWidget(briefDescPanel);
+		addWidget(fullDescPanel);
+		addWidget(dateTimePanel);
+		addWidget(locationPanel);
+		addWidget(tagsLabel);
+		addWidget(tagsPanel);
+		addWidget(submitButton);
 	}
-
 }

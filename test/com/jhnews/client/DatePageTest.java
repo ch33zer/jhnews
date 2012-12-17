@@ -18,7 +18,7 @@ public class DatePageTest extends GWTTestCase
   @Test
   public void testDatePageConstructor()
   { 
-	  DatePage dp = new DatePage();
+	  DatePanel dp = new DatePanel();
 	  assertTrue(dp != null);
   }
 }

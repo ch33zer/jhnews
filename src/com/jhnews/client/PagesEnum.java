@@ -32,7 +32,7 @@ public enum PagesEnum {
 	PENDING,
 	
 	/**
-	 * Edit pending announcement page
+	 * Edit tags
 	 */
 	EDIT,
 	
@@ -49,5 +49,10 @@ public enum PagesEnum {
 	/**
 	 * Register for an account page
 	 */
-	REGISTER
+	REGISTER,
+	
+	/**
+	 * Email settings
+	 */
+	EMAIL
 }
