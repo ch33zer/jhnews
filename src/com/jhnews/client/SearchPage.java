@@ -7,11 +7,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.jhnews.shared.Announcement;
 
 /**
@@ -21,7 +18,7 @@ import com.jhnews.shared.Announcement;
  */
 public class SearchPage extends Page {
 	
-	private UnrestrictedServiceAsync service = GWT.create(UnrestrictedService.class);
+	private UnrestrictedServiceAsync unrestrictedService = GWT.create(UnrestrictedService.class);
 	private TextBox queryText;
 	private AnnouncementListPanel announcementListPanel;
 	
@@ -29,6 +26,9 @@ public class SearchPage extends Page {
 	 * Default constructor requests the Announcement information from the server and populates the list
 	 */
 	public SearchPage() {
+		if (unrestrictedService == null) {
+			unrestrictedService = GWT.create(RestrictedService.class);
+		}
 		setPageTitle("Search Announcement");
 		isLeftAlign();
 		announcementListPanel = new AnnouncementListPanel();
@@ -40,7 +40,7 @@ public class SearchPage extends Page {
 	
 			@Override
 			public void onClick(ClickEvent event) {
-				service.getAnnouncementsWithString(queryText.getText(), new AsyncCallback<List<Announcement>>() {
+				unrestrictedService.getAnnouncementsWithString(queryText.getText(), new AsyncCallback<List<Announcement>>() {
 					
 					@Override
 					public void onSuccess(List<Announcement> result) {

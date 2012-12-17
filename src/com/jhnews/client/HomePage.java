@@ -14,18 +14,18 @@ import com.jhnews.shared.Announcement;
 public class HomePage extends Page {
 	
 	private AnnouncementListPanel announcementListPanel;
-	private UnrestrictedServiceAsync service = GWT.create(UnrestrictedService.class);
+	private UnrestrictedServiceAsync unrestrictedService = GWT.create(UnrestrictedService.class);
 	
 	/**
 	 * Default constructor requests the Announcement information from the server and populates the list
 	 */
 	public HomePage() {
+		if (unrestrictedService == null) {
+			unrestrictedService = GWT.create(UnrestrictedService.class);
+		}
 		setPageTitle("Today's Announcements");
 		announcementListPanel = new AnnouncementListPanel();
-		if (service == null) {
-			service = GWT.create(UnrestrictedService.class);
-		}
-		service.getTodaysAnnouncements(new AsyncCallback<List<Announcement>>() {
+		unrestrictedService.getTodaysAnnouncements(new AsyncCallback<List<Announcement>>() {
 			
 			@Override
 			public void onSuccess(List<Announcement> result) {
