@@ -1,5 +1,6 @@
 package com.jhnews.server;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -7,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -30,7 +32,7 @@ import com.jhnews.shared.UserExistsException;
  *
  */
 public class RestrictedServiceImpl extends RemoteServiceServlet implements
-		RestrictedService, ServletContextListener {
+		RestrictedService, ServletContextListener, Runnable {
 	
 	/**
 	 * For Serialization	
@@ -41,12 +43,14 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		sessionFactory = HibernateUtil.getSessionFactory();
 	}
 	private ScheduledExecutorService scheduler;
-	/*private Map<String, String> users = new HashMap<String, String>(); //user to hashed password mapping
-	private Map<String, Date> sessionIDs = new HashMap<String, Date>(); //Session ID to User mapping*/
+	{
+		scheduler = Executors.newSingleThreadScheduledExecutor();
+	    scheduler.scheduleAtFixedRate(this, 0, 1, TimeUnit.DAYS);
+	}
 	private final static long COOKIE_RETENTION_TIME = 1000 * 60 * 60 * 24;//1000 msecs * 60 secs * 60 minutes * 24 hours = 1 day
-	/*{
-		users.put("nir", BCrypt.hashpw("dog", BCrypt.gensalt())); //Single user with username
-	}*/
+
+	
+	
 	
 	
 	/* (non-Javadoc)
@@ -309,8 +313,6 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		scheduler = Executors.newSingleThreadScheduledExecutor();
-		scheduler.scheduleAtFixedRate(new EmailManager(), 0, 1, TimeUnit.DAYS);
 	}
 	
 	private static void getMidnightOf(Date date) {
@@ -362,6 +364,22 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 				}
 			}
 		}
+	}
+
+	@Override
+	public void run() {
+		org.hibernate.Session session = sessionFactory.openSession();
+		List<UserHibernate> users = session.createCriteria(UserHibernate.class).list();
+		try {
+			EmailSender.send(users, "TEST", "TEST");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		session.close();
 	}
 
 }
