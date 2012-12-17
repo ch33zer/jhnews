@@ -7,7 +7,6 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -21,7 +20,7 @@ import com.jhnews.shared.User;
  * 
  * @author Group 8
  */
-public class SubmissionPage extends Page {
+public class SubmissionPage extends UserPage {
 	
 	private UnrestrictedServiceAsync unrestrictedService = GWT
 			.create(UnrestrictedService.class);
@@ -54,25 +53,13 @@ public class SubmissionPage extends Page {
 		if (restrictedService == null) {
 			restrictedService = GWT.create(RestrictedService.class);
 		}
-		LoginManager.getInstance().isLoggedOn(
-			new LoginManagerCallback<Boolean>() {
-
-				@Override
-				public void onSuccess(Boolean result) {
-					generateLoggedInPanel();
-				}
-					@Override
-				public void onFail() {
-					addWidget(new Label("You must be logged in to submit an announcement"));
-				}
-			});
 	}
 
 	/**
 	 * Generates the master panel for a logged in user
 	 * @param masterPanel the largest panel
 	 */
-	private void generateLoggedInPanel() {
+	protected void createRestrictedContent() {
 		// Variables
 		final User currentUser = new User();// TODO change currentUser to the
 											// real user once implemented

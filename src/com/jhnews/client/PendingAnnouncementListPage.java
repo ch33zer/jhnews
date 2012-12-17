@@ -11,10 +11,10 @@ import com.jhnews.shared.Announcement;
  * @author Group 8
  *
  */
-public class PendingAnnouncementListPage extends Page {
+public class PendingAnnouncementListPage extends AdminPage {
 	
 	private PendingAnnouncementListPanel announcementListPanel;
-	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
+	private RestrictedServiceAsync restrictedService = GWT.create(RestrictedService.class);
 	
 	/**
 	 * This is the default constructor that creates a panel containing a list of pending announcements.
@@ -22,11 +22,15 @@ public class PendingAnnouncementListPage extends Page {
 	 */
 	public PendingAnnouncementListPage() {
 		setPageTitle("Pending Reviews");
-		announcementListPanel = new PendingAnnouncementListPanel();
-		if (service == null) {
-			service = GWT.create(UnrestrictedService.class);
+	}
+
+	@Override
+	protected void createRestrictedContent() {
+		if (restrictedService == null) {
+			restrictedService = GWT.create(RestrictedService.class);
 		}
-		service.getPendingAnnouncements(LoginManager.getInstance().getSessionID(), new AsyncCallback<List<Announcement>>() {
+		announcementListPanel = new PendingAnnouncementListPanel();
+		restrictedService.getPendingAnnouncements(LoginManager.getInstance().getSessionID(), new AsyncCallback<List<Announcement>>() {
 			
 			@Override
 			public void onSuccess(List<Announcement> result) {
@@ -38,7 +42,6 @@ public class PendingAnnouncementListPage extends Page {
 				announcementListPanel.setAnnouncementList(null);
 			}
 		});
-		
 		addWidget(announcementListPanel);
 	}
 	

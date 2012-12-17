@@ -75,6 +75,9 @@ public class PageManager implements ValueChangeHandler<String>  {
 		case PENDING:
 			page = new PendingAnnouncementListPage();
 			break;
+		case EDIT:
+			page = new EditTagsPage();
+			break;
 		default:
 			throw new RuntimeException("Unknown page in BodyEnum: " + body.toString());
 		}
