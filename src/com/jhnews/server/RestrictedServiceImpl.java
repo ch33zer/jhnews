@@ -27,6 +27,7 @@ import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
 import com.jhnews.shared.Session;
 import com.jhnews.shared.Tags;
+import com.jhnews.shared.User;
 import com.jhnews.shared.UserExistsException;
 
 /** The server side of the login service
@@ -160,30 +161,30 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	 * @see com.jhnews.client.LoginService#register(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Session register(String username, String password) throws RegistrationFailedException, UserExistsException {
+	public Session register(User user, String password) throws RegistrationFailedException, UserExistsException {
 
 		System.err.println("Adding!");
-		if (username == null || password == null) {
+		if (user == null || password == null) {
 			throw new RegistrationFailedException();
 		}
 
 		System.err.println("Not Null!");
-		if (!FieldVerifier.isValidUserNameAndPassword(username, password)) {
+		if (!FieldVerifier.isValidUserNameAndPassword(user.getUsername(), password)) {
 			throw new RegistrationFailedException();
 		}
 
 		System.err.println("Valid!");
-		if (userExists(username)) {
+		if (userExists(user.getUsername())) {
 			throw new UserExistsException();
 		}
 
 		System.err.println("User doesn't exist!");
 		UserHibernate userHibernate= generateDefaultUser();
-		userHibernate.setUsername(username);
+		userHibernate.setUsername(user.getUsername());
 		userHibernate.setHash(BCrypt.hashpw(password, BCrypt.gensalt()));
 		insertUser(userHibernate);
 		try {
-			return logIn(username, password);
+			return logIn(user.getUsername(), password);
 		} catch (LoginFailedException e) {
 
 			System.err.println("Failed!");
