@@ -5,10 +5,12 @@ import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.FieldVerifier;
 import com.jhnews.shared.Session;
 import com.jhnews.shared.User;
+import com.jhnews.shared.UserTags;
 
 /**
  * Handles login, logout and registration. Abstracts away the GWT specific
@@ -151,6 +153,7 @@ public class LoginManager {
 			public void onSuccess(Session result) {
 				if (callback != null) {
 					if (result != null) {
+						
 						createSessionCookie(result);
 						callback.onSuccess(result);
 					} else {
