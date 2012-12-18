@@ -74,4 +74,7 @@ public interface RestrictedServiceAsync {
 	void declineAnnouncement(String sessionID, Announcement announcement,
 			AsyncCallback<Void> callback);
 
+	void addAdmin(String sessionID, String email,
+			AsyncCallback<Boolean> callback);
+
 }

@@ -66,33 +66,34 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		UserHibernate user = getUser(username, password);
 		if (user!=null) {
 			String sessionID = UUID.randomUUID().toString();
-			SessionHibernate session = new SessionHibernate();
-			session.setSessionID(sessionID);
+			SessionHibernate sessionHibernate = new SessionHibernate();
+			sessionHibernate.setSessionID(sessionID);
 			Date expiration = new Date(System.currentTimeMillis() + COOKIE_RETENTION_TIME);
-			session.setExpireDate(expiration);
-			session.setUser(user);
-			addSessionToDatabase(session);
-			return HibernateConversionUtil.convertHibernateSession(session);
+			sessionHibernate.setExpireDate(expiration);
+			sessionHibernate.setUser(user);
+			Transaction tx = null;
+			org.hibernate.Session hibernateSession = sessionFactory.openSession();
+			Session session = null;
+			try {
+				tx=hibernateSession.beginTransaction();
+				hibernateSession.save(sessionHibernate);
+				session = HibernateConversionUtil.convertHibernateSession(sessionHibernate);
+				tx.commit();
+			}
+			catch (Exception e) {
+				if (tx != null) {
+					tx.rollback();
+				}
+			}
+			hibernateSession.close();
+			if (session != null) {
+				return session;
+			}
+			throw new LoginFailedException();
 		}
 		throw new LoginFailedException();	
 	}
 	
-	private void addSessionToDatabase(SessionHibernate session) {
-		Transaction tx = null;
-		try {
-			org.hibernate.Session hibernateSession = sessionFactory.openSession();
-			tx=hibernateSession.beginTransaction();
-			hibernateSession.save(session);
-			tx.commit();
-			hibernateSession.close();
-		}
-		catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-		}
-	}
-
 	private UserHibernate getUser(String username, String password) {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
@@ -396,6 +397,33 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.eq("active", true)).list();
 		session.close();
 		return tagsHibernate;
+	}
+
+	@Override
+	public boolean addAdmin(String sessionID, String email) {
+		boolean success = false;
+		if (isAdmin(sessionID)) {
+			Transaction tx = null;
+			try {
+				org.hibernate.Session session = sessionFactory.openSession();
+				List list = session.createCriteria(UserHibernate.class).add(Restrictions.ilike("email", email.trim())).list();
+				if (list.size() > 0) {
+					UserHibernate futureAdmin = (UserHibernate) list.get(0);
+					futureAdmin.setAdmin(true);
+					tx = session.beginTransaction();
+					session.update(futureAdmin);
+					tx.commit();
+					success = true;
+				}
+				session.close();
+			}
+			catch (Exception e) {
+				if (tx != null) {
+					tx.rollback();
+				}
+			}
+		}
+		return success;
 	}
 
 }
