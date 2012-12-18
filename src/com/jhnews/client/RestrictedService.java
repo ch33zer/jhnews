@@ -9,6 +9,7 @@ import com.jhnews.shared.LoginFailedException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
 import com.jhnews.shared.Session;
+import com.jhnews.shared.Tags;
 import com.jhnews.shared.User;
 import com.jhnews.shared.UserExistsException;
 /** 
@@ -82,4 +83,8 @@ public interface RestrictedService extends RemoteService {
 	boolean isAdmin(String sessionID);
 	
 	boolean addAdmin(String sessionID, String email);
+	
+	void addTag(String sessionID, String tagName);
+	
+	void removeTag(String sessionID, Tags tag);
 }

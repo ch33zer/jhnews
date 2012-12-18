@@ -21,6 +21,7 @@ public class SearchPage extends Page {
 	private UnrestrictedServiceAsync unrestrictedService = GWT.create(UnrestrictedService.class);
 	
 	private TextBox queryText;
+	private TagsPanel tagsPanel;
 	private AnnouncementListPanel announcementListPanel;
 	
 	/**
@@ -32,6 +33,9 @@ public class SearchPage extends Page {
 		}
 		setPageTitle("Search Announcement");
 		isLeftAlign();
+		
+		tagsPanel = new TagsPanel();
+		
 		announcementListPanel = new AnnouncementListPanel();
 		
 		HorizontalPanel searchPanel = new HorizontalPanel();
@@ -57,6 +61,7 @@ public class SearchPage extends Page {
 		});
 		searchPanel.add(searchButton);
 		
+		addWidget(tagsPanel);
 		addWidget(searchPanel);
 		addWidget(announcementListPanel);
 	}

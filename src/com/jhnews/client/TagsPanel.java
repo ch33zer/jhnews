@@ -1,6 +1,7 @@
 package com.jhnews.client;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
@@ -157,6 +158,24 @@ public class TagsPanel extends Composite {
 					
 				}
 			});
+		}
+	}
+	
+	public List<Tags> getCheckedTags() {
+		int index = 0;
+		List<Tags> checkedTags = new LinkedList<Tags>();
+		for (CheckBox checkBox : checkBoxes) {
+			if (checkBox.getValue()) {
+				checkedTags.add(tags.get(index));
+			}
+			index++;
+		}
+		return checkedTags;
+	}
+	
+	public void checkAllTags() {
+		for (CheckBox checkBox : checkBoxes) {
+			checkBox.setValue(true);
 		}
 	}
 	
