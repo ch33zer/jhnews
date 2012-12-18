@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.Announcement;
+import com.jhnews.shared.Tags;
 
 /** 
  * The ASync component of AnnouncmentFetcher. This handles the callback component of the RPC call
@@ -23,5 +24,7 @@ public interface UnrestrictedServiceAsync {
 	 * @param callback
 	 */
 	void getAnnouncementsWithString(String query, AsyncCallback<List<Announcement>> callback);
+
+	void getAllActiveTags(AsyncCallback<List<Tags>> callback);
 
 }

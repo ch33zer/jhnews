@@ -41,6 +41,8 @@ public class AnnouncementPanel extends Composite {
 				detailPanel.add(new Label("Date: " + FORMATTER_NO_TIME.format(announcement.getEventDate())));
 			}
 		}
+		String tags = "Tags: " + announcement.getTagString();
+		detailPanel.add(new Label(tags));
 		masterPanel.add(detailPanel);
 		initWidget(masterPanel);
 	}

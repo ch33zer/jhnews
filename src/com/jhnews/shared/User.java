@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.OneToMany;
 
+import com.jhnews.server.UserTagsHibernate;
+
 /**
  * User is the class that represents a user of our application and holds the user's preferences and settings.
  * @author Group 8
@@ -17,15 +19,10 @@ public class User implements Serializable{
 	private String lastName;
 	private String email;
 	private boolean isAdmin;
-	private boolean tag1;
-	private boolean tag2;
-	private boolean tag3;
-	private boolean tag4;
-	private boolean tag5;
-	private List<Announcement> announcements;
 	private String username;
 	private String hash;
 	private static final long serialVersionUID = 1L;
+	private List<UserTags> tags;
 	
 	/**
 	 * The default constructor of the User class.
@@ -96,94 +93,7 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	/**
-	 * Gets the announcements submitted by the user
-	 * @return the list of announcements submitted by the user
-	 */
-	@OneToMany(mappedBy="submitter")
-	public List<Announcement> getAnnouncements() {
-		return announcements;
-	}
-	
-	/**
-	 * Sets the user's announcements
-	 * @param announcements the user's list of announcements 
-	 */
-	public void setAnnouncements(List<Announcement> announcements) {
-		this.announcements = announcements;
-	}
-	
-	/** Gets whether or not the user's first tag is set
-	 * @return true if the tag is set, false otherwise
-	 */
-	public boolean isTag1() {
-		return tag1;
-	}
-	
-	/** Sets the user's first tag to be selected or not
-	 * @param tag1 true if it's selected, false if it's not
-	 */
-	public void setTag1(boolean tag1) {
-		this.tag1 = tag1;
-	}
-	
-	/** Gets whether or not the user's second tag is set
-	 * @return true if the tag is set, false otherwise
-	 */
-	public boolean isTag2() {
-		return tag2;
-	}
-	
-	/** Sets the user's second tag to be selected or not
-	 * @param tag2 true if it's selected, false if it's not
-	 */
-	public void setTag2(boolean tag2) {
-		this.tag2 = tag2;
-	}
-	
-	/** Gets whether or not the user's third tag is set
-	 * @return true if the tag is set, false otherwise
-	 */
-	public boolean isTag3() {
-		return tag3;
-	}
-	
-	/** Sets the user's third tag to be selected or not
-	 * @param tag3 true if it's selected, false if it's not
-	 */
-	public void setTag3(boolean tag3) {
-		this.tag3 = tag3;
-	}
-	
-	/** Gets whether or not the user's fourth tag is set
-	 * @return true if the tag is set, false otherwise
-	 */
-	public boolean isTag4() {
-		return tag4;
-	}
-	
-	/** Sets the user's fourth tag to be selected or not
-	 * @param tag4 true if it's selected, false if it's not
-	 */
-	public void setTag4(boolean tag4) {
-		this.tag4 = tag4;
-	}
-	
-	/** Gets whether or not the user's fifth tag is set
-	 * @return true if the tag is set, false otherwise
-	 */
-	public boolean isTag5() {
-		return tag5;
-	}
-	
-	/** Sets the user's fifth tag to be selected or not
-	 * @param tag5 true if it's selected, false if it's not
-	 */
-	public void setTag5(boolean tag5) {
-		this.tag5 = tag5;
-	}
-	
+		
 	/** Gets the user's username
 	 * @return the user's username
 	 */
@@ -226,5 +136,19 @@ public class User implements Serializable{
 	 */
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	/**
+	 * @return the tags
+	 */
+	public List<UserTags> getTags() {
+		return tags;
+	}
+
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(List<UserTags> tags) {
+		this.tags = tags;
 	}
 }

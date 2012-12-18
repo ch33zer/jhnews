@@ -1,6 +1,7 @@
 package com.jhnews.server;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,7 @@ import com.jhnews.shared.LoginFailedException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
 import com.jhnews.shared.Session;
+import com.jhnews.shared.Tags;
 import com.jhnews.shared.UserExistsException;
 
 /** The server side of the login service
@@ -221,12 +223,14 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		userHibernate.setFirstName("");
 		userHibernate.setLastName("");
 		userHibernate.setHash("");
-		userHibernate.setTag1(true);
-		userHibernate.setTag2(true);
-		userHibernate.setTag3(true);
-		userHibernate.setTag4(true);
-		userHibernate.setTag5(true);
-		userHibernate.setTag6(true);
+		List<UserTagsHibernate> userTagsList = new ArrayList<UserTagsHibernate>();
+		UserTagsHibernate userTags;
+		for (TagsHibernate tag : getAllActiveTagsHibernate()) {
+			userTags = new UserTagsHibernate();
+			userTags.setUserHibernate(userHibernate);
+			userTags.setTagsHibernate(tag);
+			userTagsList.add(userTags);
+		}
 		userHibernate.setUsername("");
 		return userHibernate;
 	}
@@ -281,8 +285,8 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
 		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).list():session.createCriteria(AnnouncementHibernate.class).list();
-		session.close();
 		List<Announcement> todays = HibernateConversionUtil.convertHibernateAnnouncementList(todayHibernate);
+		session.close();
 		return todays;
 	}
 
@@ -380,6 +384,18 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			e.printStackTrace();
 		}
 		session.close();
+	}
+	
+	private List<Tags> getAllActiveTags() {
+		List<Tags> tags = HibernateConversionUtil.convertHibernateTagsList(getAllActiveTagsHibernate());
+		return tags;
+	}
+	private List<TagsHibernate> getAllActiveTagsHibernate() {
+		org.hibernate.Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.eq("active", true)).list();
+		session.close();
+		return tagsHibernate;
 	}
 
 }
