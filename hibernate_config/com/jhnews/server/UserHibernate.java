@@ -2,14 +2,19 @@ package com.jhnews.server;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.IndexColumn;
 
 /**
  * User is the class that represents a user of our application and holds the user's preferences and settings.
@@ -19,21 +24,15 @@ import javax.persistence.Table;
 @Table(name="user")
 public class UserHibernate implements Serializable{
 
-
 	private int ID;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private boolean isAdmin;
-	private boolean tag1;
-	private boolean tag2;
-	private boolean tag3;
-	private boolean tag4;
-	private boolean tag5;
-	private boolean tag6;
 	private String username;
 	private String hash;
 	private static final long serialVersionUID = 1L;
+	private Set<UserTagsHibernate> tags;
 	
 	/**
 	 * The default constructor of the User class.
@@ -74,71 +73,7 @@ public class UserHibernate implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/**
-	 * @return the tag1
-	 */
-	@Column(name="uTag1")
-	public boolean isTag1() {
-		return tag1;
-	}
-	/**
-	 * @param tag1 the tag1 to set
-	 */
-	public void setTag1(boolean tag1) {
-		this.tag1 = tag1;
-	}
-	/**
-	 * @return the tag2
-	 */
-	@Column(name="uTag2")
-	public boolean isTag2() {
-		return tag2;
-	}
-	/**
-	 * @param tag2 the tag2 to set
-	 */
-	public void setTag2(boolean tag2) {
-		this.tag2 = tag2;
-	}
-	/**
-	 * @return the tag3
-	 */
-	@Column(name="uTag3")
-	public boolean isTag3() {
-		return tag3;
-	}
-	/**
-	 * @param tag3 the tag3 to set
-	 */
-	public void setTag3(boolean tag3) {
-		this.tag3 = tag3;
-	}
-	/**
-	 * @return the tag4
-	 */
-	@Column(name="uTag4")
-	public boolean isTag4() {
-		return tag4;
-	}
-	/**
-	 * @param tag4 the tag4 to set
-	 */
-	public void setTag4(boolean tag4) {
-		this.tag4 = tag4;
-	}
-	/**
-	 * @return the tag5
-	 */
-	@Column(name="uTag5")
-	public boolean isTag5() {
-		return tag5;
-	}
-	/**
-	 * @param tag5 the tag5 to set
-	 */
-	public void setTag5(boolean tag5) {
-		this.tag5 = tag5;
-	}
+	
 	/**
 	 * @return the username
 	 */
@@ -178,18 +113,19 @@ public class UserHibernate implements Serializable{
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+
 	/**
-	 * @return the tag6
+	 * @return the tags
 	 */
-	@Column(name="uTag6")
-	public boolean isTag6() {
-		return tag6;
+	@OneToMany(mappedBy="tagsHibernate")
+	public Set<UserTagsHibernate> getTags() {
+		return tags;
 	}
 	/**
-	 * @param tag6 the tag6 to set
+	 * @param tags the tags to set
 	 */
-	public void setTag6(boolean tag6) {
-		this.tag6 = tag6;
+	public void setTags(Set<UserTagsHibernate> tags) {
+		this.tags = tags;
 	}
 	
 	

@@ -15,4 +15,12 @@
         <class-a>com.jhnews.server.UserHibernate</class-a>
         <class-b>com.jhnews.shared.User</class-b>
     </mapping>
+    <mapping>
+        <class-a>com.jhnews.server.UserTagsHibernate</class-a>
+        <class-b>com.jhnews.shared.UserTags</class-b>
+    </mapping>
+    <mapping>
+        <class-a>com.jhnews.server.TagsHibernate</class-a>
+        <class-b>com.jhnews.shared.Tags</class-b>
+    </mapping>
 </mappings>

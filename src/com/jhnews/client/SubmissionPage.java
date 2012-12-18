@@ -128,11 +128,7 @@ public class SubmissionPage extends UserPage {
 
 					// Set tags in the submission according to checked tag
 					// CheckBoxs
-					currentSubmission.setTag1(tagsPanel.boxIsChecked(0));
-					currentSubmission.setTag2(tagsPanel.boxIsChecked(1));
-					currentSubmission.setTag3(tagsPanel.boxIsChecked(2));
-					currentSubmission.setTag4(tagsPanel.boxIsChecked(3));
-					currentSubmission.setTag5(tagsPanel.boxIsChecked(4));
+					tagsPanel.setTagsInAnnouncement(currentSubmission);
 					
 					currentSubmission.setHasEventTime(false);
 					/*ArrayList<String> checkedTagCBValues = new ArrayList<String>();

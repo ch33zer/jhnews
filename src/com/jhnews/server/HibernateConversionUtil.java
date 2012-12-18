@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.Session;
+import com.jhnews.shared.Tags;
 import com.jhnews.shared.User;
 
 /**
@@ -31,6 +32,18 @@ public class HibernateConversionUtil {
 	 */
 	public static Announcement convertHibernateAnnouncment(AnnouncementHibernate announcementHibernate) {
 		return getDozerInstance().map(announcementHibernate, Announcement.class);
+	}
+	
+	public static List<Tags> convertHibernateTagsList(List<TagsHibernate> list) {
+		List<Tags> announcments = new LinkedList<Tags>();
+		for (TagsHibernate el : list) {
+			announcments.add(convertHibernateTags(el));
+		}
+		return announcments;
+	}
+	
+	public static Tags convertHibernateTags(TagsHibernate tags) {
+		return getDozerInstance().map(tags, Tags.class);
 	}
 	
 	/**

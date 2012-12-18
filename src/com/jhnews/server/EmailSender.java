@@ -21,7 +21,7 @@ public class EmailSender {
 		final String username = "jhnewsmailserver@gmail.com";
 		final String password = "groupgreat";
 		final String host = "smtp.gmail.com";
-		final int port = 465;
+		final int port = 465;//465
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -38,7 +38,7 @@ public class EmailSender {
 				});
 		//System.out.println("Session created");
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("jhnewsmailserver@gmail.com",
+		msg.setFrom(new InternetAddress(username,
 				"JHNews Admin"));
 		InternetAddress address;
 		for (UserHibernate user : recipients) {
@@ -47,18 +47,19 @@ public class EmailSender {
 				address.setPersonal(user.getFirstName() + " "
 						+ user.getLastName());
 				msg.addRecipient(Message.RecipientType.BCC, address);
-				//System.out.println("Parse succeeded for " + address.getAddress());
+				System.out.println("Parse succeeded for " + address.getAddress());
 			} catch (AddressException e) {
-				//System.out.println("Address parse failed for " + e.getMessage() + ", " + e.getCause());
+				System.out.println("Address parse failed for " + e.getMessage() + ", " + e.getCause());
 			}
 		}
 		msg.setSubject(subject);
 		msg.setText(body);
-		//System.out.println("Created message");
-	    Transport transport = session.getTransport("smtps");
+		System.out.println("Created message");
+		//TODO
+	    /*Transport transport = session.getTransport("smtps");
 	    transport.connect(host, port, username, password);
 	    transport.sendMessage(msg, msg.getAllRecipients());
-	    transport.close();
+	    transport.close();*/
 		//System.out.println("Sent message");
 
 	}

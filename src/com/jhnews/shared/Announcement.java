@@ -3,6 +3,8 @@ package com.jhnews.shared;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.jhnews.server.TagsHibernate;
+
 /**
  * Announcement is the class that represents an announcement submission and holds all its relevant information.
  * @author Group 8
@@ -19,11 +21,9 @@ public class Announcement implements Serializable {
 	private Date eventDate;
 	private boolean approved;
 	private boolean hasEventTime;
-	private boolean tag1;
-	private boolean tag2;
-	private boolean tag3;
-	private boolean tag4;
-	private boolean tag5;
+	private Tags tag1;
+	private Tags tag2;
+	private Tags tag3;
 	private boolean toFreshman;
 	private boolean toSophomore;
 	private boolean toJunior;
@@ -31,20 +31,6 @@ public class Announcement implements Serializable {
 	private boolean toGraduate;
 	private boolean toFaculty;
 
-	@Override
-	public String toString() {
-		return "Announcement [ID=" + ID + ", submitter=" + submitter
-				+ ", title=" + title + ", location=" + location
-				+ ", briefDescription=" + briefDescription
-				+ ", longDescription=" + longDescription + ", eventDate="
-				+ eventDate + ", approved=" + approved + ", hasEventTime="
-				+ hasEventTime + ", tag1=" + tag1 + ", tag2=" + tag2
-				+ ", tag3=" + tag3 + ", tag4=" + tag4 + ", tag5=" + tag5
-				+ ", toFreshman=" + toFreshman + ", toSophomore=" + toSophomore
-				+ ", toJunior=" + toJunior + ", toSenior=" + toSenior
-				+ ", toGraduate=" + toGraduate + ", toFaculty=" + toFaculty
-				+ "]";
-	}
 
 
 	private static final long serialVersionUID = 1L;
@@ -192,86 +178,6 @@ public class Announcement implements Serializable {
 		return hasEventTime;
 	}
 
-/**
- * Checks if the first tag is set
- * @return true if it's set, false otherwise
- */
-	public boolean isTag1() {
-		return tag1;
-	}
-
-	/**
-	 * Sets the first tag to true or false
-	 * @param tag1 the Boolean value to set the tag to
-	 */
-	public void setTag1(boolean tag1) {
-		this.tag1 = tag1;
-	}
-
-	/**
-	 * Checks if the second tag is set
-	 * @return true if it's set, false otherwise
-	 */
-	public boolean isTag2() {
-		return tag2;
-	}
-
-	/**
-	 * Sets the second tag to true or false
-	 * @param tag2 the Boolean value to set the tag to
-	 */
-	public void setTag2(boolean tag2) {
-		this.tag2 = tag2;
-	}
-
-	/**
-	 * Checks if the third tag is set
-	 * @return true if it's set, false otherwise
-	 */
-	public boolean isTag3() {
-		return tag3;
-	}
-
-	/**
-	 * Sets the third tag to true or false
-	 * @param tag3 the Boolean value to set the tag to
-	 */
-	public void setTag3(boolean tag3) {
-		this.tag3 = tag3;
-	}
-
-	/**
-	 * Checks if the fourth tag is set
-	 * @return true if it's set, false otherwise
-	 */
-	public boolean isTag4() {
-		return tag4;
-	}
-
-	/**
-	 * Sets the fourth tag to true or false
-	 * @param tag4 the Boolean value to set the tag to
-	 */
-	public void setTag4(boolean tag4) {
-		this.tag4 = tag4;
-	}
-
-	/**
-	 * Checks if the fifth tag is set
-	 * @return true if it's set, false otherwise
-	 */
-	public boolean isTag5() {
-		return tag5;
-	}
-
-	/**
-	 * Sets the fifth tag to true or false
-	 * @param tag5 the Boolean value to set the tag to
-	 */
-	public void setTag5(boolean tag5) {
-		this.tag5 = tag5;
-	}
-
 	/**
 	 * Checks if the announcement is set to be sent to freshmen
 	 * @return true if it is, false otherwise
@@ -391,5 +297,61 @@ public class Announcement implements Serializable {
 	 */
 	public void setApproved(boolean approved) {
 		this.approved = approved;
+	}
+
+	/**
+	 * @return the tag1
+	 */
+	public Tags getTag1() {
+		return tag1;
+	}
+
+	/**
+	 * @param tag1 the tag1 to set
+	 */
+	public void setTag1(Tags tag1) {
+		this.tag1 = tag1;
+	}
+
+	/**
+	 * @return the tag2
+	 */
+	public Tags getTag2() {
+		return tag2;
+	}
+
+	/**
+	 * @param tag2 the tag2 to set
+	 */
+	public void setTag2(Tags tag2) {
+		this.tag2 = tag2;
+	}
+
+	/**
+	 * @return the tag3
+	 */
+	public Tags getTag3() {
+		return tag3;
+	}
+
+	/**
+	 * @param tag3 the tag3 to set
+	 */
+	public void setTag3(Tags tag3) {
+		this.tag3 = tag3;
+	}
+
+	public String getTagString() {
+		String ret ="";
+		if(tag1!= null) {
+			ret += tag1.getName();
+		}
+		if(tag2!= null) {
+			ret +=  ", " + tag2.getName();
+		}
+		if(tag3!= null) {
+			ret += ", " + tag3.getName();
+		}
+		return ret;
 	}
 }

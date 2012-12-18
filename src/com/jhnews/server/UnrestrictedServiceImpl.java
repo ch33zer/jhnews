@@ -13,6 +13,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jhnews.client.UnrestrictedService;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.NoResultsException;
+import com.jhnews.shared.Tags;
 
 /** The server component of the Announcment Fetcher. Retrieves announcments for the user
  * @author Group 8
@@ -59,9 +60,19 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
 		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).list():session.createCriteria(AnnouncementHibernate.class).list();
-		session.close();
 		List<Announcement> todays = HibernateConversionUtil.convertHibernateAnnouncementList(todayHibernate);
+		session.close();
 		return todays;
+	}
+
+	@Override
+	public List<Tags> getAllActiveTags() {
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.eq("active", true)).list();
+		session.close();
+		List<Tags> tags = HibernateConversionUtil.convertHibernateTagsList(tagsHibernate);
+		return tags;
 	}
 	
 
