@@ -30,7 +30,7 @@ public class EditTagsPage extends AdminPage {
 	 */
 	@Override
 	protected void createRestrictedContent() {
-		 HorizontalPanel addPanel = new HorizontalPanel();
+		HorizontalPanel addPanel = new HorizontalPanel();
 		
 		tagsPanel = new TagsPanel();
 		addTagBox = new HintTextBox("Tag name");

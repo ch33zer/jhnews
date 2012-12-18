@@ -82,6 +82,9 @@ public class PageManager implements ValueChangeHandler<String>  {
 		case EMAIL:
 			page = new EmailPage();
 			break;
+		case ADMIN:
+			page = new AddAdminPage();
+			break;
 		default:
 			throw new RuntimeException("Unknown page in BodyEnum: " + body.toString());
 		}

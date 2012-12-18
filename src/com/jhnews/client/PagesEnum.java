@@ -54,5 +54,10 @@ public enum PagesEnum {
 	/**
 	 * Email settings
 	 */
-	EMAIL
+	EMAIL, 
+	
+	/**
+	 * Add admin
+	 */
+	ADMIN
 }

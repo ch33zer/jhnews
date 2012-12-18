@@ -26,7 +26,7 @@ public class EmailPage extends AdminPage {
 	}
 
 	@Override
-	protected void createRestrictedContent() {	
+	protected void createRestrictedContent() {	 
 		createListBoxes();
 		
 		saveButton = new Button("Save", new ClickHandler() {
