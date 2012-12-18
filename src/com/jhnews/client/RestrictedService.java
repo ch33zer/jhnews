@@ -79,4 +79,6 @@ public interface RestrictedService extends RemoteService {
 	 * @return True if the current user is an admin
 	 */
 	boolean isAdmin(String sessionID);
+	
+	boolean addAdmin(String sessionID, String email);
 }
