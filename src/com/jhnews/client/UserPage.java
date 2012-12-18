@@ -20,7 +20,7 @@ public abstract class UserPage extends Page {
 			}
 				@Override
 			public void onFail() {
-				addWidget(new Label("You must be logged in to view this page"));
+				setError("You must be logged in to view this page");
 			}
 		});
 	}

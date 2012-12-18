@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
 public abstract class Page extends Composite {
 	
 	private Label pageTitleLabel;
+	private Label outputLabel;
 	private VerticalPanel masterPanel;
 
 	/**
@@ -23,6 +24,8 @@ public abstract class Page extends Composite {
 		pageTitleLabel = new Label();
 		pageTitleLabel.addStyleDependentName("title");
 		pageTitleLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		outputLabel = new Label();
+		outputLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		masterPanel = new VerticalPanel();
 		
 		masterPanel.add(pageTitleLabel);
@@ -50,6 +53,22 @@ public abstract class Page extends Composite {
 	 */
 	protected void isLeftAlign() {
 		masterPanel.addStyleName("leftVerticalPanel");
+	}
+	
+	protected void setSuccess(String success) {
+		outputLabel.setText(success);
+		outputLabel.addStyleDependentName("success");
+		masterPanel.add(outputLabel);
+	}
+	
+	protected void setError(String error) {
+		outputLabel.setText(error);
+		outputLabel.addStyleDependentName("error");
+		masterPanel.add(outputLabel);
+	}
+	
+	protected void removeLabel() {
+		masterPanel.remove(outputLabel);
 	}
 	
 }

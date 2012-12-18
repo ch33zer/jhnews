@@ -8,6 +8,7 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.FieldVerifier;
 import com.jhnews.shared.Session;
+import com.jhnews.shared.User;
 
 /**
  * Handles login, logout and registration. Abstracts away the GWT specific
@@ -19,14 +20,14 @@ public class LoginManager {
 
 	private static LoginManager instance;
 	private List<LoginListener> loginListeners;
-	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
+	private RestrictedServiceAsync restrictedService = GWT.create(RestrictedService.class);
 
 	/**
 	 * Private default constructor for the singleton pattern
 	 */
 	private LoginManager() {
-		if (service == null) {
-			service = GWT.create(RestrictedService.class);
+		if (restrictedService == null) {
+			restrictedService = GWT.create(RestrictedService.class);
 		}
 		loginListeners = new ArrayList<LoginListener>();
 	}
@@ -117,7 +118,7 @@ public class LoginManager {
 
 			}
 		};
-		service.isLoggedIn(getSessionID(), loggedInCallBack);
+		restrictedService.isLoggedIn(getSessionID(), loggedInCallBack);
 	}
 
 	/**
@@ -163,7 +164,7 @@ public class LoginManager {
 				}
 			}
 		};
-		service.logIn(username, password, logInCallBack);
+		restrictedService.logIn(username, password, logInCallBack);
 	}
 	
 	/**
@@ -195,25 +196,20 @@ public class LoginManager {
 				}
 			}
 		};
-		service.logOut(getSessionID(), logOutCallBack);
+		restrictedService.logOut(getSessionID(), logOutCallBack);
 	}
 
 	/**
 	 * Attempts to register the user with the specified credentials. I the case
 	 * of a successful registration, the callback's onSuccess method is called.
 	 * If the user fails to login, the onFail method is called
-	 * 
-	 * @param username
-	 *            The users requested username
-	 * @param password
-	 *            The users requested password
+	 * @param user TODO
 	 * @param callback
 	 *            The callback, as described above. Executes at the completion
 	 *            of the call.
 	 */
-	public void register(String username, String password,
-			final LoginManagerCallback<Session> callback) {
-		if (FieldVerifier.isValidUserNameAndPassword(username, password)) {
+	public void register(User user, String password, final LoginManagerCallback<Session> callback) {
+		if (FieldVerifier.isValidUserNameAndPassword(user.getUsername(), password)) {
 			AsyncCallback<Session> registerCallback = new AsyncCallback<Session>() {
 
 				@Override
@@ -236,7 +232,7 @@ public class LoginManager {
 					}
 				}
 			};
-			service.register(username, password, registerCallback);
+			restrictedService.register(user, password, registerCallback);
 		}
 		else {
 			if (callback != null) {
@@ -284,6 +280,6 @@ public class LoginManager {
 				}
 			}
 		};
-		service.isAdmin(getSessionID(), adminCallBack);
+		restrictedService.isAdmin(getSessionID(), adminCallBack);
 	}
 }

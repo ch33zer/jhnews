@@ -9,6 +9,7 @@ import com.jhnews.shared.LoginFailedException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
 import com.jhnews.shared.Session;
+import com.jhnews.shared.User;
 import com.jhnews.shared.UserExistsException;
 /** 
  * Provides a login and registration service. Uses RPC to communicate with a servlet.
@@ -31,13 +32,13 @@ public interface RestrictedService extends RemoteService {
 	 */
 	boolean isLoggedIn(String sessionID) throws NotLoggedInException;
 	/**Registers the username and password with the server
-	 * @param username The user's requested username
+	 * @param user The user's information
 	 * @param password The user's password
 	 * @return The session object for the current session. Registering also logs the user in.
 	 * @throws RegistrationFailedException If the registration fails for any reason, this is thrown
 	 * @throws UserExistsException 
 	 */
-	Session register(String username, String password) throws RegistrationFailedException, UserExistsException;
+	Session register(User user, String password) throws RegistrationFailedException, UserExistsException;
 	
 	/**Log the current user out
 	 * @param sessionID The sessionID corresponding to the current users session

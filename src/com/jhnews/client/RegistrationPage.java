@@ -6,6 +6,7 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.jhnews.shared.Session;
+import com.jhnews.shared.User;
 
 /**
  * This is the user registration page for the application.
@@ -15,6 +16,8 @@ public class RegistrationPage extends Page {
 
 	private Label errorLabel;
 	private Label successLabel;
+	private HintTextBox firstNameBox;
+	private HintTextBox lastNameBox;
 	private HintTextBox emailBox;
 	private HintPasswordTextBox passwordBox;
 	private HintPasswordTextBox retypePasswordBox;
@@ -31,6 +34,10 @@ public class RegistrationPage extends Page {
 		successLabel = new Label("Registered. Redirecting to login page...");
 		successLabel.setStyleDependentName("success", true);
 		successLabel.setVisible(false);
+		firstNameBox = new HintTextBox("First name");
+		firstNameBox.setMaxLength(100);
+		lastNameBox = new HintTextBox("Last name");
+		lastNameBox.setMaxLength(100);
 		emailBox = new HintTextBox("Email");
 		emailBox.setMaxLength(100);
 		passwordBox = new HintPasswordTextBox("Password");
@@ -42,8 +49,12 @@ public class RegistrationPage extends Page {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (checkCredentials()) {
-					LoginManager.getInstance().register(emailBox.getText(),
-						passwordBox.getText(), new LoginManagerCallback<Session>() {		
+					User user = new User();
+					user.setFirstName(firstNameBox.getText());
+					user.setLastName(lastNameBox.getText());
+					user.setUsername(emailBox.getText());
+					LoginManager.getInstance().register(user, passwordBox.getText(),
+						new LoginManagerCallback<Session>() {		
 						@Override
 						public void onSuccess(Session result) {
 								errorLabel.setVisible(false);
@@ -60,6 +71,8 @@ public class RegistrationPage extends Page {
 		});
 		
 		// Login panel setup
+		addWidget(firstNameBox);
+		addWidget(lastNameBox);
 		addWidget(emailBox);
 		addWidget(passwordBox);
 		addWidget(retypePasswordBox);
