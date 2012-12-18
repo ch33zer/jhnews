@@ -163,43 +163,32 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Session register(User user, String password) throws RegistrationFailedException, UserExistsException {
 
-		System.err.println("Adding!");
 		if (user == null || password == null) {
 			throw new RegistrationFailedException();
 		}
 
-		System.err.println("Not Null!");
 		if (!FieldVerifier.isValidUserNameAndPassword(user.getUsername(), password)) {
 			throw new RegistrationFailedException();
 		}
 
-		System.err.println("Valid!");
 		if (userExists(user.getUsername())) {
 			throw new UserExistsException();
 		}
 
-		System.err.println("User doesn't exist!");
 		UserHibernate userHibernate= generateDefaultUser();
 		userHibernate.setUsername(user.getUsername());
 		userHibernate.setHash(BCrypt.hashpw(password, BCrypt.gensalt()));
+		userHibernate.setFirstName(user.getFirstName());
+		userHibernate.setLastName(user.getLastName());
+		userHibernate.setEmail(user.getUsername());
 		insertUser(userHibernate);
 		try {
 			return logIn(user.getUsername(), password);
 		} catch (LoginFailedException e) {
 
-			System.err.println("Failed!");
 			throw new RegistrationFailedException();
 		}
 		
-/*		if (users.containsKey(username)) {
-			throw new UserExistsException();
-		}
-		users.put(username, BCrypt.hashpw(password, BCrypt.gensalt()));
-		try {
-			return logIn(username, password);
-		} catch (LoginFailedException e) {
-			throw new RegistrationFailedException();
-		}*/
 	}
 	
 	private void insertUser(UserHibernate userHibernate) {
