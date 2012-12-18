@@ -1,9 +1,5 @@
 package com.jhnews.client;
 
-import org.apache.http.StatusLine;
-
-import sun.security.action.GetLongAction;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -30,7 +26,6 @@ public class AddAdminPage extends AdminPage {
 	@Override
 	protected void createRestrictedContent() {
 		HorizontalPanel addPanel = new HorizontalPanel();
-		final Label statusPanel = new Label();
 		adminEmailBox = new HintTextBox("User email");
 		addButton = new Button("Add", new ClickHandler() {
 			@Override
@@ -40,16 +35,16 @@ public class AddAdminPage extends AdminPage {
 					@Override
 					public void onSuccess(Boolean result) {
 						if (result) {
-							statusPanel.setText("Admin added");
+							setSuccess("Admin added");
 						}
 						else {
-							statusPanel.setText("Failed to add admin");
+							setError("Failed to add admin");
 						}
 					}
 					
 					@Override
 					public void onFailure(Throwable caught) {
-						statusPanel.setText("Failed to add admin");
+						setError("Failed to add admin");
 					}
 				});
 			}
@@ -59,7 +54,6 @@ public class AddAdminPage extends AdminPage {
 		
 		addWidget(new Label("Give user administrative privileges"));
 		addWidget(addPanel);
-		addWidget(statusPanel);
 	}
 
 }
