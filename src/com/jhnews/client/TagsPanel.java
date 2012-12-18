@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.Tags;
 import com.jhnews.shared.User;
+import com.jhnews.shared.UserTags;
 
 /**
  * A panel that contains a set of subject tags
@@ -114,11 +115,23 @@ public class TagsPanel extends Composite {
 		}
 	}
 	
+	public void checkUserTags(User user) {
+		List<UserTags> userTags = user.getTags();
+		for (UserTags userTag : userTags) {
+			for (CheckBox checkBox : checkBoxes) {
+				if (userTag.getTags().toString().equals(checkBox.getText())) {
+					checkBox.setValue(true);
+					break;
+				}
+			}
+		}
+	}
+	
 	public void setTagsInUser(User user) {
 		int counter = 0;
 		int index = 0;
-		for (CheckBox checkbox : checkBoxes) {
-			if (checkbox.getValue()) {
+		for (CheckBox checkBox : checkBoxes) {
+			if (checkBox.getValue()) {
 				
 			}
 			index++;
