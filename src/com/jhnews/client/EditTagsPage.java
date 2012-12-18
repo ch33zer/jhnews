@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 
 /**
  * Allows the admin to add new tags or remove existing tags
- * @author nirrattner
+ * @author Group 8
  *
  */
 public class EditTagsPage extends AdminPage {

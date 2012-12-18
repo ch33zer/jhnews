@@ -25,7 +25,9 @@ public class TagsPanel extends Composite {
 	private List<CheckBox> checkBoxes;
 	private List<Tags> tags;
 	
-	private static final int COLUMNS = 3;
+	private UnrestrictedServiceAsync unrestrictedService = GWT.create(UnrestrictedService.class);
+	
+	private static final int COLUMNS = 5;
 	private static final String CELL_FORMAT_WIDTH = "100px";
 	
 	/**
@@ -122,8 +124,7 @@ public class TagsPanel extends Composite {
 			index++;
 		}
 	}
-
-	private UnrestrictedServiceAsync unrestrictedService = GWT.create(UnrestrictedService.class);
+	
 	/**
 	 * Sets the tags according to a set of default sample tags.
 	 * 
@@ -135,7 +136,6 @@ public class TagsPanel extends Composite {
 				@Override
 				public void onSuccess(List<Tags> result) {
 					setTags(result);
-					
 				}
 				
 				@Override
@@ -145,13 +145,6 @@ public class TagsPanel extends Composite {
 				}
 			});
 		}
-		/*List<String> tags = new ArrayList<String>();
-		tags.add("Food");
-		tags.add("Free");
-		tags.add("DBlaise");
-		tags.add("Cheezer");
-		tags.add("Greek life");
-		setTags(tags);*/
 	}
 	
 }

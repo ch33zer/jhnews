@@ -19,6 +19,7 @@ import com.jhnews.shared.Announcement;
 public class SearchPage extends Page {
 	
 	private UnrestrictedServiceAsync unrestrictedService = GWT.create(UnrestrictedService.class);
+	
 	private TextBox queryText;
 	private AnnouncementListPanel announcementListPanel;
 	

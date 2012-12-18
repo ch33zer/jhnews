@@ -5,7 +5,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Hyperlink;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.jhnews.shared.Session;
 
@@ -16,8 +15,6 @@ import com.jhnews.shared.Session;
  */
 public class LoginPage extends Page {
 
-	private Label errorLabel;
-	private Label successLabel;
 	private TextBox emailBox;
 	private HintPasswordTextBox passwordBox;
 
@@ -26,12 +23,6 @@ public class LoginPage extends Page {
 	 */
 	public LoginPage() {
 		setPageTitle("Log In");
-		errorLabel = new Label("Failed to log in. Invalid username or password.");
-		errorLabel.setStyleDependentName("error", true);
-		errorLabel.setVisible(false);
-		successLabel = new Label("Logged in. Redirecting to home page...");
-		successLabel.setStyleDependentName("success", true);
-		successLabel.setVisible(false);
 		emailBox = new HintTextBox("Email");
 		emailBox.setMaxLength(100);
 		passwordBox = new HintPasswordTextBox("Password");
@@ -46,13 +37,12 @@ public class LoginPage extends Page {
 				passwordBox.getText(), new LoginManagerCallback<Session>() {
 					@Override
 					public void onSuccess(Session result) {
-						errorLabel.setVisible(false);
-						successLabel.setVisible(true);
+						setSuccess("Logged in. Redirecting to home page...");
 						History.newItem("HOME");
 					}
 					@Override
 					public void onFail() {
-						errorLabel.setVisible(true);
+						setError("Failed to log in. Invalid username or password");
 					}
 				});
 			}
@@ -63,7 +53,5 @@ public class LoginPage extends Page {
 		addWidget(passwordBox);
 		addWidget(loginButton);
 		addWidget(registerLink);
-		addWidget(errorLabel);
-		addWidget(successLabel);
 	}
 }

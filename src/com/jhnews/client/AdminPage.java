@@ -1,7 +1,5 @@
 package com.jhnews.client;
 
-import com.google.gwt.user.client.ui.Label;
-
 /**
  * An abstract class which checks that only admins can view the Page
  * @author Group 8
@@ -20,7 +18,7 @@ public abstract class AdminPage extends Page {
 			}
 				@Override
 			public void onFail() {
-				addWidget(new Label("You must be an admin to view this page"));
+				setError("You must be an admin to view this page");
 			}
 		});
 	}

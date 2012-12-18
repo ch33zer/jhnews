@@ -83,10 +83,6 @@ public class SubmissionPage extends UserPage {
 		dateTimePicker = new DatePicker();// TODO add selector,
 															// view, and model
 		tagsPanel = new TagsPanel();
-		final Label errorLabel = new Label(
-				"Invalid Announcement. Please fill in all fields.");
-		errorLabel.addStyleDependentName("error");
-		errorLabel.setVisible(false);
 		Button submitButton = new Button("Submit");
 
 		// Set ClickHandlers for interactive widgets
@@ -97,7 +93,6 @@ public class SubmissionPage extends UserPage {
 						&& fullDescTextBox.getText().length() != 0
 						&& dateTimePicker.getValue() != null
 						&& locationTextBox.getText().length() != 0) {
-					errorLabel.setVisible(false);
 					// Build the announcement to be submitted
 					Announcement currentSubmission = new Announcement();
 					currentSubmission.setSubmitter(currentUser);
@@ -149,7 +144,7 @@ public class SubmissionPage extends UserPage {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									errorLabel.setVisible(true);
+									setError("All fields must be filled in.");
 								}
 
 								@Override
@@ -158,7 +153,7 @@ public class SubmissionPage extends UserPage {
 								}
 							});
 				} else {
-					errorLabel.setVisible(true);
+					setError("All fields must be filled in.");
 				}
 			}
 		});
@@ -208,7 +203,6 @@ public class SubmissionPage extends UserPage {
 		locationPanel.add(locationTextBox);
 
 		// Add all category Panels to the masterPanel
-		addWidget(errorLabel);
 		addWidget(audiencePanel);
 		addWidget(titlePanel);
 		addWidget(briefDescPanel);

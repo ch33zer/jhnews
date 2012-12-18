@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.Session;
+import com.jhnews.shared.User;
 
 /** The async callback component to the LoginService
  * @author Group 8
@@ -24,12 +25,12 @@ public interface RestrictedServiceAsync {
 	 * @param callback
 	 */
 	void logIn(String username, String password, AsyncCallback<Session> callback);
-	/** @see {@link RestrictedService#register(String, String)}
-	 * @param username
+	/** @see {@link RestrictedService#register(User, String)}
+	 * @param user
 	 * @param password
 	 * @param callback
 	 */
-	void register(String username, String password,
+	void register(User user, String password,
 			AsyncCallback<Session> callback);
 
 	/** @see {@link RestrictedService#logOut(String)}
