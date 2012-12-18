@@ -103,12 +103,15 @@ public class TagsPanel extends Composite {
 				switch (counter) {
 				case 0:
 					announcement.setTag1(tags.get(index));
+					counter++;
 					break;
 				case 1:
 					announcement.setTag2(tags.get(index));
+					counter++;
 					break;
 				case 2:
 					announcement.setTag3(tags.get(index));
+					counter++;
 					break;
 				}
 			}
