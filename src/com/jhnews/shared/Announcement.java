@@ -3,8 +3,6 @@ package com.jhnews.shared;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.jhnews.server.TagsHibernate;
-
 /**
  * Announcement is the class that represents an announcement submission and holds all its relevant information.
  * @author Group 8

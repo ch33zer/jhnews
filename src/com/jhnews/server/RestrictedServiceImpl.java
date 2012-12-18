@@ -416,4 +416,78 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		return success;
 	}
 
+	@Override
+	public void addTag(String sessionID, String tagName) {
+		if (isAdmin(sessionID)) {
+			Transaction tx = null;
+			TagsHibernate tagHibernate = tagExists(tagName);
+			if (tagHibernate == null) {
+				tagHibernate = generateDefaultTag();
+				tagHibernate.setName(tagName);
+				try {
+					org.hibernate.Session session = sessionFactory.openSession();
+					tx = session.beginTransaction();
+					session.save(tagHibernate);
+					tx.commit();
+					session.close();
+				} catch (Exception e) {
+					if (tx != null) {
+						tx.rollback();
+					}
+				}
+			} else if (!tagHibernate.isActive()) {
+				tagHibernate.setActive(true);
+				try {
+					org.hibernate.Session session = sessionFactory.openSession();
+					tx = session.beginTransaction();
+					session.update(tagHibernate);
+					tx.commit();
+					session.close();
+				} catch (Exception e) {
+					if (tx != null) {
+						tx.rollback();
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void removeTag(String sessionID, Tags tag) {
+		if (isAdmin(sessionID)) {
+			tag.setActive(false);
+			Transaction tx = null;
+			try {
+				org.hibernate.Session session = sessionFactory.openSession();
+				tx = session.beginTransaction();
+				session.update(HibernateConversionUtil.convertTags(tag));
+				tx.commit();
+				session.close();
+			} catch (Exception e) {
+				if (tx != null) {
+					tx.rollback();
+				}
+			}
+		}
+	}
+	
+	private TagsHibernate generateDefaultTag() {
+		TagsHibernate tagHibernate = new TagsHibernate();
+		tagHibernate.setName("");
+		tagHibernate.setActive(true);
+		return tagHibernate;
+	}
+
+	private TagsHibernate tagExists(String name) {
+		org.hibernate.Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.ilike("name", name)).list();
+		session.close();
+		if ( tagsHibernate.size()==1 && tagsHibernate.get(0)!= null)
+			return tagsHibernate.get(0);
+		else {
+			return null;
+		}
+	}
+	
 }

@@ -4,10 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.dozer.DozerBeanMapperSingletonWrapper;
-import org.dozer.DozerInitializer;
 import org.dozer.Mapper;
-import org.slf4j.ILoggerFactory;
-import org.slf4j.LoggerFactory;
 
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.Session;
@@ -44,6 +41,10 @@ public class HibernateConversionUtil {
 	
 	public static Tags convertHibernateTags(TagsHibernate tags) {
 		return getDozerInstance().map(tags, Tags.class);
+	}
+	
+	public static TagsHibernate convertTags(Tags tags) {
+		return getDozerInstance().map(tags, TagsHibernate.class);
 	}
 	
 	/**

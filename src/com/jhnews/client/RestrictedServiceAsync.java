@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.Session;
+import com.jhnews.shared.Tags;
 import com.jhnews.shared.User;
 
 /** The async callback component to the LoginService
@@ -77,5 +78,9 @@ public interface RestrictedServiceAsync {
 
 	void addAdmin(String sessionID, String email,
 			AsyncCallback<Boolean> callback);
+
+	void addTag(String sessionID, String tagName, AsyncCallback<Void> callback);
+	
+	void removeTag(String sessionID, Tags tag, AsyncCallback<Void> callback);
 
 }
