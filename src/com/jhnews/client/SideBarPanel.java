@@ -17,13 +17,14 @@ import com.jhnews.shared.Announcement;
  */
 public class SideBarPanel extends Composite implements LoginListener {
 	
-	private RestrictedServiceAsync service = GWT.create(RestrictedService.class);
+	private RestrictedServiceAsync restrictedService = GWT.create(RestrictedService.class);
 	
 	private VerticalPanel masterPanel;
 	private Label adminLabel;
-	private Hyperlink pendingReview;
+	private Hyperlink addAdmin;
 	private Hyperlink editTags;
 	private Hyperlink emailSettings;
+	private Hyperlink pendingReview;
 	
 	private LoginManager loginManager = LoginManager.getInstance();
 	
@@ -34,9 +35,11 @@ public class SideBarPanel extends Composite implements LoginListener {
 		Hyperlink search = new Hyperlink("Search Announcements", "SEARCH");
 		Hyperlink submit = new Hyperlink("Submit Announcement", "SUBMIT");
 		adminLabel = new Label("Admin Options");
-		pendingReview = new Hyperlink("Pending Reviews", "PENDING");
+		addAdmin = new Hyperlink("Add Admin", "ADMIN");
 		editTags = new Hyperlink("Edit Category Tags", "EDIT");
 		emailSettings = new Hyperlink("Email Settings", "EMAIL");
+		pendingReview = new Hyperlink("Pending Reviews", "PENDING");
+		
 		
 		masterPanel = new VerticalPanel();
 		masterPanel.addStyleName("leftVerticalPanel");
@@ -56,9 +59,10 @@ public class SideBarPanel extends Composite implements LoginListener {
 	 */
 	private void userIsAdmin() {
 		masterPanel.add(adminLabel);
-		masterPanel.add(pendingReview);
+		masterPanel.add(addAdmin);
 		masterPanel.add(editTags);
 		masterPanel.add(emailSettings);
+		masterPanel.add(pendingReview);
 		updatePendingReview();
 	}
 	
@@ -66,7 +70,7 @@ public class SideBarPanel extends Composite implements LoginListener {
 	 * Updates the sidebar so that the number of pending reviews is accurate
 	 */
 	public void updatePendingReview() {
-		service.getPendingAnnouncements(LoginManager.getInstance().getSessionID(), new AsyncCallback<List<Announcement>>() {
+		restrictedService.getPendingAnnouncements(LoginManager.getInstance().getSessionID(), new AsyncCallback<List<Announcement>>() {
 			@Override
 			public void onSuccess(List<Announcement> result) {
 				pendingReview.setText("Pending Reviews (" + result.size() + ")");
@@ -84,9 +88,10 @@ public class SideBarPanel extends Composite implements LoginListener {
 	 */
 	public void userIsNotAdmin() {
 		masterPanel.remove(adminLabel);
+		masterPanel.remove(addAdmin);
 		masterPanel.remove(editTags);
-		masterPanel.remove(pendingReview);
 		masterPanel.remove(emailSettings);
+		masterPanel.remove(pendingReview);
 	}
 
 	/**

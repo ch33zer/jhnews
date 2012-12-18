@@ -282,7 +282,6 @@ public class LoginManager {
 						callback.onFail();
 					}
 				}
-
 			}
 		};
 		service.isAdmin(getSessionID(), adminCallBack);

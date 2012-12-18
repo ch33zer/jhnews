@@ -344,13 +344,13 @@ public class Announcement implements Serializable {
 	public String getTagString() {
 		String ret ="";
 		if(tag1!= null) {
-			ret += tag1.getName();
+			ret += tag1.toString();
 		}
 		if(tag2!= null) {
-			ret +=  ", " + tag2.getName();
+			ret +=  ", " + tag2.toString();
 		}
 		if(tag3!= null) {
-			ret += ", " + tag3.getName();
+			ret += ", " + tag3.toString();
 		}
 		return ret;
 	}
