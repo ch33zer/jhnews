@@ -87,5 +87,9 @@ public class HibernateConversionUtil {
 	public static User convertHibernateUser(UserHibernate userHibernate) {
 		return getDozerInstance().map(userHibernate, User.class);
 	}
+
+	public static UserHibernate convertUser(User user) {
+		return getDozerInstance().map(user, UserHibernate.class);
+	}
 }
 

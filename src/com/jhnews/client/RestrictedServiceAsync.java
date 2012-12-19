@@ -83,4 +83,8 @@ public interface RestrictedServiceAsync {
 	
 	void removeTag(String sessionID, Tags tag, AsyncCallback<Void> callback);
 
+	void getUser(String sessionID, AsyncCallback<User> callback);
+
+	void saveUserTags(String sessionID, User user, AsyncCallback<Void> callback);
+
 }

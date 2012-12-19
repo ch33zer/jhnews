@@ -132,11 +132,15 @@ public class TagsPanel extends Composite {
 	}
 	
 	public void setTagsInUser(User user) {
-		int counter = 0;
 		int index = 0;
+		List<UserTags> userTagList = user.getTags();
+		userTagList.clear();
 		for (CheckBox checkBox : checkBoxes) {
 			if (checkBox.getValue()) {
-				
+				UserTags userTag = new UserTags();
+				userTag.setUser(user);
+				userTag.setTags(tags.get(index));
+				userTagList.add(userTag);
 			}
 			index++;
 		}

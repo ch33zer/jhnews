@@ -1,9 +1,11 @@
 package com.jhnews.server;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -15,6 +17,7 @@ import javax.servlet.ServletContextListener;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
@@ -98,9 +101,9 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	private UserHibernate getUser(String username, String password) {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<UserHibernate> todayHibernate = session.createCriteria(UserHibernate.class).add(Restrictions.eq("username", username)).list();
+		List<UserHibernate> todayHibernate = session.createCriteria(UserHibernate.class).add(Restrictions.eq("username", username)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		session.close();
-		if ( todayHibernate.size()==1 && todayHibernate.get(0)!= null && BCrypt.checkpw(password,todayHibernate.get(0).getHash()))
+		if ( todayHibernate.size()!=0 && todayHibernate.get(0)!= null && BCrypt.checkpw(password,todayHibernate.get(0).getHash()))
 			return todayHibernate.get(0);
 		else {
 			return null;
@@ -110,7 +113,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	private boolean userExists(String username) {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<UserHibernate> todayHibernate = session.createCriteria(UserHibernate.class).add(Restrictions.eq("username", username)).list();
+		List<UserHibernate> todayHibernate = session.createCriteria(UserHibernate.class).add(Restrictions.eq("username", username)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		session.close();
 		if ( todayHibernate.size()==1 && todayHibernate.get(0)!= null)
 			return true;
@@ -145,7 +148,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	private SessionHibernate getSessionFromSessionID(String sessionID) {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<SessionHibernate> todayHibernate = session.createCriteria(SessionHibernate.class).add(Restrictions.and(Restrictions.eq("sessionID", sessionID), Restrictions.ge("expireDate", new Date()))).list();
+		List<SessionHibernate> todayHibernate = session.createCriteria(SessionHibernate.class).add(Restrictions.and(Restrictions.eq("sessionID", sessionID), Restrictions.ge("expireDate", new Date()))).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		session.close();
 		if (todayHibernate.size() != 0) {
 			return todayHibernate.get(0);
@@ -214,14 +217,15 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		userHibernate.setFirstName("");
 		userHibernate.setLastName("");
 		userHibernate.setHash("");
-		List<UserTagsHibernate> userTagsList = new ArrayList<UserTagsHibernate>();
+		Set<UserTagsHibernate> userTagsList = new HashSet<UserTagsHibernate>();
 		UserTagsHibernate userTags;
 		for (TagsHibernate tag : getAllActiveTagsHibernate()) {
 			userTags = new UserTagsHibernate();
-			userTags.setUserHibernate(userHibernate);
-			userTags.setTagsHibernate(tag);
+			userTags.setUser(userHibernate);
+			userTags.setTags(tag);
 			userTagsList.add(userTags);
 		}
+		userHibernate.setTags(userTagsList);
 		userHibernate.setUsername("");
 		return userHibernate;
 	}
@@ -275,7 +279,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	private List<Announcement> getAnnouncements(Criterion criteria)  {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).list():session.createCriteria(AnnouncementHibernate.class).list();
+		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).list():session.createCriteria(AnnouncementHibernate.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		List<Announcement> todays = HibernateConversionUtil.convertHibernateAnnouncementList(todayHibernate);
 		session.close();
 		return todays;
@@ -487,6 +491,52 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			return tagsHibernate.get(0);
 		else {
 			return null;
+		}
+	}
+
+	@Override
+	public User getUser(String sessionID) throws NotLoggedInException {
+		if (isLoggedIn(sessionID))
+			return HibernateConversionUtil.convertHibernateUser(getUserFromSessionID(sessionID));
+		return null;
+	}
+
+	@Override
+	public void saveUserTags(String sessionID, User user) {
+		UserHibernate dbUser = getUserFromSessionID(sessionID);
+		if (dbUser != null && user != null && dbUser.getUsername().equals(user.getUsername())) {
+			Iterator<UserTagsHibernate> tagIter = dbUser.getTags().iterator();
+			while (tagIter.hasNext()) {
+				UserTagsHibernate utHib = tagIter.next();
+				utHib.setUser(null);
+				tagIter.remove();
+			}
+			//Delete old tags
+			Transaction tx = null;
+			try {
+				org.hibernate.Session session = sessionFactory.openSession();
+				tx = session.beginTransaction();
+				session.update(dbUser);
+				tx.commit();
+				session.close();
+			} catch (Exception e) {
+				if (tx != null) {
+					tx.rollback();
+				}
+			}
+			//Insert new ones
+			tx = null;
+			try {
+				org.hibernate.Session session = sessionFactory.openSession();
+				tx = session.beginTransaction();
+				session.update(HibernateConversionUtil.convertUser(user));
+				tx.commit();
+				session.close();
+			} catch (Exception e) {
+				if (tx != null) {
+					tx.rollback();
+				}
+			}
 		}
 	}
 	
