@@ -49,7 +49,7 @@ public class EditTagsPage extends AdminPage {
 					restrictedService.addTag(LoginManager.getInstance().getSessionID(), addTagBox.getText(), new AsyncCallback<Void>() {
 						@Override
 						public void onFailure(Throwable caught) {
-							setError("Error");
+							setError("Failed to add tags");
 						}
 
 						@Override
@@ -68,7 +68,7 @@ public class EditTagsPage extends AdminPage {
 					restrictedService.removeTag(LoginManager.getInstance().getSessionID(), tag, new AsyncCallback<Void>() {
 						@Override
 						public void onFailure(Throwable caught) {
-							setError("Error");
+							setError("Failed to delete tags");
 						}
 
 						@Override
