@@ -55,12 +55,11 @@ public class EmailSender {
 		msg.setSubject(subject);
 		msg.setText(body);
 		System.out.println("Created message");
-		//TODO
-	    /*Transport transport = session.getTransport("smtps");
+		
+	    Transport transport = session.getTransport("smtps");
 	    transport.connect(host, port, username, password);
 	    transport.sendMessage(msg, msg.getAllRecipients());
-	    transport.close();*/
-		//System.out.println("Sent message");
+	    transport.close();
 
 	}
 }
