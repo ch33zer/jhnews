@@ -36,6 +36,7 @@ public class UserHibernate implements Serializable{
 	private String hash;
 	private boolean emailEnable;
 	private boolean customHomepage;
+	private String userConfirmationCode;
 	private static final long serialVersionUID = 1L;
 	private Set<UserTagsHibernate> tags;
 	
@@ -157,6 +158,19 @@ public class UserHibernate implements Serializable{
 	 */
 	public void setCustomHomepage(boolean customHomepage) {
 		this.customHomepage = customHomepage;
+	}
+	/**
+	 * @return the userConfirmationCode
+	 */
+	@Column(name="userConfirmationCode")
+	public String getUserConfirmationCode() {
+		return userConfirmationCode;
+	}
+	/**
+	 * @param userConfirmationCode the userConfirmationCode to set
+	 */
+	public void setUserConfirmationCode(String userConfirmationCode) {
+		this.userConfirmationCode = userConfirmationCode;
 	}
 	
 	

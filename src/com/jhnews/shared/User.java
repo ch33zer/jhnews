@@ -24,6 +24,7 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private boolean emailEnable;
 	private boolean customHomepage;
+	private String userConfirmationCode;
 	private List<UserTags> tags;
 	
 	/**
@@ -180,5 +181,19 @@ public class User implements Serializable{
 	 */
 	public void setCustomHomepage(boolean customHomepage) {
 		this.customHomepage = customHomepage;
+	}
+
+	/**
+	 * @return the userConfirmationCode
+	 */
+	public String getUserConfirmationCode() {
+		return userConfirmationCode;
+	}
+
+	/**
+	 * @param userConfirmationCode the userConfirmationCode to set
+	 */
+	public void setUserConfirmationCode(String userConfirmationCode) {
+		this.userConfirmationCode = userConfirmationCode;
 	}
 }
