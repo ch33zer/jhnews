@@ -323,11 +323,7 @@ public class LoginManager {
 			@Override
 			public void onSuccess(Void result) {
 				if (callback != null) {
-					if (result != null) {
-						callback.onSuccess(result);
-					} else {
-						callback.onFail();
-					}
+					callback.onSuccess(result);
 				}
 			}
 		};

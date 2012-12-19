@@ -37,6 +37,8 @@ public class PreferencesPage extends UserPage {
 			public void onSuccess(User result) {
 				user = result;
 				tagsPanel.checkUserTags(result);
+				homeTagsCheckBox.setValue(result.isCustomHomepage());
+				notificationCheckBox.setValue(result.isEmailEnable());
 			}
 			
 			@Override
@@ -48,7 +50,20 @@ public class PreferencesPage extends UserPage {
 			@Override
 			public void onClick(ClickEvent event) {
 				tagsPanel.setTagsInUser(user);
-				LoginManager.getInstance().saveUser(user, null);
+				user.setEmailEnable(notificationCheckBox.getValue());
+				user.setCustomHomepage(homeTagsCheckBox.getValue());
+				LoginManager.getInstance().saveUser(user, new LoginManagerCallback<Void>() {
+					
+					@Override
+					public void onSuccess(Void result) {
+						setSuccess("Saved!");
+					}
+					
+					@Override
+					public void onFail() {
+						setError("Failed to save");
+					}
+				});
 			}
 		});		
 		
