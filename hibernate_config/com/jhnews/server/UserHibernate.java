@@ -118,7 +118,7 @@ public class UserHibernate implements Serializable{
 	/**
 	 * @return the tags
 	 */
-	@OneToMany(mappedBy="tagsHibernate", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="userHibernate", fetch = FetchType.EAGER)
 	public Set<UserTagsHibernate> getTags() {
 		return tags;
 	}
