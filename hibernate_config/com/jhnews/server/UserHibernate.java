@@ -34,6 +34,8 @@ public class UserHibernate implements Serializable{
 	private boolean isAdmin;
 	private String username;
 	private String hash;
+	private boolean emailEnable;
+	private boolean customHomepage;
 	private static final long serialVersionUID = 1L;
 	private Set<UserTagsHibernate> tags;
 	
@@ -129,6 +131,32 @@ public class UserHibernate implements Serializable{
 	 */
 	public void setTags(Set<UserTagsHibernate> tags) {
 		this.tags = tags;
+	}
+	/**
+	 * @return the emailEnable
+	 */
+	@Column(name="emailEnable")
+	public boolean isEmailEnable() {
+		return emailEnable;
+	}
+	/**
+	 * @param emailEnable the emailEnable to set
+	 */
+	public void setEmailEnable(boolean emailEnable) {
+		this.emailEnable = emailEnable;
+	}
+	/**
+	 * @return the customHomepage
+	 */
+	@Column(name="customHomepage")
+	public boolean isCustomHomepage() {
+		return customHomepage;
+	}
+	/**
+	 * @param customHomepage the customHomepage to set
+	 */
+	public void setCustomHomepage(boolean customHomepage) {
+		this.customHomepage = customHomepage;
 	}
 	
 	

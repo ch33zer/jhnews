@@ -22,6 +22,8 @@ public class User implements Serializable{
 	private String username;
 	private String hash;
 	private static final long serialVersionUID = 1L;
+	private boolean emailEnable;
+	private boolean customHomepage;
 	private List<UserTags> tags;
 	
 	/**
@@ -150,5 +152,33 @@ public class User implements Serializable{
 	 */
 	public void setTags(List<UserTags> tags) {
 		this.tags = tags;
+	}
+
+	/**
+	 * @return the emailEnable
+	 */
+	public boolean isEmailEnable() {
+		return emailEnable;
+	}
+
+	/**
+	 * @param emailEnable the emailEnable to set
+	 */
+	public void setEmailEnable(boolean emailEnable) {
+		this.emailEnable = emailEnable;
+	}
+
+	/**
+	 * @return the customHomepage
+	 */
+	public boolean isCustomHomepage() {
+		return customHomepage;
+	}
+
+	/**
+	 * @param customHomepage the customHomepage to set
+	 */
+	public void setCustomHomepage(boolean customHomepage) {
+		this.customHomepage = customHomepage;
 	}
 }
