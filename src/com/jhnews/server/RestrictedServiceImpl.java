@@ -56,9 +56,6 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	private final static long COOKIE_RETENTION_TIME = 1000 * 60 * 60 * 24;//1000 msecs * 60 secs * 60 minutes * 24 hours = 1 day
 
 	
-	
-	
-	
 	/* (non-Javadoc)
 	 * @see com.jhnews.client.LoginService#logIn(java.lang.String, java.lang.String)
 	 */
@@ -369,6 +366,8 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	public void run() {
 		org.hibernate.Session session = sessionFactory.openSession();
 		List<UserHibernate> users = session.createCriteria(UserHibernate.class).list();
+		users.size();
+		session.close();
 		try {
 			EmailSender.send(users, "TEST", "TEST");
 		} catch (UnsupportedEncodingException e) {
@@ -378,7 +377,6 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		session.close();
 	}
 	
 	private List<Tags> getAllActiveTags() {
