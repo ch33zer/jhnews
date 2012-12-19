@@ -1,5 +1,6 @@
 package com.jhnews.server;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,25 +15,25 @@ import javax.persistence.Table;
 @Table(name="usertags")
 public class UserTagsHibernate {
 	private int usertagsID;
-	private UserHibernate userHibernate;
-	private TagsHibernate tagsHibernate;
+	private UserHibernate user;
+	private TagsHibernate tags;
 
 	@ManyToOne
 	@JoinColumn(name="userforeignkey")
-	public UserHibernate getUserHibernate() {
-		return userHibernate;
+	public UserHibernate getUser() {
+		return user;
 	}
-	public void setUserHibernate(UserHibernate userHibernate) {
-		this.userHibernate = userHibernate;
+	public void setUser(UserHibernate userHibernate) {
+		this.user = userHibernate;
 	}
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="tagforeignkey")
-	public TagsHibernate getTagsHibernate() {
-		return tagsHibernate;
+	public TagsHibernate getTags() {
+		return tags;
 	}
-	public void setTagsHibernate(TagsHibernate tagsHibernate) {
-		this.tagsHibernate = tagsHibernate;
+	public void setTags(TagsHibernate tagsHibernate) {
+		this.tags = tagsHibernate;
 	}
 	
 	@Id

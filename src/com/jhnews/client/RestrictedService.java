@@ -87,4 +87,8 @@ public interface RestrictedService extends RemoteService {
 	void addTag(String sessionID, String tagName);
 	
 	void removeTag(String sessionID, Tags tag);
+	
+	User getUser(String sessionID) throws NotLoggedInException;
+	
+	void saveUserTags(String sessionID, User user);
 }

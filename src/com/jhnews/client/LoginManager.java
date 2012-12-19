@@ -206,7 +206,7 @@ public class LoginManager {
 	 * Attempts to register the user with the specified credentials. I the case
 	 * of a successful registration, the callback's onSuccess method is called.
 	 * If the user fails to login, the onFail method is called
-	 * @param user TODO
+	 * @param user The user to register
 	 * @param callback
 	 *            The callback, as described above. Executes at the completion
 	 *            of the call.
@@ -284,5 +284,53 @@ public class LoginManager {
 			}
 		};
 		restrictedService.isAdmin(getSessionID(), adminCallBack);
+	}
+
+	public void getUser(final LoginManagerCallback<User> callback) {
+		AsyncCallback<User> userCallback = new AsyncCallback<User>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				if (callback != null) {
+					callback.onFail();
+				}
+			}
+
+			@Override
+			public void onSuccess(User result) {
+				if (callback != null) {
+					if (result != null) {
+						callback.onSuccess(result);
+					} else {
+						callback.onFail();
+					}
+				}
+			}
+		};
+		restrictedService.getUser(getSessionID(), userCallback);
+	}
+	
+	public void saveUser(User user, final LoginManagerCallback<Void> callback) {
+		AsyncCallback<Void> userCallback = new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				if (callback != null) {
+					callback.onFail();
+				}
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				if (callback != null) {
+					if (result != null) {
+						callback.onSuccess(result);
+					} else {
+						callback.onFail();
+					}
+				}
+			}
+		};
+		restrictedService.saveUserTags(getSessionID(), user, userCallback);
 	}
 }
