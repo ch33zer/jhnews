@@ -3,6 +3,7 @@ package com.jhnews.client;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Clear;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -45,11 +46,14 @@ public class SearchPage extends Page {
 	
 			@Override
 			public void onClick(ClickEvent event) {
-				unrestrictedService.getAnnouncementsWithString(queryText.getText(), new AsyncCallback<List<Announcement>>() {
-					
+				removeLabel();
+				unrestrictedService.getAnnouncementsWithString(queryText.getText(), new AsyncCallback<List<Announcement>>() {	
 					@Override
 					public void onSuccess(List<Announcement> result) {
 						announcementListPanel.setAnnouncementList(result);
+						if (result.size() == 0) {
+							setSuccess("No results");
+						}
 					}
 					
 					@Override

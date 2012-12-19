@@ -56,12 +56,14 @@ public abstract class Page extends Composite {
 	}
 	
 	protected void setSuccess(String success) {
+		masterPanel.remove(outputLabel);
 		outputLabel.setText(success);
 		outputLabel.addStyleDependentName("success");
 		masterPanel.add(outputLabel);
 	}
 	
 	protected void setError(String error) {
+		masterPanel.remove(outputLabel);
 		outputLabel.setText(error);
 		outputLabel.addStyleDependentName("error");
 		masterPanel.add(outputLabel);

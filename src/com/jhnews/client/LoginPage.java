@@ -23,6 +23,7 @@ public class LoginPage extends Page {
 	 */
 	public LoginPage() {
 		setPageTitle("Log In");
+		isLeftAlign();
 		emailBox = new HintTextBox("Email");
 		emailBox.setMaxLength(100);
 		passwordBox = new HintPasswordTextBox("Password");
@@ -37,12 +38,11 @@ public class LoginPage extends Page {
 				passwordBox.getText(), new LoginManagerCallback<Session>() {
 					@Override
 					public void onSuccess(Session result) {
-						setSuccess("Logged in. Redirecting to home page...");
 						History.newItem("HOME");
 					}
 					@Override
 					public void onFail() {
-						setError("Failed to log in. Invalid username or password");
+						setError("Failed to log in - invalid username or password");
 					}
 				});
 			}
