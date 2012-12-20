@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.LoginFailedException;
+import com.jhnews.shared.NoConfirmationException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
 import com.jhnews.shared.Session;
@@ -24,7 +25,7 @@ public interface RestrictedService extends RemoteService {
 	/* (non-Javadoc)
 	 * @see com.jhnews.server.RestrictedServiceImpl#logIn(java.lang.String, java.lang.String)
 	 */
-	Session logIn(String username, String password) throws LoginFailedException;
+	Session logIn(String username, String password) throws LoginFailedException, NoConfirmationException;
 
 	@SuppressWarnings("javadoc")
 	/* (non-Javadoc)
@@ -36,7 +37,7 @@ public interface RestrictedService extends RemoteService {
 	/* (non-Javadoc)
 	 * @see com.jhnews.server.RestrictedServiceImpl#register(java.lang.String, java.lang.String)
 	 */
-	Session register(User user, String password) throws RegistrationFailedException, UserExistsException;
+	void register(User user, String password) throws RegistrationFailedException, UserExistsException;
 	
 	@SuppressWarnings("javadoc")
 	/* (non-Javadoc)

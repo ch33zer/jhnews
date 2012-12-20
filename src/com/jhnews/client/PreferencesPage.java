@@ -24,6 +24,7 @@ public class PreferencesPage extends UserPage {
 	public PreferencesPage() {
 		setPageTitle("Preferences");
 		isLeftAlign();
+		user = getUser();
 	}
 
 	@Override
@@ -31,21 +32,6 @@ public class PreferencesPage extends UserPage {
 		homeTagsCheckBox = new CheckBox("Limit homepage to chosen tags");
 		notificationCheckBox = new CheckBox("Enable email notifications");
 		tagsPanel = new TagsPanel();
-		LoginManager.getInstance().getUser(new LoginManagerCallback<User>() {
-			
-			@Override
-			public void onSuccess(User result) {
-				user = result;
-				tagsPanel.checkUserTags(result);
-				homeTagsCheckBox.setValue(result.isCustomHomepage());
-				notificationCheckBox.setValue(result.isEmailEnable());
-			}
-			
-			@Override
-			public void onFail() {
-				//Do nothing
-			}
-		});
 		Button saveButton = new Button("Save", new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -56,7 +42,7 @@ public class PreferencesPage extends UserPage {
 					
 					@Override
 					public void onSuccess(Void result) {
-						setSuccess("Saved!");
+						setSuccess("Saved");
 					}
 					
 					@Override

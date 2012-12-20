@@ -14,8 +14,6 @@ import com.jhnews.shared.User;
  */
 public class RegistrationPage extends Page {
 
-	private Label errorLabel;
-	private Label successLabel;
 	private HintTextBox firstNameBox;
 	private HintTextBox lastNameBox;
 	private HintTextBox emailBox;
@@ -28,12 +26,7 @@ public class RegistrationPage extends Page {
 	public RegistrationPage() {
 		// Variables
 		setPageTitle("Register");
-		errorLabel = new Label("Failed to register. The username may already exist.");
-		errorLabel.setStyleDependentName("error", true);
-		errorLabel.setVisible(false);
-		successLabel = new Label("Registered. Redirecting to login page...");
-		successLabel.setStyleDependentName("success", true);
-		successLabel.setVisible(false);
+		isLeftAlign();
 		firstNameBox = new HintTextBox("First name");
 		firstNameBox.setMaxLength(100);
 		lastNameBox = new HintTextBox("Last name");
@@ -54,16 +47,14 @@ public class RegistrationPage extends Page {
 					user.setLastName(lastNameBox.getText());
 					user.setUsername(emailBox.getText());
 					LoginManager.getInstance().register(user, passwordBox.getText(),
-						new LoginManagerCallback<Session>() {		
+						new LoginManagerCallback<Void>() {		
 						@Override
-						public void onSuccess(Session result) {
-								errorLabel.setVisible(false);
-								successLabel.setVisible(true);
-								History.newItem("LOGIN");
-							}		
+						public void onSuccess(Void result) {
+								History.newItem("CONFIRMATION");
+						}		
 						@Override
 						public void onFail() {
-							errorLabel.setVisible(true);
+							setError("Failed to register");
 						}
 					});	
 				}
@@ -71,28 +62,26 @@ public class RegistrationPage extends Page {
 		});
 		
 		// Login panel setup
+		addWidget(new Label("Name"));
 		addWidget(firstNameBox);
 		addWidget(lastNameBox);
+		addWidget(new Label("Email"));
 		addWidget(emailBox);
+		addWidget(new Label("Password"));
 		addWidget(passwordBox);
 		addWidget(retypePasswordBox);
 		addWidget(registerButton);
-		addWidget(errorLabel);
-		addWidget(successLabel);
 	}
 	
 	private boolean checkCredentials() {
 		if (!passwordBox.getText().equals(retypePasswordBox.getText())) {
-			errorLabel.setVisible(true);
-			errorLabel.setText("Failed to register. The passwords do not match.");
+			setError("Failed to register - passwords do not match");
 			return false;
 		} else if (!(emailBox.getText().endsWith("@jhu.edu") || emailBox.getText().endsWith("@johnshopkins.edu"))) {
-			errorLabel.setVisible(true);
-			errorLabel.setText("Failed to register. Must use a JHU email.");
+			setError("Failed to register - must use a JHU email");
 			return false;
 		} else if (!(emailBox.getText().length() > 5)) {
-			errorLabel.setVisible(true);
-			errorLabel.setText("Failed to register. Email must be longer than five characters.");
+			setError("Failed to register - email must be longer than five characters");
 			return false;
 		}
 		return true;

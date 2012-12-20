@@ -1,6 +1,6 @@
 package com.jhnews.client;
 
-import com.google.gwt.user.client.ui.Label;
+import com.jhnews.shared.User;
 
 /**
  * An abstract class which checks that only logged in users can view the Page
@@ -9,13 +9,16 @@ import com.google.gwt.user.client.ui.Label;
  */
 public abstract class UserPage extends Page {
 	
+	private User user;
+	
 	/**
 	 * Constructor checks if the viewer is logged in
 	 */
 	public UserPage() {
-		LoginManager.getInstance().isLoggedOn(new LoginManagerCallback<Boolean>() {
+		LoginManager.getInstance().isLoggedOn(new LoginManagerCallback<User>() {
 			@Override
-			public void onSuccess(Boolean result) {
+			public void onSuccess(User result) {
+				user = result;
 				createRestrictedContent();
 			}
 				@Override
@@ -30,4 +33,8 @@ public abstract class UserPage extends Page {
 	 */
 	protected abstract void createRestrictedContent();
 
+	protected User getUser() {
+		return user;
+	}
+	
 }

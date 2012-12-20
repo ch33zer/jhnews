@@ -30,4 +30,7 @@ public interface UnrestrictedServiceAsync {
 	 */
 	void getAllActiveTags(AsyncCallback<List<Tags>> callback);
 
+	void confirmRegistration(String username, String confirmationCode,
+			AsyncCallback<Void> callback);
+
 }

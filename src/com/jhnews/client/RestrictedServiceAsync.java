@@ -26,13 +26,7 @@ public interface RestrictedServiceAsync {
 	 * @param callback
 	 */
 	void logIn(String username, String password, AsyncCallback<Session> callback);
-	/** @see {@link RestrictedService#register(User, String)}
-	 * @param user
-	 * @param password
-	 * @param callback
-	 */
-	void register(User user, String password,
-			AsyncCallback<Session> callback);
+	void register(User user, String password, AsyncCallback<Void> callback);
 
 	/** @see {@link RestrictedService#logOut(String)}
 	 * @param sessionID

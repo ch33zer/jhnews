@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -11,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.jhnews.client.UnrestrictedService;
 import com.jhnews.shared.Announcement;
+import com.jhnews.shared.NoConfirmationException;
 import com.jhnews.shared.NoResultsException;
 import com.jhnews.shared.Tags;
 
@@ -81,6 +84,36 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 		List<Tags> tags = HibernateConversionUtil.convertHibernateTagsList(tagsHibernate);
 		return tags;
 	}
-	
 
+	@Override
+	public void confirmRegistration(String username, String confirmationCode) throws NoConfirmationException {
+		org.hibernate.Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<UserHibernate> userHibernates = session.createCriteria(UserHibernate.class).add(Restrictions.eq("username", username)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+		session.close();
+		if ( userHibernates.size()!=0 && userHibernates.get(0)!= null) {
+			UserHibernate userHibernate = userHibernates.get(0);
+			if (userHibernate.getUserConfirmationCode().equals(confirmationCode)) {
+				userHibernate.setUserConfirmationCode("0");
+				Transaction tx = null;
+				try {
+					session = sessionFactory.openSession();
+					tx=session.beginTransaction();
+					session.update(userHibernate);
+					tx.commit();
+					session.close();
+				}
+				catch (Exception e) {
+					if (tx != null) {
+						tx.rollback();
+						throw new NoConfirmationException();
+					}
+				}
+			} else {
+				throw new NoConfirmationException();
+			}
+		}
+	}
+	
+	
 }

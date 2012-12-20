@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.jhnews.shared.Announcement;
+import com.jhnews.shared.NoConfirmationException;
 import com.jhnews.shared.NoResultsException;
 import com.jhnews.shared.Tags;
 
@@ -20,4 +21,6 @@ public interface UnrestrictedService extends RemoteService {
 	List<Announcement> getAnnouncementsWithString(String query) throws NoResultsException;
 	
 	List<Tags> getAllActiveTags();
+	
+	void confirmRegistration(String username, String confirmationCode) throws NoConfirmationException;
 }
