@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.FieldVerifier;
 import com.jhnews.shared.NoConfirmationException;
@@ -154,8 +155,7 @@ public class LoginManager {
 			@Override
 			public void onSuccess(Session result) {
 				if (callback != null) {
-					if (result != null) {
-						
+					if (result != null) {				
 						createSessionCookie(result);
 						callback.onSuccess(result);
 					} else {

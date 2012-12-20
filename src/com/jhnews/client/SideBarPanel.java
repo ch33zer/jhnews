@@ -111,7 +111,7 @@ public class SideBarPanel extends Composite implements LoginListener {
 			public void onFail() {
 				
 			}		
-		});		
+		});	
 	}
 
 	/**

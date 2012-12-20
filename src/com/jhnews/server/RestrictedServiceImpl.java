@@ -385,7 +385,17 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 					if (tx != null) {
 						tx.rollback();
 					}
-				}	
+				}
+				try {
+					String message = "Your announcement " + announcementHibernate.getTitle()
+							+ " has been accepted! It will appear on " 
+							+ announcementHibernate.getEventDate();
+					EmailSender.send(user, "Announcement Accepted", message, false);
+				} catch (MessagingException e) {
+					
+				} catch (UnsupportedEncodingException e) {
+					
+				}
 			}
 		}
 	}
@@ -413,6 +423,15 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 					if (tx != null) {
 						tx.rollback();
 					}
+				}
+				try {
+					String message = "Your announcement " + announcementHibernate.getTitle()
+							+ " has been declined, sorry.";
+					EmailSender.send(user, "Announcement Declined", message, false);
+				} catch (MessagingException e) {
+					
+				} catch (UnsupportedEncodingException e) {
+					
 				}
 			}
 		}
