@@ -28,6 +28,10 @@ public interface UnrestrictedService extends RemoteService {
 	 */
 	List<Announcement> getAnnouncementsWithString(String query) throws NoResultsException;
 	
+	List<Announcement> getAnnouncementWithTags(List<Tags> tagList);
+	
+	List<Announcement> getAnnouncementsByStringandTags(List<Tags> tagList, String query);
+	
 	/**
 	 * Gets all the announcement tags currently in use
 	 * @return the active tags
@@ -43,4 +47,5 @@ public interface UnrestrictedService extends RemoteService {
 	void confirmRegistration(String username, String confirmationCode) throws NoConfirmationException;
 	
 	Announcement getAnnouncement(int ID);
+	
 }

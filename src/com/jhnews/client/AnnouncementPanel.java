@@ -1,6 +1,8 @@
 package com.jhnews.client;
 
 import com.google.gwt.i18n.shared.DateTimeFormat;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
@@ -22,7 +24,7 @@ public class AnnouncementPanel extends Composite {
 	 *
 	 * @param announcement The announcement on which to base the page
 	 */
-	public AnnouncementPanel(Announcement announcement) {
+	public AnnouncementPanel(final Announcement announcement) {
 		VerticalPanel masterPanel = new VerticalPanel();
 		masterPanel.addStyleName("leftVerticalPanel");
 		VerticalPanel detailPanel = new VerticalPanel();
@@ -42,6 +44,8 @@ public class AnnouncementPanel extends Composite {
 			}
 		}
 		detailPanel.add(new Label("Tags: " + announcement.getTagString()));
+		String loc = announcement.getLocation().trim().replace(" ", "+");
+		detailPanel.add(new HTML("<a href=\"https://maps.google.com/maps?q="+loc+",+Johns+Hopkins+University,+Baltimore+MD,+USA\">" + "Map" +"</a>"));
 		masterPanel.add(detailPanel);
 		initWidget(masterPanel);
 	}
