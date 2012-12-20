@@ -72,7 +72,7 @@ public class HintPasswordTextBox extends HintTextBox implements BlurHandler, Foc
 	 */
 	public void enableHint() {
 		String text = getText();
-		if ((text.length() == 0) || (text.equalsIgnoreCase(hint))) {
+		if ((text.length() == 0) || (text.equalsIgnoreCase(hint) && text.equalsIgnoreCase("password") != true)) {
 			// Show watermark
 			setText(hint);
 			addStyleDependentName("hint");
