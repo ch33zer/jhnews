@@ -20,6 +20,9 @@ public class EmailPage extends AdminPage {
 	private ListBox meridianListBox;
 	private Button saveButton;
 	
+	/** 
+	 * The default constructor for EmailPage
+	 */
 	public EmailPage() {
 		setPageTitle("Email Settings");
 		isLeftAlign();
