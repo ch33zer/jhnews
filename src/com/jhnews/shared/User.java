@@ -3,10 +3,6 @@ package com.jhnews.shared;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.OneToMany;
-
-import com.jhnews.server.UserTagsHibernate;
-
 /**
  * User is the class that represents a user of our application and holds the user's preferences and settings.
  * @author Group 8
