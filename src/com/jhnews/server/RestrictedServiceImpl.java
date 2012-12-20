@@ -1,6 +1,8 @@
 package com.jhnews.server;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,7 +23,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -29,8 +30,6 @@ import com.jhnews.client.RestrictedService;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.FieldVerifier;
 import com.jhnews.shared.LoginFailedException;
-
-import com.jhnews.shared.NoResultsException;
 import com.jhnews.shared.NoConfirmationException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
@@ -39,7 +38,6 @@ import com.jhnews.shared.Tags;
 import com.jhnews.shared.TimeUtil;
 import com.jhnews.shared.User;
 import com.jhnews.shared.UserExistsException;
-import com.jhnews.shared.UserTags;
 
 /** 
  * The server side of the login service
@@ -454,7 +452,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			if (announcements.size() != 0 ) {
 				String messageBody = generateAnnouncmentEmail(announcements);
 				try {
-					EmailSender.send(user, "Todays Announcemnts", messageBody, true);
+					EmailSender.send(user, "Todays Announcements", messageBody, true);
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -467,17 +465,21 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 
 	}
 	
+
+	private final static DateFormat FORMATTER_NO_TIME = new SimpleDateFormat("EEEE, MMMM d, yyyy");
+	private final static DateFormat FORMATTER_TIME = new SimpleDateFormat("EEEE, MMMM d, yyyy, h:mm aa");
+	
 	private String generateAnnouncmentEmail(
 			Set<AnnouncementHibernate> announcements) {
 		StringBuilder sb = new StringBuilder();
+		sb.append("<head></head><body>");
 		for (AnnouncementHibernate ann : announcements) {
-			sb.append("<head></head><body>");
-			sb.append("<a href=\"http://127.0.0.1:8888/Jhnews.html?gwt.codesvr=127.0.0.1:9997#").append( ann.getID()).append("\">").append( "<h1>").append(ann.getTitle()).append("</h1>").append( "</a>" ).append("<br>");
-			sb.append("<h2>").append(ann.getEventDate()).append("</h2><br>");
-			sb.append("<h3>").append(ann.getBriefDescription()).append("</h3><br>");
-			sb.append("</body>");
-			
+			sb.append("<a href=\"http://127.0.0.1:8888/Jhnews.html?gwt.codesvr=127.0.0.1:9997#").append( ann.getID()).append("\">").append( "<p><b>").append(ann.getTitle()).append("</b></p>").append( "</a>" );
+			sb.append("<p>").append(ann.isHasEventTime()?FORMATTER_TIME.format(ann.getEventDate()):FORMATTER_NO_TIME.format(ann.getEventDate())).append("</p>");
+			sb.append("<p>").append(ann.getBriefDescription()).append("</p>");
+			sb.append("<br>");
 		}
+		sb.append("</body>");
 		return sb.toString();
 	}
 
@@ -504,7 +506,6 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 				e.printStackTrace();
 			}
 		}
-		System.out.println("returning " + announcements.size());
 		return announcements;
 	}
 
