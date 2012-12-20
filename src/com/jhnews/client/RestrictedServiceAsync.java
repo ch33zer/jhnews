@@ -76,15 +76,40 @@ public interface RestrictedServiceAsync {
 	void declineAnnouncement(String sessionID, Announcement announcement,
 			AsyncCallback<Void> callback);
 
+	/** @see {@link RestrictedService#addAdmin(String, String)}
+	 * @param sessionID
+	 * @param email
+	 * @param callback
+	 */
 	void addAdmin(String sessionID, String email,
 			AsyncCallback<Boolean> callback);
 
+	/** @see {@link RestrictedService#addTag(String, String)}
+	 * @param sessionID
+	 * @param tagName
+	 * @param callback
+	 */
 	void addTag(String sessionID, String tagName, AsyncCallback<Void> callback);
 	
+	/** @see {@link RestrictedService#removeTag(String, Tags)}
+	 * @param sessionID
+	 * @param tag
+	 * @param callback
+	 */
 	void removeTag(String sessionID, Tags tag, AsyncCallback<Void> callback);
 
+	
+	/** @see {@link RestrictedService#getUser(String)}
+	 * @param sessionID
+	 * @param callback
+	 */
 	void getUser(String sessionID, AsyncCallback<User> callback);
 
+	/**@see {@link RestrictedService#saveUserTags(String, User)}
+	 * @param sessionID
+	 * @param user
+	 * @param callback
+	 */
 	void saveUserTags(String sessionID, User user, AsyncCallback<Void> callback);
 
 }
