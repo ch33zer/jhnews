@@ -13,7 +13,19 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/** This class is responsible for sending emails to users
+ * @author group 8
+ *
+ */
 public class EmailSender {
+	/** Sends emails
+	 * @param user the user to send the email to
+	 * @param subject the subject of the email
+	 * @param body the body of the email
+	 * @param ishtml whether or not it's in html
+	 * @throws UnsupportedEncodingException if there's unsupported encoding in the email
+	 * @throws MessagingException if there's a messaging error
+	 */
 	public static void send(UserHibernate user, String subject,
 			String body, boolean ishtml) throws UnsupportedEncodingException,
 			MessagingException {
@@ -59,6 +71,5 @@ public class EmailSender {
 	    transport.connect(host, port, username, password);
 	    transport.sendMessage(msg, msg.getAllRecipients());
 	    transport.close();
-
 	}
 }

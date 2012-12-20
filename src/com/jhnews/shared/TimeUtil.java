@@ -10,6 +10,10 @@ import java.util.GregorianCalendar;
  *
  */
 public class TimeUtil {
+	/** Gets the time of midnight of a given time
+	 * @param date the day to get the midnight time for
+	 * @return the midnight time
+	 */
 	public static Date getMidnightOf(Date date) {
 		// today    
 		Calendar midnight = new GregorianCalendar();

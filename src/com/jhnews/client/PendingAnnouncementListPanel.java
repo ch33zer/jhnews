@@ -1,7 +1,5 @@
 package com.jhnews.client;
 
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.jhnews.shared.Announcement;
 
 /**
  * Extends the panel to generate PendingAnnouncementPages specifically

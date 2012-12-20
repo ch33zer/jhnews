@@ -8,6 +8,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 
+/** This class represents the registration confirmation page.
+ * @author group 8
+ *
+ */
 public class RegistrationConfirmationPage extends Page {
 	
 	private HintTextBox emailBox;
@@ -16,6 +20,9 @@ public class RegistrationConfirmationPage extends Page {
 	
 	private UnrestrictedServiceAsync unrestrictedService = GWT.create(UnrestrictedService.class);
 	
+	/**
+	 * The default constructor for the registration confirmation page
+	 */
 	public RegistrationConfirmationPage() {
 		setPageTitle("Registration Confirmation");
 		isLeftAlign();
