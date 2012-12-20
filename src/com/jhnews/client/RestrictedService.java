@@ -19,76 +19,88 @@ import com.jhnews.shared.UserExistsException;
  */
 @RemoteServiceRelativePath("RestrictedService")
 public interface RestrictedService extends RemoteService {
-	/** Attempt to log in with the specified username and password
-	 * @param username The users username
-	 * @param password The users password
-	 * @return The sessionID. Whenever we do anything that requires registration, this ID is required in the call
-	 * @throws LoginFailedException If the login fails for any reason, this exception is raised
+
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#logIn(java.lang.String, java.lang.String)
 	 */
 	Session logIn(String username, String password) throws LoginFailedException;
-	/** Uses the sessionID to check if the user is logged in or not
-	 * @param sessionID The users sessionID, obtained through a previous call to {@link #logIn(String, String)}
-	 * @return Whether the user is logged on or not. AKA, whether or not their session ID is valid
-	 * @throws NotLoggedInException Throw if the user is not logged on
+
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#isLoggedIn(java.lang.String)
 	 */
 	boolean isLoggedIn(String sessionID) throws NotLoggedInException;
-	/**Registers the username and password with the server
-	 * @param user The user's information
-	 * @param password The user's password
-	 * @return The session object for the current session. Registering also logs the user in.
-	 * @throws RegistrationFailedException If the registration fails for any reason, this is thrown
-	 * @throws UserExistsException 
+
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#register(java.lang.String, java.lang.String)
 	 */
 	Session register(User user, String password) throws RegistrationFailedException, UserExistsException;
 	
-	/**Log the current user out
-	 * @param sessionID The sessionID corresponding to the current users session
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#logOut(java.lang.String, java.lang.String)
 	 */
 	void logOut(String sessionID);
 	
-	/**
-	 * Saves an announcement on the server
-	 * @param sessionID Session ID of the current user
-	 * @param announcement The announcement to be saved
-	 * @throws NotLoggedInException In the case that the user is not logged in
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#putAnnouncement(java.lang.String, com.jhnews.shared.Announcement)
 	 */
 	void putAnnouncement(String sessionID, Announcement announcement) throws NotLoggedInException;
 	
-	/**
-	 * Returns the pending announcements for the admin
-	 * @param sessionID Session ID of the current user
-	 * @return The List of pending announcements
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#getPendingAnnouncement(java.lang.String)
 	 */
 	List<Announcement> getPendingAnnouncements(String sessionID);
 	
-	/**
-	 * Allows the admin to approve the pending announcement
-	 * @param sessionID Session ID of the admin
-	 * @param announcement Announcement to approve
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#approveAnnouncement(java.lang.String, com.jhnews.shared.Announcement)
 	 */
 	void approveAnnouncement(String sessionID, Announcement announcement);
 	
-	/**
-	 * Allows the admin to decline the pending announcement
-	 * @param sessionID Session ID of the admin
-	 * @param announcement Announcement to decline
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#declineAnnouncement(java.lang.String, com.jhnews.shared.Announcement)
 	 */
 	void declineAnnouncement(String sessionID, Announcement announcement);
 	
-	/**
-	 * Determines if the current user is an admin
-	 * @param sessionID Session ID of the current user
-	 * @return True if the current user is an admin
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#isAdmin(java.lang.String)
 	 */
 	boolean isAdmin(String sessionID);
 	
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#addAdmin(java.lang.String, java.lang.String)
+	 */
 	boolean addAdmin(String sessionID, String email);
 	
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#addTag(java.lang.String, java.lang.String)
+	 */
 	void addTag(String sessionID, String tagName);
 	
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#removeTag(java.lang.String, com.jhnews.shared.Tags)
+	 */
 	void removeTag(String sessionID, Tags tag);
 	
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#getUser(java.lang.String)
+	 */
 	User getUser(String sessionID) throws NotLoggedInException;
 	
+	@SuppressWarnings("javadoc")
+	/* (non-Javadoc)
+	 * @see com.jhnews.server.RestrictedServiceImpl#saveUserTags(java.lang.String, com.jhnews.shared.User)
+	 */
 	void saveUserTags(String sessionID, User user);
 }

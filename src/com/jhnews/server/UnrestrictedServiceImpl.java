@@ -1,6 +1,5 @@
 package com.jhnews.server;
 
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -15,7 +14,7 @@ import com.jhnews.shared.Announcement;
 import com.jhnews.shared.NoResultsException;
 import com.jhnews.shared.Tags;
 
-/** The server component of the Announcment Fetcher. Retrieves announcments for the user
+/** The server component of the Announcement Fetcher. Retrieves announcements for the user
  * @author Group 8
  *
  */
@@ -31,8 +30,9 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 	}
 	
 	
-	/* (non-Javadoc)
-	 * @see com.jhnews.client.UnrestrictedService#getTodaysAnnouncements()
+	/** 
+	 * Get the announcements for today, specifically, with a date == todays date
+	 * @return A list of announcements from today
 	 */
 	@Override
 	public List<Announcement> getTodaysAnnouncements() {
@@ -40,8 +40,11 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 		return getAnnouncements(Restrictions.eq("approved", true));//TODO make this return only todays announcements
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jhnews.client.UnrestrictedService#getAnnouncementsWithString(java.lang.String)
+	/**
+	 * Performs a search of Announcements looking for the specified string
+	 * @param query The string that is searched for
+	 * @return The List of resulting Announcements
+	 * @throws NoResultsException Thrown when there are no results
 	 */
 	@Override
 	public List<Announcement> getAnnouncementsWithString(String query) throws NoResultsException {
@@ -65,6 +68,10 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 		return todays;
 	}
 
+	/**
+	 * Gets all the announcement tags currently in use
+	 * @return the active tags
+	 */
 	@Override
 	public List<Tags> getAllActiveTags() {
 		Session session = sessionFactory.openSession();
