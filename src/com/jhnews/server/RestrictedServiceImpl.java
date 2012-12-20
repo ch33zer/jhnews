@@ -56,8 +56,12 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	private final static long COOKIE_RETENTION_TIME = 1000 * 60 * 60 * 24;//1000 msecs * 60 secs * 60 minutes * 24 hours = 1 day
 
 	
-	/* (non-Javadoc)
-	 * @see com.jhnews.client.LoginService#logIn(java.lang.String, java.lang.String)
+
+	/** Attempt to log in with the specified username and password
+	 * @param username The users username
+	 * @param password The users password
+	 * @return The sessionID. Whenever we do anything that requires registration, this ID is required in the call
+	 * @throws LoginFailedException If the login fails for any reason, this exception is raised
 	 */
 	@Override
 	public Session logIn(String username, String password) throws LoginFailedException {
@@ -119,8 +123,11 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jhnews.client.LoginService#isLoggedIn(java.lang.String)
+
+	/** Uses the sessionID to check if the user is logged in or not
+	 * @param sessionID The users sessionID, obtained through a previous call to {@link #logIn(String, String)}
+	 * @return Whether the user is logged on or not. AKA, whether or not their session ID is valid
+	 * @throws NotLoggedInException Throw if the user is not logged on
 	 */
 	@Override
 	public boolean isLoggedIn(String sessionID) throws NotLoggedInException {
@@ -155,10 +162,12 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 
-
-
-	/* (non-Javadoc)
-	 * @see com.jhnews.client.LoginService#register(java.lang.String, java.lang.String)
+	/**Registers the username and password with the server
+	 * @param user The user's information
+	 * @param password The user's password
+	 * @return The session object for the current session. Registering also logs the user in.
+	 * @throws RegistrationFailedException If the registration fails for any reason, this is thrown
+	 * @throws UserExistsException 
 	 */
 	@Override
 	public Session register(User user, String password) throws RegistrationFailedException, UserExistsException {
@@ -243,6 +252,9 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 
+	/**Log the current user out
+	 * @param sessionID The sessionID corresponding to the current users session
+	 */
 	@Override
 	public void logOut(String sessionID) {
 		SessionHibernate hiberSession = getSessionFromSessionID(sessionID);
@@ -251,6 +263,12 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 	
+	/**
+	 * Saves an announcement on the server
+	 * @param sessionID Session ID of the current user
+	 * @param announcement The announcement to be saved
+	 * @throws NotLoggedInException In the case that the user is not logged in
+	 */
 	@Override
 	public void putAnnouncement(String sessionID, Announcement announcement) throws NotLoggedInException {
 		UserHibernate user = getUserFromSessionID(sessionID);
@@ -282,6 +300,11 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		return todays;
 	}
 
+	/**
+	 * Returns the pending announcements for the admin
+	 * @param sessionID Session ID of the current user
+	 * @return The List of pending announcements
+	 */
 	@Override
 	public List<Announcement> getPendingAnnouncements(String sessionID) {
 		UserHibernate user = getUserFromSessionID(sessionID);
@@ -293,6 +316,11 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		return null;
 	}
 
+	/**
+	 * Determines if the current user is an admin
+	 * @param sessionID Session ID of the current user
+	 * @return True if the current user is an admin
+	 */
 	@Override
 	public boolean isAdmin(String sessionID) {
 		UserHibernate user = getUserFromSessionID(sessionID);
@@ -315,6 +343,11 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		
 	}
 
+	/**
+	 * Allows the admin to approve the pending announcement
+	 * @param sessionID Session ID of the admin
+	 * @param announcement Announcement to approve
+	 */
 	@Override
 	public void approveAnnouncement(String sessionID, Announcement announcement) {
 		UserHibernate user = getUserFromSessionID(sessionID);
@@ -339,6 +372,11 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 
+	/**
+	 * Allows the admin to decline the pending announcement
+	 * @param sessionID Session ID of the admin
+	 * @param announcement Announcement to decline
+	 */
 	@Override
 	public void declineAnnouncement(String sessionID, Announcement announcement) {
 		UserHibernate user = getUserFromSessionID(sessionID);

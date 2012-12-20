@@ -25,6 +25,9 @@ public interface UnrestrictedServiceAsync {
 	 */
 	void getAnnouncementsWithString(String query, AsyncCallback<List<Announcement>> callback);
 
+	/** @see {@link UnrestrictedService#getAllActiveTags()}
+	 * @param callback
+	 */
 	void getAllActiveTags(AsyncCallback<List<Tags>> callback);
 
 }
