@@ -14,7 +14,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
-	public static void send(List<UserHibernate> recipients, String subject,
+	public static void send(UserHibernate user, String subject,
 			String body) throws UnsupportedEncodingException,
 			MessagingException {
 		//System.out.println("Started email send");
@@ -41,7 +41,7 @@ public class EmailSender {
 		msg.setFrom(new InternetAddress(username,
 				"JHNews Admin"));
 		InternetAddress address;
-		for (UserHibernate user : recipients) {
+
 			try {
 				address = new InternetAddress(user.getEmail(), true);
 				address.setPersonal(user.getFirstName() + " "
@@ -51,7 +51,6 @@ public class EmailSender {
 			} catch (AddressException e) {
 				System.out.println("Address parse failed for " + e.getMessage() + ", " + e.getCause());
 			}
-		}
 		msg.setSubject(subject);
 		msg.setText(body);
 		System.out.println("Created message");
