@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 
 /**
- * This page is the header at the top each view
+ * This page is the header seen at the top of each view.
  * @author Group 8
  *
  */

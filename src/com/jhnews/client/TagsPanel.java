@@ -16,8 +16,7 @@ import com.jhnews.shared.User;
 import com.jhnews.shared.UserTags;
 
 /**
- * A panel that contains a set of subject tags
- * 
+ * A panel that contains a set of subject tags.
  * @author Group 8
  */
 public class TagsPanel extends Composite {
@@ -95,6 +94,10 @@ public class TagsPanel extends Composite {
 		}
 	}
 	
+	/**
+	 * Set the tags for the panel according to an announcement's tags
+	 * @param announcement the announcement with the tags to set
+	 */
 	public void setTagsInAnnouncement(Announcement announcement) {
 		int counter = 0;
 		int index = 0;
@@ -119,6 +122,10 @@ public class TagsPanel extends Composite {
 		}
 	}
 	
+	/**
+	 * Check the panel's tags according to the current user's saved settings
+	 * @param user the user whose tags are to be set
+	 */
 	public void checkUserTags(User user) {
 		List<UserTags> userTags = user.getTags();
 		for (UserTags userTag : userTags) {
@@ -131,6 +138,11 @@ public class TagsPanel extends Composite {
 		}
 	}
 	
+	
+	/**
+	 * Set the user's tags according to this panel's tags
+	 * @param user the user to set tags for
+	 */
 	public void setTagsInUser(User user) {
 		int index = 0;
 		List<UserTags> userTagList = user.getTags();
@@ -148,7 +160,6 @@ public class TagsPanel extends Composite {
 	
 	/**
 	 * Sets the tags according to a set of default sample tags.
-	 * 
 	 */
 	public void fillTags() {
 		if (unrestrictedService != null) {
@@ -161,13 +172,16 @@ public class TagsPanel extends Composite {
 				
 				@Override
 				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
-					
+					setTags(null);
 				}
 			});
 		}
 	}
 	
+	/**
+	 * Gets the set of tags that are currently checked in this panel
+	 * @return the set of tags that are checked
+	 */
 	public List<Tags> getCheckedTags() {
 		int index = 0;
 		List<Tags> checkedTags = new LinkedList<Tags>();
@@ -180,10 +194,12 @@ public class TagsPanel extends Composite {
 		return checkedTags;
 	}
 	
+	/**
+	 * Set all the tags in the panel.
+	 */
 	public void checkAllTags() {
 		for (CheckBox checkBox : checkBoxes) {
 			checkBox.setValue(true);
 		}
 	}
-	
 }

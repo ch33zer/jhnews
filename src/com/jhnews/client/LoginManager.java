@@ -5,12 +5,10 @@ import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.FieldVerifier;
 import com.jhnews.shared.Session;
 import com.jhnews.shared.User;
-import com.jhnews.shared.UserTags;
 
 /**
  * Handles login, logout and registration. Abstracts away the GWT specific
@@ -207,6 +205,7 @@ public class LoginManager {
 	 * of a successful registration, the callback's onSuccess method is called.
 	 * If the user fails to login, the onFail method is called
 	 * @param user The user to register
+	 * @param password the password to register
 	 * @param callback
 	 *            The callback, as described above. Executes at the completion
 	 *            of the call.
@@ -286,6 +285,10 @@ public class LoginManager {
 		restrictedService.isAdmin(getSessionID(), adminCallBack);
 	}
 
+	/**
+	 * Gets the user that is currently logged in
+	 * @param callback the code that is executed when the method returns 
+	 */
 	public void getUser(final LoginManagerCallback<User> callback) {
 		AsyncCallback<User> userCallback = new AsyncCallback<User>() {
 
@@ -310,6 +313,10 @@ public class LoginManager {
 		restrictedService.getUser(getSessionID(), userCallback);
 	}
 	
+	/** Saves the current User instance (used to save user settings).
+	 * @param user the user to save
+	 * @param callback the code that is executed when the method returns
+	 */
 	public void saveUser(User user, final LoginManagerCallback<Void> callback) {
 		AsyncCallback<Void> userCallback = new AsyncCallback<Void>() {
 
