@@ -15,12 +15,31 @@ import com.jhnews.shared.Tags;
 @RemoteServiceRelativePath("UnrestrictedService")
 public interface UnrestrictedService extends RemoteService {
 
+	/** 
+	 * Get the announcements for today, specifically, with a date == todays date
+	 * @return A list of announcements from today
+	 */
 	List<Announcement> getTodaysAnnouncements();
 	
-
+	/**
+	 * Performs a search of Announcements looking for the specified string
+	 * @param query The string that is searched for
+	 * @return The List of resulting Announcements
+	 * @throws NoResultsException Thrown when there are no results
+	 */
 	List<Announcement> getAnnouncementsWithString(String query) throws NoResultsException;
 	
+	/**
+	 * Gets all the announcement tags currently in use
+	 * @return the active tags
+	 */
 	List<Tags> getAllActiveTags();
-	
+		
+	/**
+	 * Confirms a new user's registration code.
+	 * @param username the username to confirm for
+	 * @param confirmationCode the confirmation code
+	 * @throws NoConfirmationException when there's no confirmation code
+	 */
 	void confirmRegistration(String username, String confirmationCode) throws NoConfirmationException;
 }

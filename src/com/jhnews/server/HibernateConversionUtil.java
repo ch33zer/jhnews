@@ -31,6 +31,11 @@ public class HibernateConversionUtil {
 		return getDozerInstance().map(announcementHibernate, Announcement.class);
 	}
 	
+	/**
+	 * Converts lists of Hibernate tags to lists of client tags
+	 * @param list the list of Hibernate Tags
+	 * @return the list of client tags
+	 */
 	public static List<Tags> convertHibernateTagsList(List<TagsHibernate> list) {
 		List<Tags> announcments = new LinkedList<Tags>();
 		for (TagsHibernate el : list) {
@@ -39,10 +44,20 @@ public class HibernateConversionUtil {
 		return announcments;
 	}
 	
+	/**
+	 * Convert Hibernate tags to client tags
+	 * @param tags the Hibernate tags to convert
+	 * @return the client tags
+	 */
 	public static Tags convertHibernateTags(TagsHibernate tags) {
 		return getDozerInstance().map(tags, Tags.class);
 	}
 	
+	/**
+	 * Convert client Tags to Hibernate tags
+	 * @param tags the client tags to convert
+	 * @return Hibernate tags
+	 */
 	public static TagsHibernate convertTags(Tags tags) {
 		return getDozerInstance().map(tags, TagsHibernate.class);
 	}
@@ -80,7 +95,7 @@ public class HibernateConversionUtil {
 	}
 	
 	/**
-	 * Converts Announcement from client to Hibernate
+	 * Converts Announcement from client to Hibernate 
 	 * @param userHibernate Client's version to be converted
 	 * @return Hibernate's version
 	 */
@@ -88,6 +103,11 @@ public class HibernateConversionUtil {
 		return getDozerInstance().map(userHibernate, User.class);
 	}
 
+	/**
+	 * Converts User from client to Hibernate
+	 * @param user the client's version of User
+	 * @return the Hibernate version of User
+	 */
 	public static UserHibernate convertUser(User user) {
 		return getDozerInstance().map(user, UserHibernate.class);
 	}
