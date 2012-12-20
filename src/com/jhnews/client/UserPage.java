@@ -1,5 +1,6 @@
 package com.jhnews.client;
 
+import com.google.gwt.dom.client.Style.Clear;
 import com.jhnews.shared.User;
 
 /**
@@ -15,10 +16,12 @@ public abstract class UserPage extends Page {
 	 * Constructor checks if the viewer is logged in
 	 */
 	public UserPage() {
+		setSuccess("Loading...");
 		LoginManager.getInstance().isLoggedOn(new LoginManagerCallback<User>() {
 			@Override
 			public void onSuccess(User result) {
 				user = result;
+				removeLabel();
 				createRestrictedContent();
 			}
 				@Override
@@ -29,7 +32,7 @@ public abstract class UserPage extends Page {
 	}
 	
 	/**
-	 * Extended and called if the viewer is an admin
+	 * Extended and called if the viewer is logged in
 	 */
 	protected abstract void createRestrictedContent();
 

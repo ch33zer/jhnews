@@ -24,11 +24,11 @@ public class PreferencesPage extends UserPage {
 	public PreferencesPage() {
 		setPageTitle("Preferences");
 		isLeftAlign();
-		user = getUser();
 	}
 
 	@Override
 	protected void createRestrictedContent() {
+		user = getUser();
 		homeTagsCheckBox = new CheckBox("Limit homepage to chosen tags");
 		notificationCheckBox = new CheckBox("Enable email notifications");
 		tagsPanel = new TagsPanel();

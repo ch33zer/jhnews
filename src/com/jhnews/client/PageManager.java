@@ -36,7 +36,7 @@ public class PageManager implements ValueChangeHandler<String>  {
 		RootPanel.get("sidebar").add(new SideBarPanel());
 		String queryString = Window.Location.getHash();
 		int lastIndex = queryString.lastIndexOf("#");
-		if ( lastIndex != -1) {
+		if (lastIndex != -1) {
 			History.newItem(queryString.substring(lastIndex+1).trim());
 		}
 		else {
@@ -109,17 +109,23 @@ public class PageManager implements ValueChangeHandler<String>  {
 	 */
 	public void generateAnnouncementPage(Announcement announcement) {
 		RootPanel.get("body").clear();
-		RootPanel.get("body").add(new AnnouncementPanel(announcement));
+		if (announcement.isApproved()) {
+			RootPanel.get("body").add(new AnnouncementPanel(announcement));
+		} else {
+			RootPanel.get("body").add(new PendingAnnouncementPage(announcement));
+		}
 	}
 	
 	/**
 	 * Generates the Announcement detail Page and sets the body of the website to it for a pending announcement
 	 * @param announcement The Announcement details for the page
 	 */
+	/*
 	public void generatePendingAnnouncementPage(Announcement announcement) {
 		RootPanel.get("body").clear();
 		RootPanel.get("body").add(new PendingAnnouncementPanel(announcement));
 	}
+	*/
 
 	/**
 	 * Processes the hyperlink clicks

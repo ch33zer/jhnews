@@ -18,7 +18,7 @@ import com.jhnews.shared.Announcement;
  * @author Group 8
  *
  */
-public class AnnouncementListPanel extends Composite implements ValueChangeHandler<String> {
+public class AnnouncementListPanel extends Composite {
 	
 	private VerticalPanel masterPanel;
 	protected List<Announcement> announcements;
@@ -34,28 +34,6 @@ public class AnnouncementListPanel extends Composite implements ValueChangeHandl
 		masterPanel = new VerticalPanel();
 		masterPanel.addStyleName("leftVerticalPanel");
 	    initWidget(masterPanel);
-	    handlerRegistration = History.addValueChangeHandler(this);
-	}
-	
-	/**
-	 * Processes the Announcement hyperlink list clicked
-	 * @param event The event of the hyperlink click
-	 */
-	@Override
-	public void onValueChange(ValueChangeEvent<String> event) {
-		int ID;
-		try {
-			ID = Integer.parseInt(event.getValue());
-		} catch(NumberFormatException e) {
-			return;
-		}
-		handlerRegistration.removeHandler();
-		for (Announcement announcement : announcements) {
-			if (announcement.getID() == ID) {
-				PageManager.getInstance().generateAnnouncementPage(announcement);
-				break;
-			}
-		}
 	}
 	
 	/**
