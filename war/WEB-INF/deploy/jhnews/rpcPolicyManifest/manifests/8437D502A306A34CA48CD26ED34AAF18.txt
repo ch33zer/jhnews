@@ -1,0 +1,2 @@
+serviceClass: com.jhnews.client.RestrictedService
+path: 25D29D71212A0B0FD2CD9A8E765D2AD1.gwt.rpc

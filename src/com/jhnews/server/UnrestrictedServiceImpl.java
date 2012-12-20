@@ -1,9 +1,11 @@
 package com.jhnews.server;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
@@ -16,6 +18,7 @@ import com.jhnews.shared.Announcement;
 import com.jhnews.shared.NoConfirmationException;
 import com.jhnews.shared.NoResultsException;
 import com.jhnews.shared.Tags;
+import com.jhnews.shared.TimeUtil;
 
 /** The server component of the Announcement Fetcher. Retrieves announcements for the user
  * @author Group 8
@@ -40,7 +43,7 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 	@Override
 	public List<Announcement> getTodaysAnnouncements() {
 		//Criterion criteria = Restrictions.and(Restrictions.eq("approved", false), Restrictions.gt("eventDate", new Date()));
-		return getAnnouncements(Restrictions.eq("approved", true));//TODO make this return only todays announcements
+		return getAnnouncements(Restrictions.and(Restrictions.eq("approved", true),Restrictions.ge("eventDate",TimeUtil.getMidnightOf(new Date())),Restrictions.le("eventDate", TimeUtil.getMidnightOfTomorrow(new Date()))));
 	}
 
 	/**
@@ -65,7 +68,7 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 	private List<Announcement> getAnnouncements(Criterion criteria)  {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).list():session.createCriteria(AnnouncementHibernate.class).list();
+		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list():session.createCriteria(AnnouncementHibernate.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		List<Announcement> todays = HibernateConversionUtil.convertHibernateAnnouncementList(todayHibernate);
 		session.close();
 		return todays;
@@ -79,11 +82,22 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 	public List<Tags> getAllActiveTags() {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.eq("active", true)).list();
+		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.eq("active", true)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		session.close();
 		List<Tags> tags = HibernateConversionUtil.convertHibernateTagsList(tagsHibernate);
 		return tags;
 	}
+	@Override
+	public Announcement getAnnouncement(int ID) {
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<AnnouncementHibernate> tagsHibernate =  session.createCriteria(AnnouncementHibernate.class).add(Restrictions.eq("ID", ID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+		session.close();
+		return HibernateConversionUtil.convertHibernateAnnouncementList(tagsHibernate).get(0);
+	}
+	
+	
+	
 
 	@Override
 	public void confirmRegistration(String username, String confirmationCode) throws NoConfirmationException {

@@ -1,6 +1,7 @@
 package com.jhnews.server;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -20,6 +21,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -27,13 +29,17 @@ import com.jhnews.client.RestrictedService;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.FieldVerifier;
 import com.jhnews.shared.LoginFailedException;
+
+import com.jhnews.shared.NoResultsException;
 import com.jhnews.shared.NoConfirmationException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
 import com.jhnews.shared.Session;
 import com.jhnews.shared.Tags;
+import com.jhnews.shared.TimeUtil;
 import com.jhnews.shared.User;
 import com.jhnews.shared.UserExistsException;
+import com.jhnews.shared.UserTags;
 
 /** 
  * The server side of the login service
@@ -300,14 +306,16 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			}
 		}
 	}
-	
 	private List<Announcement> getAnnouncements(Criterion criteria)  {
+		return HibernateConversionUtil.convertHibernateAnnouncementList(getAnnouncementsHibernate(criteria));
+	}
+	
+	private List<AnnouncementHibernate> getAnnouncementsHibernate(Criterion criteria)  {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).list():session.createCriteria(AnnouncementHibernate.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
-		List<Announcement> todays = HibernateConversionUtil.convertHibernateAnnouncementList(todayHibernate);
+		List<AnnouncementHibernate> todayHibernate = criteria != null ? session.createCriteria(AnnouncementHibernate.class).add(criteria).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list():session.createCriteria(AnnouncementHibernate.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		session.close();
-		return todays;
+		return todayHibernate;
 	}
 
 	/**
@@ -413,22 +421,74 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public void run() {
 		org.hibernate.Session session = sessionFactory.openSession();
-		List<UserHibernate> users = session.createCriteria(UserHibernate.class).list();
-		users.size();
+		@SuppressWarnings("unchecked")
+		List<UserHibernate> users = session.createCriteria(UserHibernate.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		session.close();
-		/*
-		try {
-			EmailSender.send(users, "TEST", "TEST");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (UserHibernate user : users) {
+			Set<AnnouncementHibernate> announcements = new HashSet<AnnouncementHibernate>();
+			for (UserTagsHibernate tags : user.getTags()) {
+				List<AnnouncementHibernate> annList = getAnnouncementsWithTag(getTodaysAnnouncementsHibernate(),tags.getTags());
+				for (AnnouncementHibernate announcement : annList) {
+					announcements.add(announcement);
+				}
+			}
+			if (announcements.size() != 0 ) {
+				String messageBody = generateAnnouncmentEmail(announcements);
+				try {
+					EmailSender.send(user, "Todays Announcemnts", messageBody, true);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
-		*/
+
 	}
 	
+	private String generateAnnouncmentEmail(
+			Set<AnnouncementHibernate> announcements) {
+		StringBuilder sb = new StringBuilder();
+		for (AnnouncementHibernate ann : announcements) {
+			sb.append("<head></head><body>");
+			sb.append("<a href=\"http://127.0.0.1:8888/Jhnews.html?gwt.codesvr=127.0.0.1:9997#").append( ann.getID()).append("\">").append( "<h1>").append(ann.getTitle()).append("</h1>").append( "</a>" ).append("<br>");
+			sb.append("<h2>").append(ann.getEventDate()).append("</h2><br>");
+			sb.append("<h3>").append(ann.getBriefDescription()).append("</h3><br>");
+			sb.append("</body>");
+			
+		}
+		return sb.toString();
+	}
+
+	private List<AnnouncementHibernate> getAnnouncementsWithTag(List<AnnouncementHibernate> announcements, TagsHibernate tags) {
+		Iterator<AnnouncementHibernate> annIterator = announcements.iterator();
+		List<AnnouncementHibernate> anns = new ArrayList<AnnouncementHibernate>();
+
+		while (annIterator.hasNext()) {
+			AnnouncementHibernate ann = annIterator.next();
+			try {
+				TagsHibernate tag1, tag2, tag3;
+				tag1 = ann.getTag1();
+				tag2 = ann.getTag2();
+				tag3 = ann.getTag3();
+				if (tag1 != null && tag1.equals(tags)) {
+					anns.add(ann);
+				} else if (tag2 != null && tag2.equals(tags)) {
+					anns.add(ann);
+				} else if (tag3 != null && tag3.equals(tags)) {
+					anns.add(ann);
+				}
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		System.out.println("returning " + announcements.size());
+		return announcements;
+	}
+
 	private List<Tags> getAllActiveTags() {
 		List<Tags> tags = HibernateConversionUtil.convertHibernateTagsList(getAllActiveTagsHibernate());
 		return tags;
@@ -436,7 +496,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	private List<TagsHibernate> getAllActiveTagsHibernate() {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.eq("active", true)).list();
+		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.eq("active", true)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		session.close();
 		return tagsHibernate;
 	}
@@ -533,7 +593,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	private TagsHibernate tagExists(String name) {
 		org.hibernate.Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.ilike("name", name)).list();
+		List<TagsHibernate> tagsHibernate =  session.createCriteria(TagsHibernate.class).add(Restrictions.ilike("name", name)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
 		session.close();
 		if ( tagsHibernate.size()==1 && tagsHibernate.get(0)!= null)
 			return tagsHibernate.get(0);
@@ -587,5 +647,12 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			}
 		}
 	}
+	
+	public List<AnnouncementHibernate> getTodaysAnnouncementsHibernate() {
+		//Criterion criteria = Restrictions.and(Restrictions.eq("approved", false), Restrictions.gt("eventDate", new Date()));
+		return getAnnouncementsHibernate(Restrictions.and(Restrictions.eq("approved", true),Restrictions.ge("eventDate",TimeUtil.getMidnightOf(new Date())),Restrictions.le("eventDate", TimeUtil.getMidnightOfTomorrow(new Date()))));
+	}
+
+
 	
 }
