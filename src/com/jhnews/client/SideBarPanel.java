@@ -1,8 +1,12 @@
 package com.jhnews.client;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Hyperlink;
@@ -99,6 +103,14 @@ public class SideBarPanel extends Composite implements LoginListener {
 	 */
 	@Override
 	public void onLogin() {
+		Timer time = new Timer();
+		time.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				//How are you?
+			}
+		}, 1000);
 		loginManager.isAdmin(new LoginManagerCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean result) {

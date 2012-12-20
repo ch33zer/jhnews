@@ -153,9 +153,10 @@ public class LoginManager {
 
 			@Override
 			public void onSuccess(Session result) {
+				if (result != null) 		
+					createSessionCookie(result);
 				if (callback != null) {
 					if (result != null) {				
-						createSessionCookie(result);
 						callback.onSuccess(result);
 					} else {
 						callback.onFail();

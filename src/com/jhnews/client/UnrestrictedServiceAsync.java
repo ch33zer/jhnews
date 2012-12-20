@@ -34,4 +34,10 @@ public interface UnrestrictedServiceAsync {
 
 	void confirmRegistration(String username, String confirmationCode,
 			AsyncCallback<Void> callback);
+
+	void getAnnouncementWithTags(List<Tags> tagList,
+			AsyncCallback<List<Announcement>> callback);
+
+	void getAnnouncementsByStringandTags(List<Tags> tagList, String query,
+			AsyncCallback<List<Announcement>> callback);
 }

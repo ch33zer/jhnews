@@ -128,6 +128,19 @@ public class UnrestrictedServiceImpl extends RemoteServiceServlet implements Unr
 			}
 		}
 	}
+
+	@Override
+	public List<Announcement> getAnnouncementWithTags(List<Tags> tagList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Announcement> getAnnouncementsByStringandTags(
+			List<Tags> tagList, String query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }
