@@ -1,8 +1,11 @@
 package com.jhnews.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.jhnews.shared.Announcement;
 
@@ -31,7 +34,12 @@ public class PageManager implements ValueChangeHandler<String>  {
 		RootPanel.get("date").add(new DatePanel());
 		//RootPanel.get("footer").add(new HomePage());
 		RootPanel.get("sidebar").add(new SideBarPanel());
-	    if (History.getToken().length() == 0) {
+		String queryString = Window.Location.getHash();
+		int lastIndex = queryString.lastIndexOf("#");
+		if ( lastIndex != -1) {
+			History.newItem(queryString.substring(lastIndex+1).trim());
+		}
+		else {
 	      History.newItem("HOME");
 	    }
 	}
@@ -123,7 +131,29 @@ public class PageManager implements ValueChangeHandler<String>  {
 		try {
 			page = PagesEnum.valueOf(event.getValue());
 		} catch(IllegalArgumentException e) {
-			return;
+			int announcementID = 0;
+			try{
+				announcementID = Integer.parseInt(event.getValue());
+				UnrestrictedServiceAsync unrestrictedService = GWT.create(UnrestrictedService.class);
+				unrestrictedService.getAnnouncement(announcementID, new AsyncCallback<Announcement>() {
+					
+					@Override
+					public void onSuccess(Announcement result) {
+						generateAnnouncementPage(result);
+						return;
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				return;
+			}
+			catch (NumberFormatException error) {
+				return;
+			}
 		}
 		setBody(page);
 	}

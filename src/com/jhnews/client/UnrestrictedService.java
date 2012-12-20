@@ -14,7 +14,6 @@ import com.jhnews.shared.Tags;
  */
 @RemoteServiceRelativePath("UnrestrictedService")
 public interface UnrestrictedService extends RemoteService {
-
 	/** 
 	 * Get the announcements for today, specifically, with a date == todays date
 	 * @return A list of announcements from today
@@ -42,4 +41,6 @@ public interface UnrestrictedService extends RemoteService {
 	 * @throws NoConfirmationException when there's no confirmation code
 	 */
 	void confirmRegistration(String username, String confirmationCode) throws NoConfirmationException;
+	
+	Announcement getAnnouncement(int ID);
 }

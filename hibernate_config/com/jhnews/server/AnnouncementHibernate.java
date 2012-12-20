@@ -24,6 +24,89 @@ import javax.persistence.Table;
 public class AnnouncementHibernate implements Serializable {
 
 	private int ID;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ID;
+		result = prime * result + (approved ? 1231 : 1237);
+		result = prime
+				* result
+				+ ((briefDescription == null) ? 0 : briefDescription.hashCode());
+		result = prime * result
+				+ ((eventDate == null) ? 0 : eventDate.hashCode());
+		result = prime * result + (hasEventTime ? 1231 : 1237);
+		result = prime * result
+				+ ((location == null) ? 0 : location.hashCode());
+		result = prime * result
+				+ ((longDescription == null) ? 0 : longDescription.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + (toFaculty ? 1231 : 1237);
+		result = prime * result + (toFreshman ? 1231 : 1237);
+		result = prime * result + (toGraduate ? 1231 : 1237);
+		result = prime * result + (toJunior ? 1231 : 1237);
+		result = prime * result + (toSenior ? 1231 : 1237);
+		result = prime * result + (toSophomore ? 1231 : 1237);
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AnnouncementHibernate other = (AnnouncementHibernate) obj;
+		if (ID != other.ID)
+			return false;
+		if (approved != other.approved)
+			return false;
+		if (briefDescription == null) {
+			if (other.briefDescription != null)
+				return false;
+		} else if (!briefDescription.equals(other.briefDescription))
+			return false;
+		if (eventDate == null) {
+			if (other.eventDate != null)
+				return false;
+		} else if (!eventDate.equals(other.eventDate))
+			return false;
+		if (hasEventTime != other.hasEventTime)
+			return false;
+		if (location == null) {
+			if (other.location != null)
+				return false;
+		} else if (!location.equals(other.location))
+			return false;
+		if (longDescription == null) {
+			if (other.longDescription != null)
+				return false;
+		} else if (!longDescription.equals(other.longDescription))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (toFaculty != other.toFaculty)
+			return false;
+		if (toFreshman != other.toFreshman)
+			return false;
+		if (toGraduate != other.toGraduate)
+			return false;
+		if (toJunior != other.toJunior)
+			return false;
+		if (toSenior != other.toSenior)
+			return false;
+		if (toSophomore != other.toSophomore)
+			return false;
+		return true;
+	}
+
+
 	private UserHibernate submitter;
 	private String title;
 	private String location;
