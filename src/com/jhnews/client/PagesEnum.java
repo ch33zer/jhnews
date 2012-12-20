@@ -59,5 +59,10 @@ public enum PagesEnum {
 	/**
 	 * Add admin
 	 */
-	ADMIN
+	ADMIN,
+	
+	/**
+	 * Confirm registration
+	 */
+	CONFIRMATION
 }

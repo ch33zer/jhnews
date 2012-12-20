@@ -15,6 +15,7 @@ import javax.mail.MessagingException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -26,6 +27,7 @@ import com.jhnews.client.RestrictedService;
 import com.jhnews.shared.Announcement;
 import com.jhnews.shared.FieldVerifier;
 import com.jhnews.shared.LoginFailedException;
+import com.jhnews.shared.NoConfirmationException;
 import com.jhnews.shared.NotLoggedInException;
 import com.jhnews.shared.RegistrationFailedException;
 import com.jhnews.shared.Session;
@@ -33,7 +35,8 @@ import com.jhnews.shared.Tags;
 import com.jhnews.shared.User;
 import com.jhnews.shared.UserExistsException;
 
-/** The server side of the login service
+/** 
+ * The server side of the login service
  * @author Group 8
  *
  */
@@ -54,7 +57,6 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	    scheduler.scheduleAtFixedRate(this, 0, 1, TimeUnit.DAYS);
 	}
 	private final static long COOKIE_RETENTION_TIME = 1000 * 60 * 60 * 24;//1000 msecs * 60 secs * 60 minutes * 24 hours = 1 day
-
 	
 
 	/** Attempt to log in with the specified username and password
@@ -64,12 +66,15 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	 * @throws LoginFailedException If the login fails for any reason, this exception is raised
 	 */
 	@Override
-	public Session logIn(String username, String password) throws LoginFailedException {
+	public Session logIn(String username, String password) throws LoginFailedException, NoConfirmationException {
 		if (username == null || password == null) {
 			throw new LoginFailedException();
 		}
 		UserHibernate user = getUser(username, password);
 		if (user!=null) {
+			if (!user.getUserConfirmationCode().equals("0")) {
+				throw new NoConfirmationException();
+			}
 			String sessionID = UUID.randomUUID().toString();
 			SessionHibernate sessionHibernate = new SessionHibernate();
 			sessionHibernate.setSessionID(sessionID);
@@ -170,7 +175,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	 * @throws UserExistsException 
 	 */
 	@Override
-	public Session register(User user, String password) throws RegistrationFailedException, UserExistsException {
+	public void register(User user, String password) throws RegistrationFailedException, UserExistsException {
 
 		if (user == null || password == null) {
 			throw new RegistrationFailedException();
@@ -183,18 +188,23 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		if (userExists(user.getUsername())) {
 			throw new UserExistsException();
 		}
+		
+		String confirmationCode = RandomStringUtils.randomAlphabetic(7).trim();
 
-		UserHibernate userHibernate= generateDefaultUser();
+		UserHibernate userHibernate = generateDefaultUser();
 		userHibernate.setUsername(user.getUsername());
 		userHibernate.setHash(BCrypt.hashpw(password, BCrypt.gensalt()));
 		userHibernate.setFirstName(user.getFirstName());
 		userHibernate.setLastName(user.getLastName());
 		userHibernate.setEmail(user.getUsername());
+		userHibernate.setUserConfirmationCode(confirmationCode);
 		insertUser(userHibernate);
-		try {
-			return logIn(user.getUsername(), password);
-		} catch (LoginFailedException e) {
 
+		try {
+			EmailSender.send(userHibernate, "Email Confirmation", confirmationCode, false);
+		} catch (MessagingException e) {
+			throw new RegistrationFailedException();
+		} catch (UnsupportedEncodingException e) {
 			throw new RegistrationFailedException();
 		}
 		
@@ -406,6 +416,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		List<UserHibernate> users = session.createCriteria(UserHibernate.class).list();
 		users.size();
 		session.close();
+		/*
 		try {
 			EmailSender.send(users, "TEST", "TEST");
 		} catch (UnsupportedEncodingException e) {
@@ -415,6 +426,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
 	
 	private List<Tags> getAllActiveTags() {

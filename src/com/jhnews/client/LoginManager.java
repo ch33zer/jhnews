@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.jhnews.shared.FieldVerifier;
+import com.jhnews.shared.NoConfirmationException;
 import com.jhnews.shared.Session;
 import com.jhnews.shared.User;
 
@@ -94,22 +96,22 @@ public class LoginManager {
 	 *            The callback, as described above. Executes at the completion
 	 *            of the call.
 	 */
-	public void isLoggedOn(final LoginManagerCallback<Boolean> callback) {
+	public void isLoggedOn(final LoginManagerCallback<User> callback) {
 
-		AsyncCallback<Boolean> loggedInCallBack = new AsyncCallback<Boolean>() {
+		AsyncCallback<User> loggedInCallBack = new AsyncCallback<User>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				if (callback != null) {
 					callback.onFail();
 				}
-
+				
 			}
 
 			@Override
-			public void onSuccess(Boolean result) {
+			public void onSuccess(User result) {
 				if (callback != null) {
-					if (result != null && result) {
+					if (result != null) {
 						callback.onSuccess(result);
 					} else {
 						callback.onFail();
@@ -118,7 +120,7 @@ public class LoginManager {
 
 			}
 		};
-		restrictedService.isLoggedIn(getSessionID(), loggedInCallBack);
+		restrictedService.getUser(getSessionID(), loggedInCallBack);
 	}
 
 	/**
@@ -144,7 +146,9 @@ public class LoginManager {
 				if (callback != null) {
 					callback.onFail();
 				}
-
+				if (caught instanceof NoConfirmationException) {
+					History.newItem("CONFIRMATION");
+				}
 			}
 
 			@Override
@@ -210,9 +214,9 @@ public class LoginManager {
 	 *            The callback, as described above. Executes at the completion
 	 *            of the call.
 	 */
-	public void register(User user, String password, final LoginManagerCallback<Session> callback) {
+	public void register(User user, String password, final LoginManagerCallback<Void> callback) {
 		if (FieldVerifier.isValidUserNameAndPassword(user.getUsername(), password)) {
-			AsyncCallback<Session> registerCallback = new AsyncCallback<Session>() {
+			AsyncCallback<Void> registerCallback = new AsyncCallback<Void>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -223,14 +227,9 @@ public class LoginManager {
 				}
 
 				@Override
-				public void onSuccess(Session result) {
+				public void onSuccess(Void result) {
 					if (callback != null) {
-						if (result != null) {
-							createSessionCookie(result);
-							callback.onSuccess(result);
-						} else {
-							callback.onFail();
-						}
+						callback.onSuccess(result);
 					}
 				}
 			};

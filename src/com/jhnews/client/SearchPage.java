@@ -29,7 +29,7 @@ public class SearchPage extends Page {
 	 */
 	public SearchPage() {
 		if (unrestrictedService == null) {
-			unrestrictedService = GWT.create(RestrictedService.class);
+			unrestrictedService = GWT.create(UnrestrictedService.class);
 		}
 		setPageTitle("Search Announcement");
 		isLeftAlign();

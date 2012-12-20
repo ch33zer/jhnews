@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
+import com.jhnews.shared.User;
 
 /**
  * This page is the header seen at the top of each view.
@@ -44,9 +45,9 @@ public class HeaderPanel extends Composite implements LoginListener {
 		
 		LoginManager loginManager = LoginManager.getInstance();
 		loginManager.addLoginListener(this);
-		loginManager.isLoggedOn(new LoginManagerCallback<Boolean>() {	
+		loginManager.isLoggedOn(new LoginManagerCallback<User>() {	
 			@Override
-			public void onSuccess(Boolean result) {
+			public void onSuccess(User result) {
 				onLogin();
 			}	
 			@Override
