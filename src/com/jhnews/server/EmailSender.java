@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 	public static void send(UserHibernate user, String subject,
-			String body) throws UnsupportedEncodingException,
+			String body, boolean ishtml) throws UnsupportedEncodingException,
 			MessagingException {
 		//System.out.println("Started email send");
 		final String username = "jhnewsmailserver@gmail.com";
@@ -52,7 +52,7 @@ public class EmailSender {
 				System.out.println("Address parse failed for " + e.getMessage() + ", " + e.getCause());
 			}
 		msg.setSubject(subject);
-		msg.setText(body);
+		msg.setContent(body,ishtml ? "text/html": "text/plain");
 		System.out.println("Created message");
 		
 	    Transport transport = session.getTransport("smtps");
