@@ -11,9 +11,11 @@ public abstract class AdminPage extends Page {
 	 * Constructor checks if the viewer is an admin
 	 */
 	public AdminPage() {
+		setSuccess("Loading...");
 		LoginManager.getInstance().isAdmin(new LoginManagerCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean result) {
+				removeLabel();
 				createRestrictedContent();
 			}
 				@Override

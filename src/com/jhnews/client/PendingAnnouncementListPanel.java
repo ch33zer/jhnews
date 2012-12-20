@@ -14,6 +14,7 @@ public class PendingAnnouncementListPanel extends AnnouncementListPanel {
 	 * Processes the Announcement hyperlink list clicked
 	 * @param event The event of the hyperlink click
 	 */
+	/*
 	@Override
 	public void onValueChange(ValueChangeEvent<String> event) {
 		int ID;
@@ -30,4 +31,5 @@ public class PendingAnnouncementListPanel extends AnnouncementListPanel {
 			}
 		}
 	}
+	*/
 }
