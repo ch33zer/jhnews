@@ -4,6 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+
+/** This class provides time related services.
+ * @author group 8
+ *
+ */
 public class TimeUtil {
 	public static Date getMidnightOf(Date date) {
 		// today    
@@ -17,10 +22,18 @@ public class TimeUtil {
 		return midnight.getTime();
 	}
 	
+	/** Gets the time of midnight tomorrow based on a given time
+	 * @param date the given time to find the midnight tomorrow for
+	 * @return the time of midnight tomorrow
+	 */
 	public static Date getMidnightOfTomorrow(Date date) {
 		return addOneDay(getMidnightOf(date));
 	}
 	
+	/** Adds one day to the given Date object
+	 * @param date the date to add one day to
+	 * @return the date of the next day
+	 */
 	public static Date addOneDay(Date date) {
 		Calendar nextDay = new GregorianCalendar();
 		nextDay.add(Calendar.DAY_OF_MONTH, 1);
