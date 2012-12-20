@@ -1,6 +1,5 @@
 package com.jhnews.client;
 
-import com.google.gwt.dom.client.Style.Clear;
 import com.jhnews.shared.User;
 
 /**
