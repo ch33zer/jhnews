@@ -174,9 +174,8 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	/**Registers the username and password with the server
 	 * @param user The user's information
 	 * @param password The user's password
-	 * @return The session object for the current session. Registering also logs the user in.
 	 * @throws RegistrationFailedException If the registration fails for any reason, this is thrown
-	 * @throws UserExistsException 
+	 * @throws UserExistsException If the user already exists
 	 */
 	@Override
 	public void register(User user, String password) throws RegistrationFailedException, UserExistsException {
@@ -354,10 +353,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 	}
-	
-	private static void getMidnightOf(Date date) {
-		
-	}
+
 
 	/**
 	 * Allows the admin to approve the pending announcement
@@ -509,6 +505,7 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		return announcements;
 	}
 
+	@SuppressWarnings("unused")
 	private List<Tags> getAllActiveTags() {
 		List<Tags> tags = HibernateConversionUtil.convertHibernateTagsList(getAllActiveTagsHibernate());
 		return tags;
@@ -528,7 +525,8 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 			Transaction tx = null;
 			try {
 				org.hibernate.Session session = sessionFactory.openSession();
-				List list = session.createCriteria(UserHibernate.class).add(Restrictions.ilike("email", email.trim())).list();
+				@SuppressWarnings("unchecked")
+				List<UserHibernate> list = session.createCriteria(UserHibernate.class).add(Restrictions.ilike("email", email.trim())).list();
 				if (list.size() > 0) {
 					UserHibernate futureAdmin = (UserHibernate) list.get(0);
 					futureAdmin.setAdmin(true);
@@ -668,6 +666,10 @@ public class RestrictedServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 	
+	/**
+	 * Gets a list of today's announcement
+	 * @return The List of today's announcement
+	 */
 	public List<AnnouncementHibernate> getTodaysAnnouncementsHibernate() {
 		//Criterion criteria = Restrictions.and(Restrictions.eq("approved", false), Restrictions.gt("eventDate", new Date()));
 		return getAnnouncementsHibernate(Restrictions.and(Restrictions.eq("approved", true),Restrictions.ge("eventDate",TimeUtil.getMidnightOf(new Date())),Restrictions.le("eventDate", TimeUtil.getMidnightOfTomorrow(new Date()))));

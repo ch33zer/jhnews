@@ -1,7 +1,6 @@
 package com.jhnews.server;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
