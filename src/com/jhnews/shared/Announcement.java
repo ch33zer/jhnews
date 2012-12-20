@@ -290,55 +290,59 @@ public class Announcement implements Serializable {
 	}
 
 
-	/**
+	/** Sets the approval status of the announcement
 	 * @param approved the approved to set
 	 */
 	public void setApproved(boolean approved) {
 		this.approved = approved;
 	}
 
-	/**
+	/** Gets the first tag
 	 * @return the tag1
 	 */
 	public Tags getTag1() {
 		return tag1;
 	}
 
-	/**
+	/** Sets the first tag
 	 * @param tag1 the tag1 to set
 	 */
 	public void setTag1(Tags tag1) {
 		this.tag1 = tag1;
 	}
 
-	/**
+	/** Gets the second tag
 	 * @return the tag2
 	 */
 	public Tags getTag2() {
 		return tag2;
 	}
 
-	/**
+	/** Sets the second tag
 	 * @param tag2 the tag2 to set
 	 */
 	public void setTag2(Tags tag2) {
 		this.tag2 = tag2;
 	}
 
-	/**
-	 * @return the tag3
+	/** Gets the third tag
+	 * @return the third tag
 	 */
 	public Tags getTag3() {
 		return tag3;
 	}
 
-	/**
+	/** Sets the third tag
 	 * @param tag3 the tag3 to set
 	 */
 	public void setTag3(Tags tag3) {
 		this.tag3 = tag3;
 	}
 
+	
+	/** Gets the string representation of this announcement's tags
+	 * @return the string representation of this announcement's tags
+	 */
 	public String getTagString() {
 		String ret ="";
 		if(tag1!= null) {
